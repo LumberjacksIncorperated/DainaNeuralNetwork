@@ -1,0 +1,43 @@
+
+[] (DaveReaction, DavesBrain, NeuralValueMelody, Natural, Integer, NeuralValue, SystemIO, OutputStream, String)
+{
+	^ *{
+
+		[DavesBrain] davesBrain = \[DavesBrain]:newNeuralLayerWithNumberOfInputsNumberOfInternalLayersSizeOfInternalLayers numberOfInputsToDavesBrain numberOfNeuralLayersInDavesBrain sizeOfNeuralLayersInDavesBrain;
+		[DaveReaction] reactionDaveHadToSaidMelody = \davesBrain:classifyInputMelodyThroughDavesBrain testMelody;
+
+
+
+
+		[OutputStream] stdout = \[SystemIO]:stdout;
+
+		\stdout:writeString (\[String]:newString "Daves brain test.....\n");
+		\stdout:writeString (\reactionDaveHadToSaidMelody:stringRepresentationOfReaction);
+		\stdout:writeString (\[String]:newString "\n");
+
+
+				@++ classifyInputMelodyThroughDavesBrain *([NeuralValueMelody] inputMelody) -> [DaveReaction] {
+
+	@} -> \[DaveReaction]:daveSmileReaction 
+
+	}	!{
+			[Natural] numberOfInputsToDavesBrain = \[Natural]:newNatural 3;
+			[Natural] numberOfNeuralLayersInDavesBrain = \[Natural]:newNatural 2; 
+			[Natural] sizeOfNeuralLayersInDavesBrain = \[Natural]:newNatural 5;
+
+			[NeuralValueMelody] testMelody = \[NeuralValueMelody]:newEmptyMelody;
+			(\composeTestMelody *([[Integer]->] insertIntegerAsNeuralValueIntoMelody) {
+				\insertIntegerAsNeuralValueIntoMelody (\[Integer]:newPositive 20);
+				\insertIntegerAsNeuralValueIntoMelody (\[Integer]:newNegative 147);
+				\insertIntegerAsNeuralValueIntoMelody (\[Integer]:newPositive 0);
+			})	!{
+					[[[[Integer]->]->]->] composeTestMelody = *([[[Integer]->]->] composerOfMelodyRequiringMethodToInsertIntegerAsNeuralValueIntoMelody) {
+						\composerOfMelodyRequiringMethodToInsertIntegerAsNeuralValueIntoMelody methodToInsertIntegerAsNeuralValueIntoMelody
+							!{
+								[[Integer]->] methodToInsertIntegerAsNeuralValueIntoMelody = *([Integer]i){\testMelody:addNeuralValueToMelody (\[NeuralValue]:newNeuralValueWithIntegerRepresentation i)};
+							}
+					}
+				}			
+			
+		} 
+}

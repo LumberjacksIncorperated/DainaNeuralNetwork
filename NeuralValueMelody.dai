@@ -1,0 +1,56 @@
+
+[NeuralValueMelody : [Object]] (Object, Train, NeuralValue, Boolean, Natural, Wrapper, SystemIO, OutputStream, String)
+	[Train<[NeuralValue]>] trainOfNeuralValuesInSequenceOfTheMelody
+{
+	~ newEmptyMelody *{
+		\::new;
+		.trainOfNeuralValuesInSequenceOfTheMelody = \[Train<[NeuralValue]>]:newEmptyTrain;
+	}
+
+	++ isMelodyHigherThenSomeOtherMelody *([NeuralValueMelody] someOtherMelody) -> [Boolean] {
+		[NeuralValue] pitchOfThisMelody = \:getPitchOfMelody;
+		[NeuralValue] pitchOfOtherMelody = \someOtherMelody:getPitchOfMelody;
+	} -> \pitchOfThisMelody:isGreaterThenNeuralValue pitchOfOtherMelody
+
+	++ addNeuralValueToMelody *([NeuralValue] neuralValueToAdd) {
+		\.trainOfNeuralValuesInSequenceOfTheMelody:pushToBack neuralValueToAdd
+	}
+
+	++ lookAtEachIndexAndNeuralValueInSequence *([[Natural][NeuralValue]->] indexAndNeuralValueLooker) {
+		\.trainOfNeuralValuesInSequenceOfTheMelody:iterateThroughObjectsOnTrain giveEachIndexAndNeuralValueToTheNeuralValueLookerToLookAt
+	}	!{
+			[Wrapper<[Natural]>] wrappedIndexOfNeuralValue = \[Wrapper<[Natural]>]:wrapperWithObject (\[Natural]:zero);
+
+			[[NeuralValue]->] giveEachIndexAndNeuralValueToTheNeuralValueLookerToLookAt = *([NeuralValue]n) {
+				\indexAndNeuralValueLooker (\wrappedIndexOfNeuralValue:unwrap) n;
+				\wrappedIndexOfNeuralValue:transformStoredObject *([Natural] n) -> \n:naturalByAddingOne;
+			}
+		}
+
+	++ getPitchOfMelody *-> [NeuralValue] {
+		[NeuralValue] sumOfAllNeuralValuesInTrain = 
+			\.trainOfNeuralValuesInSequenceOfTheMelody:fuseTrainObjectsWithFushionRuleAndDefaultOnEmptyTrain
+				fusionRuleToSumUpNeuralValues defaultNeuralValueOnEmptyTrain
+	} 	!{
+			[[NeuralValue][NeuralValue]->[NeuralValue]] fusionRuleToSumUpNeuralValues = 
+				*([NeuralValue] n1, [NeuralValue] n2) -> \n1:neuralValueByAddingNeuralValue n2;
+
+			[NeuralValue] defaultNeuralValueOnEmptyTrain = \[NeuralValue]:baseNeuralValue
+		}
+	 -> sumOfAllNeuralValuesInTrain
+
+
+	 ++ DEBUGPrintMelody *{
+	 	[OutputStream] stdout = \[SystemIO]:stdout;
+		\stdout:writeString (\[String]:newString "Melody: ");
+		\.trainOfNeuralValuesInSequenceOfTheMelody:iterateThroughObjectsOnTrain *([NeuralValue] neuralValue) {
+			\stdout:writeString (\neuralValue:stringRepresentationOfNeuralValue);
+			\stdout:writeString (\[String]:newString ",");
+		};
+		\stdout:writeString (\[String]:newString "\n");
+	 }
+
+}
+
+
+

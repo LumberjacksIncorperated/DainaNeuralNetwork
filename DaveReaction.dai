@@ -1,0 +1,44 @@
+
+[DaveReaction : [Natural]] (Natural, NeuralValueMelody, NeuralValue, Boolean, ExtendedControlFlow, String)
+{
+	~ daveSmileReaction *{\::newNatural 1}
+	~ daveFrownReaction *{\::newNatural 2}
+
+	:: davesMinimumPitchThreasholdMelodyForHappyness *-> [NeuralValueMelody] {
+		[NeuralValueMelody] daveMinimumPitchThresholdMelody = \[NeuralValueMelody]:newEmptyMelody;
+		daveMinimumPitchThresholdMelody:addNeuralValueToMelody (\[NeuralValue]:baseNeuralValue);
+	} -> daveMinimumPitchThresholdMelody
+
+	:: getDavesReationToAMelody *([NeuralValueMelody] melodyForDaveToReactTo) -> [DaveReaction] {
+		[DaveReaction] davesReationToMelody = \[ExtendedControlFlow<[DaveReaction]>]:retriveUsingDefaultOnFailure 
+			getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness frownByDefault
+	}	!{
+			[[[DaveReaction]->]->] getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness = *([[DaveReaction]->] provideDavesReaction) {
+				[Boolean] pitchOfMelodyMeetsDavesMinimumStandardsForHappyness = \melodyForDaveToReactTo:isMelodyHigherThenSomeOtherMelody \[DaveReaction]:davesMinimumPitchThreasholdMelodyForHappyness;
+				\pitchOfMelodyMeetsDavesMinimumStandardsForHappyness:ifTrue *{\provideDavesReaction \[DaveReaction]:daveSmileReaction}
+			};
+
+			[DaveReaction] frownByDefault = \[DaveReaction]:daveFrownReaction
+		}
+	 -> davesReationToMelody
+
+	 ++ stringRepresentationOfReaction *-> [String] {
+	 	[String] stringRepresentationOfReaction =
+	 		(\[ExtendedControlFlow<[String]>]:retriveUsingDefaultOnFailure getSmileStringIfDavesReactionWasASmile useFrownStringByDefault)
+	 			!{
+	 				[[[String]->]->] getSmileStringIfDavesReactionWasASmile = *([[String]->] provideSmileString) {
+	 					[Boolean] davesReactionIsASmile = \:isEqualTo (\[DaveReaction]:daveSmileReaction);
+	 					\davesReactionIsASmile:ifTrue *{\provideSmileString daveReactionSmileString}
+					};
+
+					[String] useFrownStringByDefault = daveReactionFrownString;
+	 			}
+	 }	!{
+	 		[String] daveReactionSmileString = \[String]:newString "Dave smiled :)";
+	 		[String] daveReactionFrownString = \[String]:newString "Dave Frowned :(";
+	 	}
+	  -> stringRepresentationOfReaction
+
+}
+
+

@@ -1,0 +1,72 @@
+
+[DavesBrain : [Object]] (Object, Train, NeuralLayer, Natural, NeuralValueMelody, DaveReaction, ControlFlow, Wrapper, SystemIO, OutputStream, NeuralValue, String)
+	[Train<[NeuralLayer]>] internalNeuralLayersInDavesBrain
+	[NeuralLayer] neuralOutputLayer
+{
+	~ newNeuralLayerWithNumberOfInputsNumberOfInternalLayersSizeOfInternalLayers
+	 *([Natural] numberOfInputs, [Natural] numberOfInternalLayers, [Natural] sizeOfInternalLayers) {
+	 	\::new;
+	 	.internalNeuralLayersInDavesBrain = \createInternalLayers;
+	 	.neuralOutputLayer = \[NeuralLayer]:newNeuralLayerWithNumberOfIncomingAndOutgoingNeuralConnections sizeOfInternalLayers \[Natural]:one;
+	 }	!{
+	 		[->[Train<[NeuralLayer]>]] createInternalLayers = *->[Train<[NeuralLayer]>]{
+	 			[Train<[NeuralLayer]>] trainOfInternalLayers = \[Train<[NeuralLayer]>]:newEmptyTrain;
+	 			\trainOfInternalLayers:pushToBack firstNeuralLayer;
+	 			\[ControlFlow]:repeatNTimes numberOfInternalLayers addInternalNeuralLayerToTrainWithSizeOfInternalLayerAsTheIncommingAndOutgoingNeurelConnections
+	 				!{
+	 					[[Natural]->] addInternalNeuralLayerToTrainWithSizeOfInternalLayerAsTheIncommingAndOutgoingNeurelConnections = *([]e) {
+	 						\trainOfInternalLayers:pushToBack (\[NeuralLayer]:newNeuralLayerWithNumberOfIncomingAndOutgoingNeuralConnections sizeOfInternalLayers sizeOfInternalLayers);
+	 					}
+	 				}
+	 		} 	!{
+	 				[NeuralLayer] firstNeuralLayer = (\[NeuralLayer]:newNeuralLayerWithNumberOfIncomingAndOutgoingNeuralConnections numberOfInputs sizeOfInternalLayers);
+	 				
+	 			}
+	 		 -> trainOfInternalLayers
+	 	}
+
+
+	++ classifyInputMelodyThroughDavesBrain *([NeuralValueMelody] inputMelody) -> [DaveReaction] {
+		
+		\transformWorkingMelodyByForwardPropergationThroughAllInternalLayersInDavesBrain;
+		\transformWorkingMelodyByForwardPropergationThroughNeuralOutputLayer;
+
+		[NeuralValueMelody] theFinalMelody = \wrappedWorkingMelodyPropogatedThroughNeuralLayers:unwrap;
+
+		[OutputStream] stdout = \[SystemIO]:stdout;
+		[NeuralValue] pitchOfMelody = \theFinalMelody:getPitchOfMelody;
+		\stdout:writeString (\pitchOfMelody:stringRepresentationOfNeuralValue);
+		\stdout:writeString (\[String]:newString "\n");
+
+	}	!{
+			[Wrapper<[NeuralValueMelody]>] wrappedWorkingMelodyPropogatedThroughNeuralLayers = \[Wrapper<[NeuralValueMelody]>]:wrapperWithObject inputMelody;
+
+			[[[NeuralValueMelody]->[NeuralValueMelody]]->] transformWorkingMelodyWithTransformation = wrappedWorkingMelodyPropogatedThroughNeuralLayers:transformStoredObject;
+
+
+			[->] transformWorkingMelodyByForwardPropergationThroughNeuralOutputLayer = *{
+				\transformWorkingMelodyWithTransformation *([NeuralValueMelody] melody) -> \.neuralOutputLayer:produceMelodyByForwardPropogatingInputMelodyThroughLayer melody
+			};
+
+			[->] transformWorkingMelodyByForwardPropergationThroughAllInternalLayersInDavesBrain = *{
+				\.internalNeuralLayersInDavesBrain:iterateThroughObjectsOnTrain *([NeuralLayer] someLayerInDavesBrain) {
+					\transformWorkingMelodyWithTransformation transformMelodyByForwardPropogationThroughSomeLayerInDavesBrain
+						!{
+							[[NeuralValueMelody]->[NeuralValueMelody]] transformMelodyByForwardPropogationThroughSomeLayerInDavesBrain = *([NeuralValueMelody] melody) 
+							 -> \someLayerInDavesBrain:produceMelodyByForwardPropogatingInputMelodyThroughLayer melody
+						}
+				}
+			}
+		}
+
+	 -> (\[DaveReaction]:getDavesReationToAMelody theFinalMelody)
+
+
+	++ learnDaveSomeKnowledgeWithInputMelodyAndHowDaveShouldReact *([NeuralValueMelody] inputMelody, [DaveReaction] howDaveShouldReact) {
+
+	}
+
+
+}
+
+

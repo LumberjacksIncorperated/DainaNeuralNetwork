@@ -1,0 +1,95 @@
+
+[NeuralLayer : [Object]] (Object, Natural, NeuralLayerWeightSet, NeuralValue, Integer, Wrapper, NeuralValueMelody, ControlFlow)
+	[NeuralLayerWeightSet] weightSetForThisLayer
+	[Natural] numberOfIncomingNeuralConnections
+	[Natural] numberOfOutgoingNeuralConnections
+{
+	~ newNeuralLayerWithNumberOfIncomingAndOutgoingNeuralConnections *([Natural] numberOfIncomingNeuralConnections, [Natural] numberOfOutgoingNeuralConnections) {
+		\::new;
+		.weightSetForThisLayer = \[NeuralLayerWeightSet]:newNeuralLayerWeightSetWithDefaultValueForWeights defaultWeightNeuralValue;
+		.numberOfIncomingNeuralConnections = numberOfIncomingNeuralConnections;
+		.numberOfOutgoingNeuralConnections = numberOfOutgoingNeuralConnections;
+	}	!{
+			[NeuralValue] defaultWeightNeuralValue = (\[NeuralValue]:newNeuralValueWithIntegerRepresentation (\[Integer]:newPositive 500))
+		}
+
+	++ produceMelodyByForwardPropogatingInputMelodyThroughLayer *([NeuralValueMelody] inputMelody) -> [NeuralValueMelody] {
+		[NeuralValueMelody] producedMelodyAfterForwardPropogation = \[NeuralValueMelody]:newEmptyMelody;
+		\[ControlFlow]:repeatNTimes .numberOfOutgoingNeuralConnections produceNextOutgoingNeuralValueByPropogatingValuesFromInputMelody
+			!{
+				[[Natural]->] produceNextOutgoingNeuralValueByPropogatingValuesFromInputMelody = *([Natural] outputIndex) {
+					[Wrapper<[NeuralValue]>] wrappedNeuralValueSumAtThisOutputIndex = \[Wrapper<[NeuralValue]>]:wrapperWithObject (\[NeuralValue]:baseNeuralValue);
+					(\inputMelody:lookAtEachIndexAndNeuralValueInSequence *([Natural] inputIndex, [NeuralValue] inputNeuralValue) {
+						[NeuralValue] weightForInputAndOutputIndex = \.weightSetForThisLayer:getWeightWithInputIndexAndOutputIndex inputIndex outputIndex;
+						[NeuralValue] resultingNeuralValueForThisInput = \weightForInputAndOutputIndex:neuralValueByMultiplyingNeuralValue inputNeuralValue;
+						\addNeuralValueToTheNeuralValueSumAtThisOutputIndex resultingNeuralValueForThisInput;
+					})	!{
+							[[NeuralValue]->] addNeuralValueToTheNeuralValueSumAtThisOutputIndex = *([NeuralValue] neuralValueToAddToSum) {
+								\wrappedNeuralValueSumAtThisOutputIndex:transformStoredObject *([NeuralValue] n)-> \n:neuralValueByAddingNeuralValue neuralValueToAddToSum
+							}
+						}	
+					\producedMelodyAfterForwardPropogation:addNeuralValueToMelody (\wrappedNeuralValueSumAtThisOutputIndex:unwrap);
+				}		
+			}
+	} -> producedMelodyAfterForwardPropogation
+}
+
+
+
+[NeuralLayerWeightSet : [Object]] (Object, NeuralValue, Mapping, Integer, Natural, Conjecture, ControlFlow, Wrapper, ExtendedControlFlow) -> (NeuralLayer)
+	[Mapping<[Natural] [Mapping<[Natural] [NeuralValue]>]>] mappingOfInputAndOutputIndexToWeight
+	[NeuralValue] defaultNeuralValueForWeights
+	[[[[[[[[]->]->[Integer]]->]->]->]->]->] x
+{
+	~ newNeuralLayerWeightSetWithDefaultValueForWeights *([NeuralValue] defaultNeuralValueForWeights) {
+		\::new;
+		.defaultNeuralValueForWeights = defaultNeuralValueForWeights
+		[Integer] i = \[Integer]:newPositive 1;
+		.x = *([[[[[[[]->]->[Integer]]->]->]->]->] y) {
+			\y m
+				!{
+					[[[[[[]->]->[Integer]]->]->]->] m = *([[[[[]->]->[Integer]]->]->] q) {[Integer] e = i}
+				}
+		}
+		.mappingOfInputAndOutputIndexToWeight = \[Mapping<[Natural] [Mapping<[Natural] [NeuralValue]>]>]:newEmptyMapping;
+	}
+
+	++ getWeightWithInputIndexAndOutputIndex *([Natural] inputIndex, [Natural] outputIndex) -> [NeuralValue] {
+		[Wrapper<[NeuralValue]>] wrappedWeight = \[Wrapper<[NeuralValue]>]:wrapperWithObject .defaultNeuralValueForWeights;
+		\.mappingOfInputAndOutputIndexToWeight:retriveMappedValueWithKey inputIndex *([Mapping<[Natural] [NeuralValue]>] mappingOfOutputIndexToWeight) {
+			\mappingOfOutputIndexToWeight:retriveMappedValueWithKey outputIndex *([NeuralValue] retrivedNeuralValue) {
+				\wrappedWeight:store retrivedNeuralValue;
+			}
+		}
+	} -> \wrappedWeight:unwrap
+
+	++ setWeightForInputIndexAndOutputIndex *([NeuralValue] weightToSet, [Natural] inputIndex, [Natural] outputIndex) {
+		[Mapping<[Natural] [NeuralValue]>] mappingOfOutputIndexToWeight = \retriveMappingOfOutputIndexToWeightForInputIndexOrCreateItIfItDoesntExist inputIndex;
+		\mappingOfOutputIndexToWeight:mapKeyToValue outputIndex weightToSet
+	}	!{
+			[[Natural]->[Mapping<[Natural] [NeuralValue]>]] retriveMappingOfOutputIndexToWeightForInputIndexOrCreateItIfItDoesntExist = 
+				*([Natural] givenInputIndex) 
+					-> (\[ExtendedControlFlow<[Mapping<[Natural] [NeuralValue]>]>]:retriveUsingDefaultOnFailure attemptToRetriveMappingFromMappingOfInputAndOutputToWeight
+					 (defaultMappingIfItDoesntExistAlready))
+						!{
+							[[[Mapping<[Natural] [NeuralValue]>]->]->] attemptToRetriveMappingFromMappingOfInputAndOutputToWeight = *([[Mapping<[Natural] [NeuralValue]>]->] provideMappingOfOutputIndexToWeight) {
+								\.mappingOfInputAndOutputIndexToWeight:retriveMappedValueWithKey inputIndex *([Mapping<[Natural] [NeuralValue]>] mappingOfOutputIndexToWeight) {
+									\provideMappingOfOutputIndexToWeight mappingOfOutputIndexToWeight
+								}
+							}
+
+							[Mapping<[Natural] [NeuralValue]>] defaultMappingIfItDoesntExistAlready = \[Mapping<[Natural] [NeuralValue]>]:newEmptyMapping;
+						}
+		}
+
+}
+
+
+
+
+
+
+
+
+
+

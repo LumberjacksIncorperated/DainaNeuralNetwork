@@ -1,0 +1,68 @@
+
+[NeuralValue : [Object]] (Object, Integer, Boolean, Wrapper, Natural, String, SystemIO, OutputStream)
+	[Integer] integerRepresentationOfNeuralValue
+{
+
+	~ baseNeuralValue *{
+		\::newNeuralValueWithIntegerRepresentation (\[Integer]:zero)
+	}
+
+	~ newNeuralValueWithIntegerRepresentation *([Integer] integerRepresentation) {
+		\::new;
+		.integerRepresentationOfNeuralValue = integerRepresentationThatIsntZero
+	}	!{
+			[Wrapper<[Integer]>] wrappedIntegerRepresentationThatShouldntBeZero = \[Wrapper<[Integer]>]:wrapperWithObject integerRepresentation;
+			[Boolean] integerRepresentationIsZero = \integerRepresentation:isEqualTo \[Integer]:zero;
+			\integerRepresentationIsZero:ifTrue *{\wrappedIntegerRepresentationThatShouldntBeZero:store \[Natural]:one};
+			[Integer] integerRepresentationThatIsntZero = \wrappedIntegerRepresentationThatShouldntBeZero:unwrap;
+		}
+
+	++ stringRepresentationOfNeuralValue *->[String] {} -> (\[String]:stringRepresentationOfInteger .integerRepresentationOfNeuralValue)
+
+	++ isGreaterThenNeuralValue *([NeuralValue] neuralValueToCompareToThisOne) -> [Boolean] {
+		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
+		[Integer] integerRepresentationOfOtherNeuralValue = \neuralValueToCompareToThisOne:getIntegerRepresentationOfNeuralValue;
+	} -> (\integerRepresentationOfThisNeuralValue:isGreaterThan integerRepresentationOfOtherNeuralValue)
+
+	++ getIntegerRepresentationOfNeuralValue *-> .integerRepresentationOfNeuralValue
+
+	++ neuralValueByAddingNeuralValue *([NeuralValue] otherNeuralValue) -> [NeuralValue] {
+		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
+		[Integer] integerRepresentationOfOtherNeuralValue = \otherNeuralValue:getIntegerRepresentationOfNeuralValue;
+		[NeuralValue] resultNeuralValue = \[NeuralValue]:newNeuralValueWithIntegerRepresentation 
+			(\integerRepresentationOfThisNeuralValue:integerByAdding integerRepresentationOfOtherNeuralValue)
+	} -> resultNeuralValue
+
+	++ neuralValueByMultiplyingNeuralValue *([NeuralValue] otherNeuralValue) -> [NeuralValue] {
+		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
+		[Integer] integerRepresentationOfOtherNeuralValue = \otherNeuralValue:getIntegerRepresentationOfNeuralValue;
+		[NeuralValue] resultNeuralValue = \[NeuralValue]:newNeuralValueWithIntegerRepresentation 
+			(\integerRepresentationOfThisNeuralValue:integerByMultiplying integerRepresentationOfOtherNeuralValue)
+	} -> resultNeuralValue
+
+	++ neuralValueByDividingByNeuralValue *([NeuralValue] neuralValueDivisor) -> [NeuralValue] {
+		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
+		[Integer] integerRepresentationOfDivisorNeuralValue = \neuralValueDivisor:getIntegerRepresentationOfNeuralValue;
+		[Integer] integerResultOfDivision = \resultOfDividingIntegerByIntegerWithDefaultIfDivisionWasUndefined integerRepresentationOfThisNeuralValue integerRepresentationOfDivisorNeuralValue (\[Integer]:zero)
+	}	!{
+			[[Integer][Integer][Integer]->[Integer]] resultOfDividingIntegerByIntegerWithDefaultIfDivisionWasUndefined = *([Integer] integerToBeDivided, [Integer] integerDivisor, [Integer] integerResultOnUndefinedDivision) -> [Integer] {
+				[Wrapper<[Integer]>] wrappedResultOfDivision = \[Wrapper<[Integer]>]:wrapperWithObject integerResultOnUndefinedDivision;
+				\integerToBeDivided:divisionByIntegerProvidingResultAndRemainderIfDefined integerDivisor *([Integer] resultingQuotient, [Integer] resultingRemainder) {
+		 			\wrappedResultOfDivision:store resultingQuotient;
+		 		}
+			} -> \wrappedResultOfDivision:unwrap
+		}
+	 -> (\[NeuralValue]:newNeuralValueWithIntegerRepresentation integerResultOfDivision)
+
+	++ DEBUGPrintNeuralValue *{
+	 	[OutputStream] stdout = \[SystemIO]:stdout;
+		\stdout:writeString (\[String]:newString "Value: ");
+		\stdout:writeString (\:stringRepresentationOfNeuralValue);
+		\stdout:writeString (\[String]:newString "\n");
+	}
+
+}
+
+
+
+

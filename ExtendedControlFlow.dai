@@ -1,0 +1,13 @@
+
+
+[ExtendedControlFlow<A [Object]>] (Object, Wrapper) 
+{
+	:: retriveUsingDefaultOnFailure *([[[&A]->]->] objectRetriver, [&A] defaultObject) -> [&A] {
+		[Wrapper<[&A]>] wrappedObject = \[Wrapper<[&A]>]:wrapperWithObject defaultObject;
+		\objectRetriver *([&A] retrivedObject) {
+			\wrappedObject:store retrivedObject;
+		}
+	} -> \wrappedObject:unwrap
+
+}
+

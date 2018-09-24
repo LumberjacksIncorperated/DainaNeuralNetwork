@@ -1,5 +1,5 @@
 
-[DavesBrain : [Object]] (Object, Train, NeuralLayer, Natural, NeuralValueMelody, DaveReaction, ControlFlow, Wrapper, SystemIO, OutputStream, NeuralValue, String, TrainsExtended)
+[DavesBrain : [Object]] (Integer, Object, Train, NeuralLayer, Natural, NeuralValueMelody, DaveReaction, ControlFlowExtended,ControlFlow, Wrapper, SystemIO, OutputStream, NeuralValue, String, TrainsExtended)
 	[Train<[NeuralLayer]>] internalNeuralLayersInDavesBrain
 	[NeuralLayer] neuralOutputLayer
 	[Train<[NeuralValueMelody]>] traceOfLastForwardPropogationOnClassifyingInputMelody
@@ -13,9 +13,9 @@
 	 		[->[Train<[NeuralLayer]>]] createInternalLayers = *->[Train<[NeuralLayer]>] {
 	 			[Train<[NeuralLayer]>] trainOfInternalLayers = \[Train<[NeuralLayer]>]:newEmptyTrain;
 	 			\trainOfInternalLayers:pushToBack firstNeuralLayer;
-	 			\[ControlFlow]:repeatNTimes numberOfInternalLayers addInternalNeuralLayerToTrainWithSizeOfInternalLayerAsTheIncommingAndOutgoingNeurelConnections
+	 			\[ControlFlowExtended]:repeatNTimesWithInteger (\numberOfInternalLayers:integerBySubtracting (\[Integer]:newPositive 1)) addInternalNeuralLayerToTrainWithSizeOfInternalLayerAsTheIncommingAndOutgoingNeurelConnections
 	 				!{
-	 					[[Natural]->] addInternalNeuralLayerToTrainWithSizeOfInternalLayerAsTheIncommingAndOutgoingNeurelConnections = *([]e) {
+	 					[[Integer]->] addInternalNeuralLayerToTrainWithSizeOfInternalLayerAsTheIncommingAndOutgoingNeurelConnections = *([]e) {
 	 						\trainOfInternalLayers:pushToBack (\[NeuralLayer]:newNeuralLayerWithNumberOfIncomingAndOutgoingNeuralConnections sizeOfInternalLayers sizeOfInternalLayers);
 	 					}
 	 				}
@@ -94,9 +94,9 @@
 		[NeuralValueMelody] initialGammaMelody = \.neuralOutputLayer:produceInitialGammaMelodyWithFinalMelodyAndHowDaveShouldReact theFinalMelody howDaveShouldReact;
 
 		[Train<[NeuralValueMelody]>] gammaMelodiesCorrespondingToForwardPropogationTrace = 
-			\backwardsPropogateThroughLayersInDavesBrainProducingTheGammaMelodiesStartingFromTheInitialGammaMelody initialGammaMelody;
+			\forEachLayerInDavesBrainProduceTheGammaMelodiesStartingFromTheInitialGammaMelody initialGammaMelody;
 
-		\adjustWeightsForLayersInDavesBrainByBackwardsPropogationWithForwardPropogationTraceAndCorrespondingGammaMelodies 
+		\adjustWeightsForLayersInDavesBrainWithForwardPropogationTraceAndCorrespondingGammaMelodies 
 			.traceOfLastForwardPropogationOnClassifyingInputMelody gammaMelodiesCorrespondingToForwardPropogationTrace;
 
 	}	!{
@@ -107,7 +107,7 @@
 				}
 			} -> \wrappedFinalMelody:unwrap;
 
-			[[NeuralValueMelody]->[Train<[NeuralValueMelody]>]] backwardsPropogateThroughLayersInDavesBrainProducingTheGammaMelodiesStartingFromTheInitialGammaMelody = 
+			[[NeuralValueMelody]->[Train<[NeuralValueMelody]>]] forEachLayerInDavesBrainProduceTheGammaMelodiesStartingFromTheInitialGammaMelody = 
 			 (*([NeuralValueMelody] initialGammaMelody) -> [Train<[NeuralValueMelody]>] {
 			 	
 			 	\gammaMelodiesCorrespondingToForwardPropogationTrace:pushToFront initialGammaMelody;
@@ -131,7 +131,7 @@
 			 	} -> gammaMelodiesCorrespondingToForwardPropogationTrace);
 
 
-			[[Train<[NeuralValueMelody]>][Train<[NeuralValueMelody]>]->] adjustWeightsForLayersInDavesBrainByBackwardsPropogationWithForwardPropogationTraceAndCorrespondingGammaMelodies = 
+			[[Train<[NeuralValueMelody]>][Train<[NeuralValueMelody]>]->] adjustWeightsForLayersInDavesBrainWithForwardPropogationTraceAndCorrespondingGammaMelodies = 
 			 (*([Train<[NeuralValueMelody]>] forwardPropogationTrace, [Train<[NeuralValueMelody]>] gammaMelodiesCorrespondingToForwardTrace) {	
 			 	\forEveryLayerInDavesBrainIncludingNeuralOutputLayer adjustWeightsForLayerUsingTheNextTraceInputMelodyAndGammaMelody
 			}
@@ -144,12 +144,12 @@
 			 		[[NeuralLayer]->] adjustWeightsForLayerUsingTheNextTraceInputMelodyAndGammaMelody = (*([NeuralLayer] layerToAdjustWeightsFor) {
 			 			\copyOfAllTraceInputMelodies:popFromFront *([NeuralValueMelody] traceInputMelody) {
 			 				\copyOfAllGammaMelodiesCorrespondingToTraceInputMelodies:popFromFront *([NeuralValueMelody] gammaMelody) {
-			 					\layerToAdjustWeightsFor:adjustWeightsByUsingGammaMelodyAndInputMelody gammaMelody traceInputMelody
+			 					\layerToAdjustWeightsFor:adjustWeightsByUsingGammaMelodyAndInputMelody gammaMelody traceInputMelody;
 			 				}
 			 			}
 			 		})	!{
-			 				[Train<[NeuralValueMelody]>] copyOfAllTraceInputMelodies = \[TrainsExtended<[NeuralValueMelody]>]:trainAsReversedTrain forwardPropogationTrace;
-			 				[Train<[NeuralValueMelody]>] copyOfAllGammaMelodiesCorrespondingToTraceInputMelodies = \[TrainsExtended<[NeuralValueMelody]>]:trainAsReversedTrain gammaMelodiesCorrespondingToForwardTrace
+			 				[Train<[NeuralValueMelody]>] copyOfAllTraceInputMelodies = \[TrainsExtended<[NeuralValueMelody]>]:trainAsCopyOfTrain forwardPropogationTrace;
+			 				[Train<[NeuralValueMelody]>] copyOfAllGammaMelodiesCorrespondingToTraceInputMelodies = \[TrainsExtended<[NeuralValueMelody]>]:trainAsCopyOfTrain gammaMelodiesCorrespondingToForwardTrace
 			 			}
 			 	}) 	
 		}
@@ -165,7 +165,52 @@
 		[Train<[&A]>] reversedSomeTrain = \[Train<[&A]>]:newEmptyTrain;
 		\someTrain:iterateThroughObjectsOnTrain *([&A] o) {\reversedSomeTrain:pushToFront o}
 	} -> reversedSomeTrain
+
+	:: trainAsCopyOfTrain *([Train<[&A]>] someTrain) -> [Train<[&A]>] {
+	} -> \[TrainsExtended<[&A]>]:trainAsReversedTrain (\[TrainsExtended<[&A]>]:trainAsReversedTrain someTrain)
+
+
 }
+
+
+
+[ControlFlowExtended] (Boolean, Integer, Wrapper, Object, CoreFlow, ControlFlow, Natural)
+{
+
+	:: repeatNTimesWithInteger *([Integer] numberOfTimesToRepeat, [[Integer]->] lambdaToRepeatReceivingCurrentCount) {
+		[Wrapper<[Integer]>] wrappedCurrentCount = \[Wrapper<[Integer]>]:wrapperWithObject (\[Integer]:newPositive 1);
+
+		(\[ControlFlow]:repeatWhile currentCountHasNotExceededNumberOfTimesToRepeat *{
+			\lambdaToRepeatReceivingCurrentCount \wrappedCurrentCount:unwrap;
+			\incrementCount;
+
+		})	!{
+				[->[Boolean]] currentCountHasNotExceededNumberOfTimesToRepeat = *-> (\numberOfTimesToRepeat:isGreaterThanOrEqualTo \wrappedCurrentCount:unwrap);
+				
+				[->] incrementCount = *{
+					\wrappedCurrentCount:transformStoredObject *([Integer] count)-> (\count:integerByAdding (\[Integer]:newPositive 1));
+				};
+			};
+	}
+
+	:: repeatNTimesFromZero *([Natural] numberOfTimesToRepeat, [[Natural]->] lambdaToRepeatReceivingCurrentCount) {
+		[Wrapper<[Natural]>] wrappedCurrentCount = \[Wrapper<[Natural]>]:wrapperWithObject (\[Natural]:zero);
+
+		(\[ControlFlow]:repeatWhile currentCountHasNotExceededNumberOfTimesToRepeat *{
+			\lambdaToRepeatReceivingCurrentCount \wrappedCurrentCount:unwrap;
+			\incrementCount;
+
+		})	!{
+				[->[Boolean]] currentCountHasNotExceededNumberOfTimesToRepeat = *-> (\numberOfTimesToRepeat:isGreaterThan \wrappedCurrentCount:unwrap);
+				
+				[->] incrementCount = *{
+					\wrappedCurrentCount:transformStoredObject *([Natural] count)-> (\count:naturalByAddingOne);
+				};
+			};
+	}
+
+}
+
 
 @@
 Melody: -62999,-62999,-62999,-62999,-62999,

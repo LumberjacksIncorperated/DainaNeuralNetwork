@@ -20,7 +20,7 @@
 
 	:: valueByApplyingLearningRate *([NeuralValue] valueToApplyLearningRateTo) -> [NeuralValue] {
 		[NeuralValue] learningRateFractionNumerator = \[NeuralValue]:newNeuralValueWithIntegerRepresentation (\[Integer]:newPositive 1);
-		[NeuralValue] learningRateFractionDenominator = \[NeuralValue]:newNeuralValueWithIntegerRepresentation (\[Integer]:newPositive 10);
+		[NeuralValue] learningRateFractionDenominator = \[NeuralValue]:newNeuralValueWithIntegerRepresentation (\[Integer]:newPositive 100);
 
 		[NeuralValue] valueToApplyLearningRateToMultipliedByNumerator = (\valueToApplyLearningRateTo:neuralValueByMultiplyingNeuralValue learningRateFractionNumerator)
 	} -> (\valueToApplyLearningRateToMultipliedByNumerator:neuralValueByDividingByNeuralValue learningRateFractionDenominator)

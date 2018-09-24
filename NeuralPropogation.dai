@@ -1,0 +1,44 @@
+
+[NeuralPropogation] (NeuralValue, Natural, Integer, Wrapper, NeuralValueMelody, DaveReaction, Boolean)
+{
+	:: forwardPropogationResultWithWeightAndInputValue *([NeuralValue] weight, [NeuralValue] inputValue) -> [NeuralValue]
+		{
+			\weight:DEBUGPrintNeuralValue;
+		} -> (\weight:neuralValueByMultiplyingNeuralValue inputValue)
+
+	:: backwardsPropogationWeightCorrectionWithGammaAndInputValueAndNumberOfNeuralInputs *([NeuralValue] gamma, [NeuralValue] inputValue, [Natural] numberOfNeuralInputs) -> [NeuralValue] {
+		[NeuralValue] gammaDividedByTheNumberOfNeuralInputs = \gamma:neuralValueByDividingByNeuralValue (\[NeuralValue]:newNeuralValueWithIntegerRepresentation numberOfNeuralInputs);
+		@ The line below is debug
+		[NeuralValue] debugValue = (\[NeuralPropogation]:valueByApplyingLearningRate (\gammaDividedByTheNumberOfNeuralInputs:neuralValueByDividingByNeuralValue inputValue));
+		@\debugValue:DEBUGPrintNeuralValue;
+		@ end debug
+	} -> (\[NeuralPropogation]:valueByApplyingLearningRate (\gammaDividedByTheNumberOfNeuralInputs:neuralValueByDividingByNeuralValue inputValue))
+
+	:: backwardPropogationPartialGammaForWeightWithGammaOfForwardNeuronAndNumberOfNeuralInputs *([NeuralValue] weight, [NeuralValue] gammaOfForwardNeuron, [Natural] numberOfNeuralInputs) -> [NeuralValue] {
+		[NeuralValue] gammaOfForwardNeuronDividedByTheNumberOfNeuralInputs = \gammaOfForwardNeuron:neuralValueByDividingByNeuralValue (\[NeuralValue]:newNeuralValueWithIntegerRepresentation numberOfNeuralInputs);
+	} -> (\gammaOfForwardNeuronDividedByTheNumberOfNeuralInputs:neuralValueByDividingByNeuralValue weight)
+
+	:: valueByApplyingLearningRate *([NeuralValue] valueToApplyLearningRateTo) -> [NeuralValue] {
+		[NeuralValue] learningRateFractionNumerator = \[NeuralValue]:newNeuralValueWithIntegerRepresentation (\[Integer]:newPositive 1);
+		[NeuralValue] learningRateFractionDenominator = \[NeuralValue]:newNeuralValueWithIntegerRepresentation (\[Integer]:newPositive 10);
+
+		[NeuralValue] valueToApplyLearningRateToMultipliedByNumerator = (\valueToApplyLearningRateTo:neuralValueByMultiplyingNeuralValue learningRateFractionNumerator)
+	} -> (\valueToApplyLearningRateToMultipliedByNumerator:neuralValueByDividingByNeuralValue learningRateFractionDenominator)
+
+
+	:: initialGammaForFinalMelodyAndExpectedReaction *([NeuralValueMelody] melodyInQuestion, [DaveReaction] expectedReation) -> [NeuralValue] { @TODO
+		[Wrapper<[NeuralValue]>] wrappedCalculatedGamma = \[Wrapper<[NeuralValue]>]:wrapperWithObject (\[NeuralValue]:baseNeuralValue);
+		[Boolean] expectedReactionIsTheSaveAsTheCalculatedDaveReaction = \expectedReation:isEqualTo davesReactionToInputMelody
+			!{
+				[DaveReaction] davesReactionToInputMelody =  (\[DaveReaction]:getDavesReationToAMelody melodyInQuestion);
+			};
+		\expectedReactionIsTheSaveAsTheCalculatedDaveReaction:ifFalse calculateGammaAsDavesMinimumPitchThresholdForHappinessMinusMelodyPitch
+			!{
+				[->] calculateGammaAsDavesMinimumPitchThresholdForHappinessMinusMelodyPitch = *{
+					[NeuralValueMelody] davesMinimumPitchThreasholdMelodyForHappyness = \[DaveReaction]:davesMinimumPitchThreasholdMelodyForHappyness;
+					[NeuralValue] daveMinimumPitchThresholdForHappiness = \davesMinimumPitchThreasholdMelodyForHappyness:getPitchOfMelody;
+					\wrappedCalculatedGamma:store (\daveMinimumPitchThresholdForHappiness:neuralValueBySubtractingNeuralValue (\melodyInQuestion:getPitchOfMelody))
+				}
+			}
+	} -> \wrappedCalculatedGamma:unwrap
+}

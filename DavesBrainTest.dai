@@ -6,7 +6,8 @@
 		[DavesBrain] davesBrain = \[DavesBrain]:newNeuralLayerWithNumberOfInputsNumberOfInternalLayersSizeOfInternalLayers numberOfInputsToDavesBrain numberOfNeuralLayersInDavesBrain sizeOfNeuralLayersInDavesBrain;
 		[DaveReaction] reactionDaveHadToSaidMelody = \davesBrain:classifyInputMelodyThroughDavesBrain testMelody;
 
-
+		\davesBrain:learnDaveSomeKnowledgeWithInputMelodyAndHowDaveShouldReact testMelody (\[DaveReaction]:daveSmileReaction);
+		[DaveReaction] reactionDaveHadToSaidMelodyAfterLearning = \davesBrain:classifyInputMelodyThroughDavesBrain testMelody;
 
 
 		[OutputStream] stdout = \[SystemIO]:stdout;

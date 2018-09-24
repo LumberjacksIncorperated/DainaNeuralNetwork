@@ -1,5 +1,5 @@
 
-[NeuralLayer : [Object]] (Object, Natural, NeuralLayerWeightSet, NeuralValue, Integer, Wrapper, NeuralValueMelody, ControlFlow)
+[NeuralLayer : [Object]] (Object, Natural, NeuralLayerWeightSet, NeuralValue, Integer, Wrapper, NeuralValueMelody, ControlFlow, NeuralPropogation, DaveReaction)
 	[NeuralLayerWeightSet] weightSetForThisLayer
 	[Natural] numberOfIncomingNeuralConnections
 	[Natural] numberOfOutgoingNeuralConnections
@@ -21,7 +21,7 @@
 					[Wrapper<[NeuralValue]>] wrappedNeuralValueSumAtThisOutputIndex = \[Wrapper<[NeuralValue]>]:wrapperWithObject (\[NeuralValue]:baseNeuralValue);
 					(\inputMelody:lookAtEachIndexAndNeuralValueInSequence *([Natural] inputIndex, [NeuralValue] inputNeuralValue) {
 						[NeuralValue] weightForInputAndOutputIndex = \.weightSetForThisLayer:getWeightWithInputIndexAndOutputIndex inputIndex outputIndex;
-						[NeuralValue] resultingNeuralValueForThisInput = \weightForInputAndOutputIndex:neuralValueByMultiplyingNeuralValue inputNeuralValue;
+						[NeuralValue] resultingNeuralValueForThisInput = \[NeuralPropogation]:forwardPropogationResultWithWeightAndInputValue weightForInputAndOutputIndex inputNeuralValue;
 						\addNeuralValueToTheNeuralValueSumAtThisOutputIndex resultingNeuralValueForThisInput;
 					})	!{
 							[[NeuralValue]->] addNeuralValueToTheNeuralValueSumAtThisOutputIndex = *([NeuralValue] neuralValueToAddToSum) {
@@ -32,11 +32,64 @@
 				}		
 			}
 	} -> producedMelodyAfterForwardPropogation
+
+	++ produceInitialGammaMelodyWithFinalMelodyAndHowDaveShouldReact *([NeuralValueMelody] finalMelody, [DaveReaction] howDaveShouldReact) -> [NeuralValueMelody] {
+		[NeuralValue] gammaForInitialGammaMelody = \[NeuralPropogation]:initialGammaForFinalMelodyAndExpectedReaction finalMelody howDaveShouldReact;
+		[NeuralValueMelody] initialGammaMelody = \[NeuralValueMelody]:newEmptyMelody;
+		\initialGammaMelody:addNeuralValueToMelody gammaForInitialGammaMelody;
+	} -> initialGammaMelody
+
+	++ produceGammaMelodyOfPreviousLayerUsingStartingGammaMelody *([NeuralValueMelody] startingGammaMelody) -> [NeuralValueMelody] {
+		[NeuralValueMelody] producedGammaMelodyOfPreviousLayer = \[NeuralValueMelody]:newEmptyMelody;
+		\[ControlFlow]:repeatNTimes .numberOfIncomingNeuralConnections forEachIncomingNeuralConnectionProduceTheCorrespondingGammaForMelody
+			!{
+				[[Natural]->] forEachIncomingNeuralConnectionProduceTheCorrespondingGammaForMelody = *([Natural] incomingNeuralConnectionIndex) {
+					[Wrapper<[NeuralValue]>] wrappedProducedCorrespondingGammaforMelody = \[Wrapper<[NeuralValue]>]:wrapperWithObject (\[NeuralValue]:baseNeuralValue);
+					\startingGammaMelody:lookAtEachIndexAndNeuralValueInSequence forEachCorrespondingOutgoingNeuralConnectionCalculatePartialGammaAndAddThisToTheGamma
+						!{
+							[[Natural][NeuralValue]->] forEachCorrespondingOutgoingNeuralConnectionCalculatePartialGammaAndAddThisToTheGamma = 
+							 *([Natural] outgoingNeuralConnectionIndex, [NeuralValue] gammaOfForwardNeuron) {
+							 	[NeuralValue] weight = \.weightSetForThisLayer:getWeightWithInputIndexAndOutputIndex incomingNeuralConnectionIndex outgoingNeuralConnectionIndex;
+							 	[NeuralValue] partialGamma = \[NeuralPropogation]:backwardPropogationPartialGammaForWeightWithGammaOfForwardNeuronAndNumberOfNeuralInputs
+							 		weight gammaOfForwardNeuron .numberOfIncomingNeuralConnections;
+							 	\wrappedProducedCorrespondingGammaforMelody:transformStoredObject *([NeuralValue] n) -> \n:neuralValueByAddingNeuralValue partialGamma
+							 }
+						};
+					\producedGammaMelodyOfPreviousLayer:addNeuralValueToMelody \wrappedProducedCorrespondingGammaforMelody:unwrap
+				}
+			}
+	} -> producedGammaMelodyOfPreviousLayer
+
+
+
+	++ adjustWeightsByUsingGammaMelodyAndInputMelody *([NeuralValueMelody] gammaMelody, [NeuralValueMelody] traceInputMelody) {
+		\traceInputMelody:lookAtEachIndexAndNeuralValueInSequence forEachInputIndexModifyEachWeightAccordingToTheCorrespondingGammaValue
+			!{
+				[[Natural][NeuralValue]->] forEachInputIndexModifyEachWeightAccordingToTheCorrespondingGammaValue = *([Natural] inputIndex, [NeuralValue] inputValue) {
+					\gammaMelody:lookAtEachIndexAndNeuralValueInSequence forEachOutputIndexAndGammaValueModifyWeight
+						!{
+							[[Natural][NeuralValue]->] forEachOutputIndexAndGammaValueModifyWeight = *([Natural] outputIndex, [NeuralValue] gammaValue) {
+								[NeuralValue] weightCorrection = \[NeuralPropogation]:backwardsPropogationWeightCorrectionWithGammaAndInputValueAndNumberOfNeuralInputs
+									gammaValue inputValue .numberOfIncomingNeuralConnections;
+								[NeuralValue] currentWeight = \.weightSetForThisLayer:getWeightWithInputIndexAndOutputIndex inputIndex outputIndex;
+								[NeuralValue] newWeight = \currentWeight:neuralValueByAddingNeuralValue weightCorrection;
+								\.weightSetForThisLayer:setWeightForInputIndexAndOutputIndex newWeight inputIndex outputIndex;
+								\currentWeight:DEBUGPrintNeuralValue;
+								\newWeight:DEBUGPrintNeuralValue;
+								\inputValue:DEBUGPrintNeuralValue;
+								\gammaValue:DEBUGPrintNeuralValue;
+								@\currentWeight:DEBUGPrintNeuralValue;
+							}
+						}
+				}
+			}
+
+	}
 }
 
 
 
-[NeuralLayerWeightSet : [Object]] (Object, NeuralValue, Mapping, Integer, Natural, Conjecture, ControlFlow, Wrapper, ExtendedControlFlow) -> (NeuralLayer)
+[NeuralLayerWeightSet : [Object]] (Object, NeuralValue, Mapping, Integer, Natural, Conjecture, ControlFlow, Wrapper, ExtendedControlFlow,OutputStream, String, SystemIO) -> (NeuralLayer)
 	[Mapping<[Natural] [Mapping<[Natural] [NeuralValue]>]>] mappingOfInputAndOutputIndexToWeight
 	[NeuralValue] defaultNeuralValueForWeights
 	[[[[[[[[]->]->[Integer]]->]->]->]->]->] x
@@ -68,22 +121,27 @@
 		\mappingOfOutputIndexToWeight:mapKeyToValue outputIndex weightToSet
 	}	!{
 			[[Natural]->[Mapping<[Natural] [NeuralValue]>]] retriveMappingOfOutputIndexToWeightForInputIndexOrCreateItIfItDoesntExist = 
-				*([Natural] givenInputIndex) 
-					-> (\[ExtendedControlFlow<[Mapping<[Natural] [NeuralValue]>]>]:retriveUsingDefaultOnFailure attemptToRetriveMappingFromMappingOfInputAndOutputToWeight
+				*([Natural] givenInputIndex) -> [Mapping<[Natural] [NeuralValue]>] {
+					[Mapping<[Natural] [NeuralValue]>] mappingOfOutputIndexToWeightForInputIndex = (\[ExtendedControlFlow<[Mapping<[Natural] [NeuralValue]>]>]:retriveUsingDefaultOnFailure attemptToRetriveMappingFromMappingOfInputAndOutputToWeight
 					 (defaultMappingIfItDoesntExistAlready))
 						!{
 							[[[Mapping<[Natural] [NeuralValue]>]->]->] attemptToRetriveMappingFromMappingOfInputAndOutputToWeight = *([[Mapping<[Natural] [NeuralValue]>]->] provideMappingOfOutputIndexToWeight) {
 								\.mappingOfInputAndOutputIndexToWeight:retriveMappedValueWithKey inputIndex *([Mapping<[Natural] [NeuralValue]>] mappingOfOutputIndexToWeight) {
-									\provideMappingOfOutputIndexToWeight mappingOfOutputIndexToWeight
+									\provideMappingOfOutputIndexToWeight mappingOfOutputIndexToWeight;
+									@ DEBUG
+									[OutputStream] stdout = \[SystemIO]:stdout;
+									\stdout:writeString (\[String]:newString "Found a mapping\n");
+									@ END DEBUG
 								}
 							}
 
 							[Mapping<[Natural] [NeuralValue]>] defaultMappingIfItDoesntExistAlready = \[Mapping<[Natural] [NeuralValue]>]:newEmptyMapping;
-						}
+						};
+					\.mappingOfInputAndOutputIndexToWeight:mapKeyToValue inputIndex mappingOfOutputIndexToWeightForInputIndex
+				} -> mappingOfOutputIndexToWeightForInputIndex
 		}
 
 }
-
 
 
 

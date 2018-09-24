@@ -40,6 +40,13 @@
 			(\integerRepresentationOfThisNeuralValue:integerByMultiplying integerRepresentationOfOtherNeuralValue)
 	} -> resultNeuralValue
 
+	++ neuralValueBySubtractingNeuralValue *([NeuralValue] otherNeuralValue) -> [NeuralValue] {
+		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
+		[Integer] integerRepresentationOfOtherNeuralValue = \otherNeuralValue:getIntegerRepresentationOfNeuralValue;
+		[NeuralValue] resultNeuralValue = \[NeuralValue]:newNeuralValueWithIntegerRepresentation 
+			(\integerRepresentationOfThisNeuralValue:integerBySubtracting integerRepresentationOfOtherNeuralValue)
+	} -> resultNeuralValue
+
 	++ neuralValueByDividingByNeuralValue *([NeuralValue] neuralValueDivisor) -> [NeuralValue] {
 		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
 		[Integer] integerRepresentationOfDivisorNeuralValue = \neuralValueDivisor:getIntegerRepresentationOfNeuralValue;

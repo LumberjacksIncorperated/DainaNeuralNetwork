@@ -2,6 +2,8 @@
 [] (DaveReaction, DavesBrain, NeuralValueMelody, Natural, Integer, NeuralValue, SystemIO, OutputStream, String)
 {
 	^ *{
+		\[NeuralValue]:_test_Class;
+		\[NeuralValueMelody]:_test_Class;
 
 		[DavesBrain] davesBrain = \[DavesBrain]:newNeuralLayerWithNumberOfInputsNumberOfInternalLayersSizeOfInternalLayers numberOfInputsToDavesBrain numberOfNeuralLayersInDavesBrain sizeOfNeuralLayersInDavesBrain;
 		[DaveReaction] reactionDaveHadToSaidMelody = \davesBrain:classifyInputMelodyThroughDavesBrain testMelody;

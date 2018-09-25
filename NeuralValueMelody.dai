@@ -1,5 +1,5 @@
 
-[NeuralValueMelody : [Object]] (Object, Train, NeuralValue, Boolean, Natural, Wrapper, SystemIO, OutputStream, String)
+[NeuralValueMelody : [Object]] (Object, Test, Train, NeuralValue, Boolean, Natural, Wrapper, SystemIO, OutputStream, String, Integer)
 	[Train<[NeuralValue]>] trainOfNeuralValuesInSequenceOfTheMelody
 {
 	~ newEmptyMelody *{
@@ -49,6 +49,35 @@
 		};
 		\stdout:writeString (\[String]:newString "\n");
 	 }
+
+
+	:: _test_lookAtEachIndexAndNeuralValueInSequence *([[Boolean]->] checkResult) {
+		\testMelody:lookAtEachIndexAndNeuralValueInSequence *([Integer] index, [NeuralValue] neuralValue) {
+			\checkResult (\index:isEqualTo (\wrappedCurrentExpectedIndex:unwrap));
+			\trainOfExpectedMelodyNeuralValues:popFromFront *([NeuralValue] expectedNeuralValue) {
+				\checkResult (\neuralValue:isEqualToNeuralValue expectedNeuralValue);
+			};
+			\wrappedCurrentExpectedIndex:transformStoredObject *([Integer] n)->\n:integerByAdding (\[Natural]:one);
+		};
+		\checkResult (\trainOfExpectedMelodyNeuralValues:isEmpty);	
+	}	!{
+			[NeuralValueMelody] testMelody = \[NeuralValueMelody]:newEmptyMelody;
+			[Train<[NeuralValue]>] trainOfExpectedMelodyNeuralValues = \[Train<[NeuralValue]>]:newEmptyTrain;
+			[NeuralValue] neuralValueToAdd = \[NeuralValue]:newNeuralValueWithIntegerRepresentation (\[Integer]:newPositive 34);
+				\testMelody:addNeuralValueToMelody neuralValueToAdd; \trainOfExpectedMelodyNeuralValues:pushToBack neuralValueToAdd;
+			neuralValueToAdd = \[NeuralValue]:newNeuralValueWithIntegerRepresentation (\[Integer]:newPositive 12); 
+				\testMelody:addNeuralValueToMelody neuralValueToAdd; \trainOfExpectedMelodyNeuralValues:pushToBack neuralValueToAdd;
+			neuralValueToAdd = \[NeuralValue]:newNeuralValueWithIntegerRepresentation (\[Integer]:newNegative 7); 
+				\testMelody:addNeuralValueToMelody neuralValueToAdd; \trainOfExpectedMelodyNeuralValues:pushToBack neuralValueToAdd;
+			neuralValueToAdd = \[NeuralValue]:baseNeuralValue; 
+				\testMelody:addNeuralValueToMelody neuralValueToAdd; \trainOfExpectedMelodyNeuralValues:pushToBack neuralValueToAdd;
+			[Wrapper<[Integer]>] wrappedCurrentExpectedIndex = \[Wrapper<[Integer]>]:wrapperWithObject (\[Integer]:zero);
+		}
+
+	:: _test_Class *{
+		[Test] test = \[Test]:newBaseTest;
+		\test:callTestWithNameAndProcedure (\[String]:newString "lookAtEachIndexAndNeuralValueInSequence") ([NeuralValueMelody]:_test_lookAtEachIndexAndNeuralValueInSequence);
+	}
 
 }
 

@@ -1,5 +1,5 @@
 
-[NeuralValue : [Object]] (Object, Integer, Boolean, Wrapper, Natural, String, SystemIO, OutputStream)
+[NeuralValue : [Object]] (Object, Integer, Boolean, Wrapper, Natural, String, SystemIO, OutputStream, Test)
 	[Integer] integerRepresentationOfNeuralValue
 {
 
@@ -25,6 +25,11 @@
 	} -> (\integerRepresentationOfThisNeuralValue:isGreaterThan integerRepresentationOfOtherNeuralValue)
 
 	++ getIntegerRepresentationOfNeuralValue *-> .integerRepresentationOfNeuralValue
+
+	++ isEqualToNeuralValue *([NeuralValue] neuralValueToCompareToThisOne) -> [Boolean] {
+		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
+		[Integer] integerRepresentationOfOtherNeuralValue = \neuralValueToCompareToThisOne:getIntegerRepresentationOfNeuralValue;
+	} -> (\integerRepresentationOfThisNeuralValue:isEqualTo integerRepresentationOfOtherNeuralValue)
 
 	++ neuralValueByAddingNeuralValue *([NeuralValue] otherNeuralValue) -> [NeuralValue] {
 		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
@@ -68,7 +73,28 @@
 		\stdout:writeString (\[String]:newString "\n");
 	}
 
+	:: _test_getIntegerRepresentationOfNeuralValue *([[Boolean]->] testResult) {
+		[Integer] theIntegerRepresentation = \[Integer]:newNegative 40;
+		[NeuralValue] neuralValue = \[NeuralValue]:newNeuralValueWithIntegerRepresentation (theIntegerRepresentation);
+		\testResult (\theIntegerRepresentation:isEqualTo (\neuralValue:getIntegerRepresentationOfNeuralValue));	
+		\testResult (\theIntegerRepresentation:isEqualTo (\neuralValue:getIntegerRepresentationOfNeuralValue));		
+	}
+
+	:: _test_Class *{
+		[Test] test = \[Test]:newBaseTest;
+		\test:callTestWithNameAndProcedure (\[String]:newString "getIntegerRepresentationOfNeuralValue") ([NeuralValue]:_test_getIntegerRepresentationOfNeuralValue);
+	}
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

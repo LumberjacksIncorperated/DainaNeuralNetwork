@@ -3,7 +3,7 @@
 {
 	:: forwardPropogationResultWithWeightAndInputValue *([NeuralValue] weight, [NeuralValue] inputValue) -> [NeuralValue]
 		{
-			\weight:DEBUGPrintNeuralValue;
+			@\weight:DEBUGPrintNeuralValue;
 		} -> (\weight:neuralValueByMultiplyingNeuralValue inputValue)
 
 	:: backwardsPropogationWeightCorrectionWithGammaAndInputValueAndNumberOfNeuralInputs *([NeuralValue] gamma, [NeuralValue] inputValue, [Natural] numberOfNeuralInputs) -> [NeuralValue] {

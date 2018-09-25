@@ -21,13 +21,13 @@
 					[Wrapper<[NeuralValue]>] wrappedNeuralValueSumAtThisOutputIndex = \[Wrapper<[NeuralValue]>]:wrapperWithObject (\[NeuralValue]:baseNeuralValue);
 					(\inputMelody:lookAtEachIndexAndNeuralValueInSequence *([Natural] inputIndex, [NeuralValue] inputNeuralValue) {
 									[OutputStream] stdout = \[SystemIO]:stdout;
-									\stdout:writeString (\[String]:newString "This is probably wrong...: ");
-									\stdout:writeString (\[String]:stringRepresentationOfInteger outputIndex);
-									\stdout:writeString (\[String]:newString " ");
-									\stdout:writeString (\[String]:stringRepresentationOfInteger inputIndex);
-									\stdout:writeString (\[String]:newString "\n");
+									@\stdout:writeString (\[String]:newString "This is probably wrong...: ");
+									@\stdout:writeString (\[String]:stringRepresentationOfInteger outputIndex);
+									@\stdout:writeString (\[String]:newString " ");
+									@\stdout:writeString (\[String]:stringRepresentationOfInteger inputIndex);
+									@\stdout:writeString (\[String]:newString "\n");
 						[NeuralValue] weightForInputAndOutputIndex = \.weightSetForThisLayer:getWeightWithInputIndexAndOutputIndex inputIndex outputIndex;
-						\.weightSetForThisLayer:debugDumpInternalPointerToSTDOUT;
+						@\.weightSetForThisLayer:debugDumpInternalPointerToSTDOUT;
 						[NeuralValue] resultingNeuralValueForThisInput = \[NeuralPropogation]:forwardPropogationResultWithWeightAndInputValue weightForInputAndOutputIndex inputNeuralValue;
 						\addNeuralValueToTheNeuralValueSumAtThisOutputIndex resultingNeuralValueForThisInput;
 					})	!{
@@ -86,12 +86,12 @@
 								[NeuralValue] currentWeight = \.weightSetForThisLayer:getWeightWithInputIndexAndOutputIndex inputIndex outputIndex;
 								[NeuralValue] newWeight = \currentWeight:neuralValueByAddingNeuralValue weightCorrection;
 								\.weightSetForThisLayer:setWeightForInputIndexAndOutputIndex newWeight inputIndex outputIndex;
-								\.weightSetForThisLayer:debugDumpInternalPointerToSTDOUT;
-								\stdout:writeString (\[String]:newString "\n");
-								\stdout:writeString (\[String]:stringRepresentationOfInteger outputIndex);
-								\stdout:writeString (\[String]:newString " ");
-								\stdout:writeString (\[String]:stringRepresentationOfInteger inputIndex);
-								\stdout:writeString (\[String]:newString "\n");
+								@\.weightSetForThisLayer:debugDumpInternalPointerToSTDOUT;
+								@\stdout:writeString (\[String]:newString "\n");
+								@\stdout:writeString (\[String]:stringRepresentationOfInteger outputIndex);
+								@\stdout:writeString (\[String]:newString " ");
+								@\stdout:writeString (\[String]:stringRepresentationOfInteger inputIndex);
+								@\stdout:writeString (\[String]:newString "\n");
 								@\currentWeight:DEBUGPrintNeuralValue;
 								@\newWeight:DEBUGPrintNeuralValue;
 								@\inputValue:DEBUGPrintNeuralValue;
@@ -129,12 +129,12 @@
 		[Wrapper<[NeuralValue]>] wrappedWeight = \[Wrapper<[NeuralValue]>]:wrapperWithObject .defaultNeuralValueForWeights;
 		\.mappingOfInputAndOutputIndexToWeight:retriveMappedValueWithKey inputIndex *([Mapping<[Natural] [NeuralValue]>] mappingOfOutputIndexToWeight) {
 			\mappingOfOutputIndexToWeight:retriveMappedValueWithKey outputIndex *([NeuralValue] retrivedNeuralValue) {
-									[OutputStream] stdout = \[SystemIO]:stdout;
-									\stdout:writeString (\[String]:newString "This is gettin...: ");
-									\stdout:writeString (\[String]:stringRepresentationOfInteger outputIndex);
-									\stdout:writeString (\[String]:newString " ");
-									\stdout:writeString (\[String]:stringRepresentationOfInteger inputIndex);
-									\stdout:writeString (\[String]:newString "\n");
+									@[OutputStream] stdout = \[SystemIO]:stdout;
+									@\stdout:writeString (\[String]:newString "This is gettin...: ");
+									@\stdout:writeString (\[String]:stringRepresentationOfInteger outputIndex);
+									@\stdout:writeString (\[String]:newString " ");
+									@\stdout:writeString (\[String]:stringRepresentationOfInteger inputIndex);
+									@\stdout:writeString (\[String]:newString "\n");
 				\wrappedWeight:store retrivedNeuralValue;
 			}
 		}

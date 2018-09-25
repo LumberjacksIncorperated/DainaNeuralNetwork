@@ -1,24 +1,52 @@
+@@
+	Why does DaveReaction "extend" Natural?
 
+	We can now have useful comparison functions, where a reaction:
+		- Can be compared to another reaction
+		- We can also have an order to our reactions
+		- We could also possibly later add reactions
+		- We can build on this enumerations infinitely 
+
+	Basically we are extending something that already has infinite possible states that we can directly compare
+
+	Instead of having an internal value for the enumeration, we BECOME the internal value, to abstract away from it
+@@
 [DaveReaction : [Natural]] (Natural, NeuralValueMelody, NeuralValue, Boolean, ExtendedControlFlow, String)
 {
+	@@
+		We have two options, construct with a static value, or construct the object in question directly with two different
+		constructors.
+
+		Constructing with a static value would simply be more ineffecient because you have to call a function first
+	@@
 	~ daveSmileReaction *{\::newNatural 1}
 	~ daveFrownReaction *{\::newNatural 2}
 
+    @@
+		Simple static function
+    @@
 	:: davesMinimumPitchThreasholdMelodyForHappyness *-> [NeuralValueMelody] {
-		[NeuralValueMelody] daveMinimumPitchThresholdMelody = \[NeuralValueMelody]:newEmptyMelody;
-		daveMinimumPitchThresholdMelody:addNeuralValueToMelody (\[NeuralValue]:baseNeuralValue);
-	} 
-	-> daveMinimumPitchThresholdMelody
-
-
-	:: getDavesReationToAMelody *([NeuralValueMelody] melodyForDaveToReactTo) -> [DaveReaction] {
-		[DaveReaction] davesReationToMelody = \[ExtendedControlFlow<[DaveReaction]>]:retriveUsingDefaultOnFailure getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness frownByDefault
+		[NeuralValueMelody] davesThresholdMelody = \[NeuralValueMelody]:newEmptyMelody;
+		davesThresholdMelody:addNeuralValueToMelody davesThresholdNeuralValue;
 	}  !{
-			[[[DaveReaction]->]->] getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness = *([[DaveReaction]->] provideDavesReaction) {
-				[Boolean] pitchOfMelodyMeetsDavesMinimumStandardsForHappyness = \melodyForDaveToReactTo:isMelodyHigherThenSomeOtherMelody \[DaveReaction]:davesMinimumPitchThreasholdMelodyForHappyness;
-				\pitchOfMelodyMeetsDavesMinimumStandardsForHappyness:ifTrue *{\provideDavesReaction \[DaveReaction]:daveSmileReaction}
-			};
+			[NeuralValue] davesThresholdNeuralValue = (\[NeuralValue]:baseNeuralValue);
+		}
+	-> davesThresholdMelody
 
+	@@
+		By using default on failure, we only have to worry about two less things:
+
+			1/ We do not need to worry about the wrapping
+			2/ In this case it is binary, but could be extended if multiple reactions
+	@@
+	:: getDavesReationToAMelody *([NeuralValueMelody] melodyForDaveToReactTo) -> [DaveReaction] {
+		[DaveReaction] davesReationToMelody = 
+		\[ExtendedControlFlow<[DaveReaction]>]:retriveUsingDefaultOnFailure retrieveDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappinessAndPassToMethod frownByDefault;
+	}  !{
+			[[[DaveReaction]->]->] retrieveDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappinessAndPassToMethod = *([[DaveReaction]->] methodToPassReactionTo) {
+				[Boolean] pitchOfMelodyMeetsDavesMinimumStandardsForHappyness = \melodyForDaveToReactTo:isMelodyHigherThenSomeOtherMelody \[DaveReaction]:davesMinimumPitchThreasholdMelodyForHappyness;
+				\pitchOfMelodyMeetsDavesMinimumStandardsForHappyness:ifTrue *{\methodToPassReactionTo \[DaveReaction]:daveSmileReaction}
+			};
 			[DaveReaction] frownByDefault = \[DaveReaction]:daveFrownReaction;
 		}
 	-> davesReationToMelody

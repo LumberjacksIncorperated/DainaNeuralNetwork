@@ -1,13 +1,21 @@
 
-
 [ExtendedControlFlow<A [Object]>] (Object, Wrapper) 
 {
-	:: retriveUsingDefaultOnFailure *([[[&A]->]->] objectRetriver, [&A] defaultObject) -> [&A] {
-		[Wrapper<[&A]>] wrappedObject = \[Wrapper<[&A]>]:wrapperWithObject defaultObject;
-		\objectRetriver *([&A] retrivedObject) {
-			\wrappedObject:store retrivedObject;
-		}
-	} -> \wrappedObject:unwrap
+	@@
+		This method takes a method that retrieves and object and passes it to a method, and a default,
+		and returns either the object found or the default
 
+		It basically worries about the wrapping for you
+	@@
+	:: retriveUsingDefaultOnFailure *([[[&A]->]->] retrieveObjectAndPassToMethod, [&A] defaultObject) -> [&A] {
+		[Wrapper<[&A]>] wrappedObjectToReturn = \[Wrapper<[&A]>]:wrapperWithObject defaultObject;
+		\retrieveObjectAndPassToMethod methodThatRecievesRetrievedObjectAndStoresItInWrapper
+			!{
+				[[&A]->] methodThatRecievesRetrievedObjectAndStoresItInWrapper = *([&A] retrivedObject) {
+					\wrappedObjectToReturn:store retrivedObject;
+				}
+			};
+	}  
+	-> \wrappedObjectToReturn:unwrap
 }
 

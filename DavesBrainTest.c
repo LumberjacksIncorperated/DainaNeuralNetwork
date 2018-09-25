@@ -3817,8 +3817,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/    ((DynamicObject *)(newAllocatedObject))->deallocator=&dealloc_Z_template_ExtendedControlFlow;
 /*C*/    return newAllocatedObject;
 /*C*/   }
-        //DECLARE METHOD classmethod_ExtendedControlFlow_retriveUsingDefaultOnFailure(local_objectRetriver, local_defaultObject)
-/*C*/   void* Z_classmethod_ExtendedControlFlow_retriveUsingDefaultOnFailure(void* frame, void* Z_local_objectRetriver, void* Z_local_defaultObject);
+        //DECLARE METHOD classmethod_ExtendedControlFlow_retriveUsingDefaultOnFailure(local_retrieveObjectAndPassToMethod, local_defaultObject)
+/*C*/   void* Z_classmethod_ExtendedControlFlow_retriveUsingDefaultOnFailure(void* frame, void* Z_local_retrieveObjectAndPassToMethod, void* Z_local_defaultObject);
         //START METHOD allocator_ExtendedControlFlow()
 /*C*/      void* Z_allocator_ExtendedControlFlow(void* frame) {{
            //CREATE DYNAMIC_OBJECT newObject WITH TEMPLATE template_ExtendedControlFlow
@@ -3829,20 +3829,20 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/   }return NULL;}
         //START METHOD anonymousmethod_3(local_retrivedObject)
 /*C*/      void* Z_anonymousmethod_3(void* frame, void* Z_local_retrivedObject) {{
-           //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_wrappedObject)}
-/*C*/      void* Z_local_wrappedObject = *(((void* *)(frame+sizeof(void*)*0)));
+           //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_wrappedObjectToReturn)}
+/*C*/      void* Z_local_wrappedObjectToReturn = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
 /*C*/      void* Z_temporary_2 = ((void *)(0));
            //ASSIGN temporary_2 = local_retrivedObject
 /*C*/      Z_temporary_2 = Z_local_retrivedObject;
            //RETAIN temporary_2
 /*C*/      RetainDynamicObject(Z_temporary_2);
-           //CREATE OBJECT temporary_4 = (local_wrappedObject AS template_Wrapper)->instancemethod_store
-/*C*/      void* Z_temporary_4 = ((struct Z_template_Wrapper *)(Z_local_wrappedObject))->Z_instancemethod_store;
-           //CREATE DYNAMIC_OBJECT temporary_3 WITH METHOD[STATIC_OBJECT] temporary_4 FRAME{STATIC(),DYNAMIC(local_wrappedObject)}
+           //CREATE OBJECT temporary_4 = (local_wrappedObjectToReturn AS template_Wrapper)->instancemethod_store
+/*C*/      void* Z_temporary_4 = ((struct Z_template_Wrapper *)(Z_local_wrappedObjectToReturn))->Z_instancemethod_store;
+           //CREATE DYNAMIC_OBJECT temporary_3 WITH METHOD[STATIC_OBJECT] temporary_4 FRAME{STATIC(),DYNAMIC(local_wrappedObjectToReturn)}
 /*C*/      void* Z_temporary_3 = allocateDynamicLambda(1,1,Z_temporary_4);
-/*C*/      RetainDynamicObject(Z_local_wrappedObject);
-/*C*/      *(((void* *)(Z_temporary_3+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_wrappedObject;
+/*C*/      RetainDynamicObject(Z_local_wrappedObjectToReturn);
+/*C*/      *(((void* *)(Z_temporary_3+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_wrappedObjectToReturn;
            //CREATE OBJECT temporary_1 = INVOKE temporary_3(temporary_2)
 /*C*/      void* Z_temporary_1 = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_3))->method))(Z_temporary_3+sizeof(DynamicLambda), Z_temporary_2);
            //RELEASE temporary_3
@@ -3851,8 +3851,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD classmethod_ExtendedControlFlow_retriveUsingDefaultOnFailure(local_objectRetriver, local_defaultObject)
-/*C*/      void* Z_classmethod_ExtendedControlFlow_retriveUsingDefaultOnFailure(void* frame, void* Z_local_objectRetriver, void* Z_local_defaultObject) {{
+        //START METHOD classmethod_ExtendedControlFlow_retriveUsingDefaultOnFailure(local_retrieveObjectAndPassToMethod, local_defaultObject)
+/*C*/      void* Z_classmethod_ExtendedControlFlow_retriveUsingDefaultOnFailure(void* frame, void* Z_local_retrieveObjectAndPassToMethod, void* Z_local_defaultObject) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC()}
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
 /*C*/      void* Z_temporary_2 = ((void *)(0));
@@ -3882,40 +3882,60 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_3);
            //RELEASE temporary_2
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
-           //CREATE STATIC_OBJECT local_wrappedObject WITH EMPTY_VALUE
-/*C*/      void* Z_local_wrappedObject = ((void *)(0));
-           //ASSIGN local_wrappedObject = temporary_1
-/*C*/      Z_local_wrappedObject = Z_temporary_1;
-           //CREATE STATIC_OBJECT temporary_10 WITH METHOD anonymousmethod_3
-/*C*/      void* Z_temporary_10 = &Z_anonymousmethod_3;
-           //CREATE DYNAMIC_OBJECT temporary_9 WITH METHOD[STATIC_OBJECT] temporary_10 FRAME{STATIC(),DYNAMIC(local_wrappedObject)}
-/*C*/      void* Z_temporary_9 = allocateDynamicLambda(1,1,Z_temporary_10);
-/*C*/      RetainDynamicObject(Z_local_wrappedObject);
-/*C*/      *(((void* *)(Z_temporary_9+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_wrappedObject;
-           //CREATE STATIC_OBJECT temporary_11 WITH EMPTY_VALUE
-/*C*/      void* Z_temporary_11 = ((void *)(0));
-           //ASSIGN temporary_11 = local_objectRetriver
-/*C*/      Z_temporary_11 = Z_local_objectRetriver;
-           //RETAIN temporary_11
-/*C*/      RetainDynamicObject(Z_temporary_11);
-           //CREATE OBJECT temporary_8 = INVOKE temporary_11(temporary_9)
-/*C*/      void* Z_temporary_8 = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_11))->method))(Z_temporary_11+sizeof(DynamicLambda), Z_temporary_9);
-           //RELEASE temporary_11
-/*C*/      ReleaseDynamicObject(Z_temporary_11);
+           //CREATE STATIC_OBJECT local_wrappedObjectToReturn WITH EMPTY_VALUE
+/*C*/      void* Z_local_wrappedObjectToReturn = ((void *)(0));
+           //ASSIGN local_wrappedObjectToReturn = temporary_1
+/*C*/      Z_local_wrappedObjectToReturn = Z_temporary_1;
+           //CREATE STATIC_OBJECT temporary_9 WITH EMPTY_VALUE
+/*C*/      void* Z_temporary_9 = ((void *)(0));
+           //ENTER LOCAL SCOPE
+/*C*/      {
+              //CREATE STATIC_OBJECT temporary_11 WITH METHOD anonymousmethod_3
+/*C*/         void* Z_temporary_11 = &Z_anonymousmethod_3;
+              //CREATE DYNAMIC_OBJECT temporary_10 WITH METHOD[STATIC_OBJECT] temporary_11 FRAME{STATIC(),DYNAMIC(local_wrappedObjectToReturn)}
+/*C*/         void* Z_temporary_10 = allocateDynamicLambda(1,1,Z_temporary_11);
+/*C*/         RetainDynamicObject(Z_local_wrappedObjectToReturn);
+/*C*/         *(((void* *)(Z_temporary_10+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_wrappedObjectToReturn;
+              //CREATE STATIC_OBJECT local_methodThatRecievesRetrievedObjectAndStoresItInWrapper WITH EMPTY_VALUE
+/*C*/         void* Z_local_methodThatRecievesRetrievedObjectAndStoresItInWrapper = ((void *)(0));
+              //ASSIGN local_methodThatRecievesRetrievedObjectAndStoresItInWrapper = temporary_10
+/*C*/         Z_local_methodThatRecievesRetrievedObjectAndStoresItInWrapper = Z_temporary_10;
+              //CREATE STATIC_OBJECT temporary_12 WITH EMPTY_VALUE
+/*C*/         void* Z_temporary_12 = ((void *)(0));
+              //ASSIGN temporary_12 = local_methodThatRecievesRetrievedObjectAndStoresItInWrapper
+/*C*/         Z_temporary_12 = Z_local_methodThatRecievesRetrievedObjectAndStoresItInWrapper;
+              //RETAIN temporary_12
+/*C*/         RetainDynamicObject(Z_temporary_12);
+              //ASSIGN temporary_9 = temporary_12
+/*C*/         Z_temporary_9 = Z_temporary_12;
+              //RELEASE local_methodThatRecievesRetrievedObjectAndStoresItInWrapper
+/*C*/         ReleaseDynamicObject(Z_local_methodThatRecievesRetrievedObjectAndStoresItInWrapper);
+/*C*/      }
+           //EXIT LOCAL SCOPE
+           //CREATE STATIC_OBJECT temporary_13 WITH EMPTY_VALUE
+/*C*/      void* Z_temporary_13 = ((void *)(0));
+           //ASSIGN temporary_13 = local_retrieveObjectAndPassToMethod
+/*C*/      Z_temporary_13 = Z_local_retrieveObjectAndPassToMethod;
+           //RETAIN temporary_13
+/*C*/      RetainDynamicObject(Z_temporary_13);
+           //CREATE OBJECT temporary_8 = INVOKE temporary_13(temporary_9)
+/*C*/      void* Z_temporary_8 = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_13))->method))(Z_temporary_13+sizeof(DynamicLambda), Z_temporary_9);
+           //RELEASE temporary_13
+/*C*/      ReleaseDynamicObject(Z_temporary_13);
            //RELEASE temporary_9
 /*C*/      ReleaseDynamicObject(Z_temporary_9);
-           //CREATE STATIC_OBJECT temporary_13 WITH METHOD classmethod_Wrapper_unwrap
-/*C*/      void* Z_temporary_13 = &Z_classmethod_Wrapper_unwrap;
-           //CREATE DYNAMIC_OBJECT temporary_12 WITH METHOD[STATIC_OBJECT] temporary_13 FRAME{STATIC(),DYNAMIC(local_wrappedObject)}
-/*C*/      void* Z_temporary_12 = allocateDynamicLambda(1,1,Z_temporary_13);
-/*C*/      RetainDynamicObject(Z_local_wrappedObject);
-/*C*/      *(((void* *)(Z_temporary_12+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_wrappedObject;
-           //CREATE OBJECT retval = INVOKE temporary_12()
-/*C*/      void* Z_retval = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_12))->method))(Z_temporary_12+sizeof(DynamicLambda));
-           //RELEASE temporary_12
-/*C*/      ReleaseDynamicObject(Z_temporary_12);
-           //RELEASE local_wrappedObject
-/*C*/      ReleaseDynamicObject(Z_local_wrappedObject);
+           //CREATE STATIC_OBJECT temporary_15 WITH METHOD classmethod_Wrapper_unwrap
+/*C*/      void* Z_temporary_15 = &Z_classmethod_Wrapper_unwrap;
+           //CREATE DYNAMIC_OBJECT temporary_14 WITH METHOD[STATIC_OBJECT] temporary_15 FRAME{STATIC(),DYNAMIC(local_wrappedObjectToReturn)}
+/*C*/      void* Z_temporary_14 = allocateDynamicLambda(1,1,Z_temporary_15);
+/*C*/      RetainDynamicObject(Z_local_wrappedObjectToReturn);
+/*C*/      *(((void* *)(Z_temporary_14+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_wrappedObjectToReturn;
+           //CREATE OBJECT retval = INVOKE temporary_14()
+/*C*/      void* Z_retval = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_14))->method))(Z_temporary_14+sizeof(DynamicLambda));
+           //RELEASE temporary_14
+/*C*/      ReleaseDynamicObject(Z_temporary_14);
+           //RELEASE local_wrappedObjectToReturn
+/*C*/      ReleaseDynamicObject(Z_local_wrappedObjectToReturn);
            //RETURN retval
 /*C*/      return Z_retval;
         //FINISH METHOD
@@ -11326,8 +11346,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_self;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_54()
-/*C*/      void* Z_anonymousmethod_54(void* frame) {{
+        //START METHOD anonymousmethod_55()
+/*C*/      void* Z_anonymousmethod_55(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_wrappedIntegerRepresentationThatShouldntBeZero)}
 /*C*/      void* Z_local_wrappedIntegerRepresentationThatShouldntBeZero = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_6 WITH METHOD allocator_Natural
@@ -11364,6 +11384,114 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
+        //START METHOD anonymousmethod_54()
+/*C*/      void* Z_anonymousmethod_54(void* frame) {{
+           //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_integerRepresentation)}
+/*C*/      void* Z_local_integerRepresentation = *(((void* *)(frame+sizeof(void*)*0)));
+           //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
+/*C*/      void* Z_temporary_2 = ((void *)(0));
+           //ASSIGN temporary_2 = local_integerRepresentation
+/*C*/      Z_temporary_2 = Z_local_integerRepresentation;
+           //RETAIN temporary_2
+/*C*/      RetainDynamicObject(Z_temporary_2);
+           //CREATE STATIC_OBJECT temporary_6 WITH METHOD allocator_Wrapper
+/*C*/      void* Z_temporary_6 = &Z_allocator_Wrapper;
+           //CREATE DYNAMIC_OBJECT temporary_5 WITH METHOD[STATIC_OBJECT] temporary_6 FRAME{STATIC(),DYNAMIC()}
+/*C*/      void* Z_temporary_5 = allocateDynamicLambda(0,0,Z_temporary_6);
+           //CREATE OBJECT temporary_4 = INVOKE temporary_5()
+/*C*/      void* Z_temporary_4 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_5))->method))(Z_temporary_5+sizeof(DynamicLambda));
+           //RELEASE temporary_5
+/*C*/      ReleaseDynamicObject(Z_temporary_5);
+           //CREATE STATIC_OBJECT temporary_7 WITH METHOD classmethod_Wrapper_wrapperWithObject
+/*C*/      void* Z_temporary_7 = &Z_classmethod_Wrapper_wrapperWithObject;
+           //CREATE DYNAMIC_OBJECT temporary_3 WITH METHOD[STATIC_OBJECT] temporary_7 FRAME{STATIC(),DYNAMIC(temporary_4)}
+/*C*/      void* Z_temporary_3 = allocateDynamicLambda(1,1,Z_temporary_7);
+/*C*/      RetainDynamicObject(Z_temporary_4);
+/*C*/      *(((void* *)(Z_temporary_3+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_temporary_4;
+           //RELEASE temporary_4
+/*C*/      ReleaseDynamicObject(Z_temporary_4);
+           //CREATE OBJECT temporary_1 = INVOKE temporary_3(temporary_2)
+/*C*/      void* Z_temporary_1 = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_3))->method))(Z_temporary_3+sizeof(DynamicLambda), Z_temporary_2);
+           //RELEASE temporary_3
+/*C*/      ReleaseDynamicObject(Z_temporary_3);
+           //RELEASE temporary_2
+/*C*/      ReleaseDynamicObject(Z_temporary_2);
+           //CREATE STATIC_OBJECT local_wrappedIntegerRepresentationThatShouldntBeZero WITH EMPTY_VALUE
+/*C*/      void* Z_local_wrappedIntegerRepresentationThatShouldntBeZero = ((void *)(0));
+           //ASSIGN local_wrappedIntegerRepresentationThatShouldntBeZero = temporary_1
+/*C*/      Z_local_wrappedIntegerRepresentationThatShouldntBeZero = Z_temporary_1;
+           //CREATE STATIC_OBJECT temporary_13 WITH METHOD allocator_Integer
+/*C*/      void* Z_temporary_13 = &Z_allocator_Integer;
+           //CREATE DYNAMIC_OBJECT temporary_12 WITH METHOD[STATIC_OBJECT] temporary_13 FRAME{STATIC(),DYNAMIC()}
+/*C*/      void* Z_temporary_12 = allocateDynamicLambda(0,0,Z_temporary_13);
+           //CREATE OBJECT temporary_11 = INVOKE temporary_12()
+/*C*/      void* Z_temporary_11 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_12))->method))(Z_temporary_12+sizeof(DynamicLambda));
+           //RELEASE temporary_12
+/*C*/      ReleaseDynamicObject(Z_temporary_12);
+           //CREATE STATIC_OBJECT temporary_14 WITH METHOD classmethod_Integer_zero
+/*C*/      void* Z_temporary_14 = &Z_classmethod_Integer_zero;
+           //CREATE DYNAMIC_OBJECT temporary_10 WITH METHOD[STATIC_OBJECT] temporary_14 FRAME{STATIC(),DYNAMIC(temporary_11)}
+/*C*/      void* Z_temporary_10 = allocateDynamicLambda(1,1,Z_temporary_14);
+/*C*/      RetainDynamicObject(Z_temporary_11);
+/*C*/      *(((void* *)(Z_temporary_10+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_temporary_11;
+           //RELEASE temporary_11
+/*C*/      ReleaseDynamicObject(Z_temporary_11);
+           //CREATE OBJECT temporary_9 = INVOKE temporary_10()
+/*C*/      void* Z_temporary_9 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_10))->method))(Z_temporary_10+sizeof(DynamicLambda));
+           //RELEASE temporary_10
+/*C*/      ReleaseDynamicObject(Z_temporary_10);
+           //CREATE OBJECT temporary_16 = (local_integerRepresentation AS template_Integer)->instancemethod_isEqualTo
+/*C*/      void* Z_temporary_16 = ((struct Z_template_Integer *)(Z_local_integerRepresentation))->Z_instancemethod_isEqualTo;
+           //CREATE DYNAMIC_OBJECT temporary_15 WITH METHOD[STATIC_OBJECT] temporary_16 FRAME{STATIC(),DYNAMIC(local_integerRepresentation)}
+/*C*/      void* Z_temporary_15 = allocateDynamicLambda(1,1,Z_temporary_16);
+/*C*/      RetainDynamicObject(Z_local_integerRepresentation);
+/*C*/      *(((void* *)(Z_temporary_15+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_integerRepresentation;
+           //CREATE OBJECT temporary_8 = INVOKE temporary_15(temporary_9)
+/*C*/      void* Z_temporary_8 = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_15))->method))(Z_temporary_15+sizeof(DynamicLambda), Z_temporary_9);
+           //RELEASE temporary_15
+/*C*/      ReleaseDynamicObject(Z_temporary_15);
+           //RELEASE temporary_9
+/*C*/      ReleaseDynamicObject(Z_temporary_9);
+           //CREATE STATIC_OBJECT local_integerRepresentationIsZero WITH EMPTY_VALUE
+/*C*/      void* Z_local_integerRepresentationIsZero = ((void *)(0));
+           //ASSIGN local_integerRepresentationIsZero = temporary_8
+/*C*/      Z_local_integerRepresentationIsZero = Z_temporary_8;
+           //CREATE STATIC_OBJECT temporary_19 WITH METHOD anonymousmethod_55
+/*C*/      void* Z_temporary_19 = &Z_anonymousmethod_55;
+           //CREATE DYNAMIC_OBJECT temporary_18 WITH METHOD[STATIC_OBJECT] temporary_19 FRAME{STATIC(),DYNAMIC(local_wrappedIntegerRepresentationThatShouldntBeZero)}
+/*C*/      void* Z_temporary_18 = allocateDynamicLambda(1,1,Z_temporary_19);
+/*C*/      RetainDynamicObject(Z_local_wrappedIntegerRepresentationThatShouldntBeZero);
+/*C*/      *(((void* *)(Z_temporary_18+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_wrappedIntegerRepresentationThatShouldntBeZero;
+           //CREATE STATIC_OBJECT temporary_21 WITH METHOD classmethod_Boolean_ifTrue
+/*C*/      void* Z_temporary_21 = &Z_classmethod_Boolean_ifTrue;
+           //CREATE DYNAMIC_OBJECT temporary_20 WITH METHOD[STATIC_OBJECT] temporary_21 FRAME{STATIC(),DYNAMIC(local_integerRepresentationIsZero)}
+/*C*/      void* Z_temporary_20 = allocateDynamicLambda(1,1,Z_temporary_21);
+/*C*/      RetainDynamicObject(Z_local_integerRepresentationIsZero);
+/*C*/      *(((void* *)(Z_temporary_20+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_integerRepresentationIsZero;
+           //CREATE OBJECT temporary_17 = INVOKE temporary_20(temporary_18)
+/*C*/      void* Z_temporary_17 = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_20))->method))(Z_temporary_20+sizeof(DynamicLambda), Z_temporary_18);
+           //RELEASE temporary_20
+/*C*/      ReleaseDynamicObject(Z_temporary_20);
+           //RELEASE temporary_18
+/*C*/      ReleaseDynamicObject(Z_temporary_18);
+           //CREATE STATIC_OBJECT temporary_23 WITH METHOD classmethod_Wrapper_unwrap
+/*C*/      void* Z_temporary_23 = &Z_classmethod_Wrapper_unwrap;
+           //CREATE DYNAMIC_OBJECT temporary_22 WITH METHOD[STATIC_OBJECT] temporary_23 FRAME{STATIC(),DYNAMIC(local_wrappedIntegerRepresentationThatShouldntBeZero)}
+/*C*/      void* Z_temporary_22 = allocateDynamicLambda(1,1,Z_temporary_23);
+/*C*/      RetainDynamicObject(Z_local_wrappedIntegerRepresentationThatShouldntBeZero);
+/*C*/      *(((void* *)(Z_temporary_22+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_wrappedIntegerRepresentationThatShouldntBeZero;
+           //CREATE OBJECT retval = INVOKE temporary_22()
+/*C*/      void* Z_retval = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_22))->method))(Z_temporary_22+sizeof(DynamicLambda));
+           //RELEASE temporary_22
+/*C*/      ReleaseDynamicObject(Z_temporary_22);
+           //RELEASE local_wrappedIntegerRepresentationThatShouldntBeZero
+/*C*/      ReleaseDynamicObject(Z_local_wrappedIntegerRepresentationThatShouldntBeZero);
+           //RELEASE local_integerRepresentationIsZero
+/*C*/      ReleaseDynamicObject(Z_local_integerRepresentationIsZero);
+           //RETURN retval
+/*C*/      return Z_retval;
+        //FINISH METHOD
+/*C*/   }return NULL;}
         //START METHOD classmethod_NeuralValue_newNeuralValueWithIntegerRepresentation(local_integerRepresentation)
 /*C*/      void* Z_classmethod_NeuralValue_newNeuralValueWithIntegerRepresentation(void* frame, void* Z_local_integerRepresentation) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
@@ -11374,132 +11502,42 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH EMPTY_VALUE
-/*C*/         void* Z_temporary_3 = ((void *)(0));
-              //ASSIGN temporary_3 = local_integerRepresentation
-/*C*/         Z_temporary_3 = Z_local_integerRepresentation;
-              //RETAIN temporary_3
-/*C*/         RetainDynamicObject(Z_temporary_3);
-              //CREATE STATIC_OBJECT temporary_7 WITH METHOD allocator_Wrapper
-/*C*/         void* Z_temporary_7 = &Z_allocator_Wrapper;
-              //CREATE DYNAMIC_OBJECT temporary_6 WITH METHOD[STATIC_OBJECT] temporary_7 FRAME{STATIC(),DYNAMIC()}
-/*C*/         void* Z_temporary_6 = allocateDynamicLambda(0,0,Z_temporary_7);
-              //CREATE OBJECT temporary_5 = INVOKE temporary_6()
-/*C*/         void* Z_temporary_5 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_6))->method))(Z_temporary_6+sizeof(DynamicLambda));
-              //RELEASE temporary_6
-/*C*/         ReleaseDynamicObject(Z_temporary_6);
-              //CREATE STATIC_OBJECT temporary_8 WITH METHOD classmethod_Wrapper_wrapperWithObject
-/*C*/         void* Z_temporary_8 = &Z_classmethod_Wrapper_wrapperWithObject;
-              //CREATE DYNAMIC_OBJECT temporary_4 WITH METHOD[STATIC_OBJECT] temporary_8 FRAME{STATIC(),DYNAMIC(temporary_5)}
-/*C*/         void* Z_temporary_4 = allocateDynamicLambda(1,1,Z_temporary_8);
-/*C*/         RetainDynamicObject(Z_temporary_5);
-/*C*/         *(((void* *)(Z_temporary_4+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_temporary_5;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_54
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_54;
+              //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_integerRepresentation)}
+/*C*/         void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
+/*C*/         RetainDynamicObject(Z_local_integerRepresentation);
+/*C*/         *(((void* *)(Z_temporary_2+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_integerRepresentation;
+              //CREATE STATIC_OBJECT local_changeIntegerRepresentationToOneIfZeroLeaveOtherwise WITH EMPTY_VALUE
+/*C*/         void* Z_local_changeIntegerRepresentationToOneIfZeroLeaveOtherwise = ((void *)(0));
+              //ASSIGN local_changeIntegerRepresentationToOneIfZeroLeaveOtherwise = temporary_2
+/*C*/         Z_local_changeIntegerRepresentationToOneIfZeroLeaveOtherwise = Z_temporary_2;
+              //CREATE STATIC_OBJECT temporary_6 WITH METHOD classmethod_Object_new
+/*C*/         void* Z_temporary_6 = &Z_classmethod_Object_new;
+              //CREATE DYNAMIC_OBJECT temporary_5 WITH METHOD[STATIC_OBJECT] temporary_6 FRAME{STATIC(),DYNAMIC(self)}
+/*C*/         void* Z_temporary_5 = allocateDynamicLambda(1,1,Z_temporary_6);
+/*C*/         RetainDynamicObject(Z_self);
+/*C*/         *(((void* *)(Z_temporary_5+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_self;
+              //CREATE OBJECT temporary_4 = INVOKE temporary_5()
+/*C*/         void* Z_temporary_4 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_5))->method))(Z_temporary_5+sizeof(DynamicLambda));
               //RELEASE temporary_5
 /*C*/         ReleaseDynamicObject(Z_temporary_5);
-              //CREATE OBJECT temporary_2 = INVOKE temporary_4(temporary_3)
-/*C*/         void* Z_temporary_2 = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_4))->method))(Z_temporary_4+sizeof(DynamicLambda), Z_temporary_3);
               //RELEASE temporary_4
 /*C*/         ReleaseDynamicObject(Z_temporary_4);
-              //RELEASE temporary_3
-/*C*/         ReleaseDynamicObject(Z_temporary_3);
-              //CREATE STATIC_OBJECT local_wrappedIntegerRepresentationThatShouldntBeZero WITH EMPTY_VALUE
-/*C*/         void* Z_local_wrappedIntegerRepresentationThatShouldntBeZero = ((void *)(0));
-              //ASSIGN local_wrappedIntegerRepresentationThatShouldntBeZero = temporary_2
-/*C*/         Z_local_wrappedIntegerRepresentationThatShouldntBeZero = Z_temporary_2;
-              //CREATE STATIC_OBJECT temporary_14 WITH METHOD allocator_Integer
-/*C*/         void* Z_temporary_14 = &Z_allocator_Integer;
-              //CREATE DYNAMIC_OBJECT temporary_13 WITH METHOD[STATIC_OBJECT] temporary_14 FRAME{STATIC(),DYNAMIC()}
-/*C*/         void* Z_temporary_13 = allocateDynamicLambda(0,0,Z_temporary_14);
-              //CREATE OBJECT temporary_12 = INVOKE temporary_13()
-/*C*/         void* Z_temporary_12 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_13))->method))(Z_temporary_13+sizeof(DynamicLambda));
-              //RELEASE temporary_13
-/*C*/         ReleaseDynamicObject(Z_temporary_13);
-              //CREATE STATIC_OBJECT temporary_15 WITH METHOD classmethod_Integer_zero
-/*C*/         void* Z_temporary_15 = &Z_classmethod_Integer_zero;
-              //CREATE DYNAMIC_OBJECT temporary_11 WITH METHOD[STATIC_OBJECT] temporary_15 FRAME{STATIC(),DYNAMIC(temporary_12)}
-/*C*/         void* Z_temporary_11 = allocateDynamicLambda(1,1,Z_temporary_15);
-/*C*/         RetainDynamicObject(Z_temporary_12);
-/*C*/         *(((void* *)(Z_temporary_11+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_temporary_12;
-              //RELEASE temporary_12
-/*C*/         ReleaseDynamicObject(Z_temporary_12);
-              //CREATE OBJECT temporary_10 = INVOKE temporary_11()
-/*C*/         void* Z_temporary_10 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_11))->method))(Z_temporary_11+sizeof(DynamicLambda));
-              //RELEASE temporary_11
-/*C*/         ReleaseDynamicObject(Z_temporary_11);
-              //CREATE OBJECT temporary_17 = (local_integerRepresentation AS template_Integer)->instancemethod_isEqualTo
-/*C*/         void* Z_temporary_17 = ((struct Z_template_Integer *)(Z_local_integerRepresentation))->Z_instancemethod_isEqualTo;
-              //CREATE DYNAMIC_OBJECT temporary_16 WITH METHOD[STATIC_OBJECT] temporary_17 FRAME{STATIC(),DYNAMIC(local_integerRepresentation)}
-/*C*/         void* Z_temporary_16 = allocateDynamicLambda(1,1,Z_temporary_17);
-/*C*/         RetainDynamicObject(Z_local_integerRepresentation);
-/*C*/         *(((void* *)(Z_temporary_16+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_integerRepresentation;
-              //CREATE OBJECT temporary_9 = INVOKE temporary_16(temporary_10)
-/*C*/         void* Z_temporary_9 = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_16))->method))(Z_temporary_16+sizeof(DynamicLambda), Z_temporary_10);
-              //RELEASE temporary_16
-/*C*/         ReleaseDynamicObject(Z_temporary_16);
-              //RELEASE temporary_10
-/*C*/         ReleaseDynamicObject(Z_temporary_10);
-              //CREATE STATIC_OBJECT local_integerRepresentationIsZero WITH EMPTY_VALUE
-/*C*/         void* Z_local_integerRepresentationIsZero = ((void *)(0));
-              //ASSIGN local_integerRepresentationIsZero = temporary_9
-/*C*/         Z_local_integerRepresentationIsZero = Z_temporary_9;
-              //CREATE STATIC_OBJECT temporary_20 WITH METHOD anonymousmethod_54
-/*C*/         void* Z_temporary_20 = &Z_anonymousmethod_54;
-              //CREATE DYNAMIC_OBJECT temporary_19 WITH METHOD[STATIC_OBJECT] temporary_20 FRAME{STATIC(),DYNAMIC(local_wrappedIntegerRepresentationThatShouldntBeZero)}
-/*C*/         void* Z_temporary_19 = allocateDynamicLambda(1,1,Z_temporary_20);
-/*C*/         RetainDynamicObject(Z_local_wrappedIntegerRepresentationThatShouldntBeZero);
-/*C*/         *(((void* *)(Z_temporary_19+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_wrappedIntegerRepresentationThatShouldntBeZero;
-              //CREATE STATIC_OBJECT temporary_22 WITH METHOD classmethod_Boolean_ifTrue
-/*C*/         void* Z_temporary_22 = &Z_classmethod_Boolean_ifTrue;
-              //CREATE DYNAMIC_OBJECT temporary_21 WITH METHOD[STATIC_OBJECT] temporary_22 FRAME{STATIC(),DYNAMIC(local_integerRepresentationIsZero)}
-/*C*/         void* Z_temporary_21 = allocateDynamicLambda(1,1,Z_temporary_22);
-/*C*/         RetainDynamicObject(Z_local_integerRepresentationIsZero);
-/*C*/         *(((void* *)(Z_temporary_21+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_integerRepresentationIsZero;
-              //CREATE OBJECT temporary_18 = INVOKE temporary_21(temporary_19)
-/*C*/         void* Z_temporary_18 = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_21))->method))(Z_temporary_21+sizeof(DynamicLambda), Z_temporary_19);
-              //RELEASE temporary_21
-/*C*/         ReleaseDynamicObject(Z_temporary_21);
-              //RELEASE temporary_19
-/*C*/         ReleaseDynamicObject(Z_temporary_19);
-              //CREATE STATIC_OBJECT temporary_25 WITH METHOD classmethod_Wrapper_unwrap
-/*C*/         void* Z_temporary_25 = &Z_classmethod_Wrapper_unwrap;
-              //CREATE DYNAMIC_OBJECT temporary_24 WITH METHOD[STATIC_OBJECT] temporary_25 FRAME{STATIC(),DYNAMIC(local_wrappedIntegerRepresentationThatShouldntBeZero)}
-/*C*/         void* Z_temporary_24 = allocateDynamicLambda(1,1,Z_temporary_25);
-/*C*/         RetainDynamicObject(Z_local_wrappedIntegerRepresentationThatShouldntBeZero);
-/*C*/         *(((void* *)(Z_temporary_24+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_wrappedIntegerRepresentationThatShouldntBeZero;
-              //CREATE OBJECT temporary_23 = INVOKE temporary_24()
-/*C*/         void* Z_temporary_23 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_24))->method))(Z_temporary_24+sizeof(DynamicLambda));
-              //RELEASE temporary_24
-/*C*/         ReleaseDynamicObject(Z_temporary_24);
-              //CREATE STATIC_OBJECT local_integerRepresentationThatIsntZero WITH EMPTY_VALUE
-/*C*/         void* Z_local_integerRepresentationThatIsntZero = ((void *)(0));
-              //ASSIGN local_integerRepresentationThatIsntZero = temporary_23
-/*C*/         Z_local_integerRepresentationThatIsntZero = Z_temporary_23;
-              //CREATE STATIC_OBJECT temporary_28 WITH METHOD classmethod_Object_new
-/*C*/         void* Z_temporary_28 = &Z_classmethod_Object_new;
-              //CREATE DYNAMIC_OBJECT temporary_27 WITH METHOD[STATIC_OBJECT] temporary_28 FRAME{STATIC(),DYNAMIC(self)}
-/*C*/         void* Z_temporary_27 = allocateDynamicLambda(1,1,Z_temporary_28);
-/*C*/         RetainDynamicObject(Z_self);
-/*C*/         *(((void* *)(Z_temporary_27+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_self;
-              //CREATE OBJECT temporary_26 = INVOKE temporary_27()
-/*C*/         void* Z_temporary_26 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_27))->method))(Z_temporary_27+sizeof(DynamicLambda));
-              //RELEASE temporary_27
-/*C*/         ReleaseDynamicObject(Z_temporary_27);
-              //RELEASE temporary_26
-/*C*/         ReleaseDynamicObject(Z_temporary_26);
-              //CREATE STATIC_OBJECT temporary_29 WITH EMPTY_VALUE
-/*C*/         void* Z_temporary_29 = ((void *)(0));
-              //ASSIGN temporary_29 = local_integerRepresentationThatIsntZero
-/*C*/         Z_temporary_29 = Z_local_integerRepresentationThatIsntZero;
-              //RETAIN temporary_29
-/*C*/         RetainDynamicObject(Z_temporary_29);
-              //ASSIGN (self AS template_NeuralValue)->attribute_NeuralValue_integerRepresentationOfNeuralValue = temporary_29
-/*C*/         ((struct Z_template_NeuralValue *)(Z_self))->Z_attribute_NeuralValue_integerRepresentationOfNeuralValue = Z_temporary_29;
-              //RELEASE local_wrappedIntegerRepresentationThatShouldntBeZero
-/*C*/         ReleaseDynamicObject(Z_local_wrappedIntegerRepresentationThatShouldntBeZero);
-              //RELEASE local_integerRepresentationIsZero
-/*C*/         ReleaseDynamicObject(Z_local_integerRepresentationIsZero);
-              //RELEASE local_integerRepresentationThatIsntZero
-/*C*/         ReleaseDynamicObject(Z_local_integerRepresentationThatIsntZero);
+              //CREATE STATIC_OBJECT temporary_8 WITH EMPTY_VALUE
+/*C*/         void* Z_temporary_8 = ((void *)(0));
+              //ASSIGN temporary_8 = local_changeIntegerRepresentationToOneIfZeroLeaveOtherwise
+/*C*/         Z_temporary_8 = Z_local_changeIntegerRepresentationToOneIfZeroLeaveOtherwise;
+              //RETAIN temporary_8
+/*C*/         RetainDynamicObject(Z_temporary_8);
+              //CREATE OBJECT temporary_7 = INVOKE temporary_8()
+/*C*/         void* Z_temporary_7 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_8))->method))(Z_temporary_8+sizeof(DynamicLambda));
+              //RELEASE temporary_8
+/*C*/         ReleaseDynamicObject(Z_temporary_8);
+              //ASSIGN (self AS template_NeuralValue)->attribute_NeuralValue_integerRepresentationOfNeuralValue = temporary_7
+/*C*/         ((struct Z_template_NeuralValue *)(Z_self))->Z_attribute_NeuralValue_integerRepresentationOfNeuralValue = Z_temporary_7;
+              //RELEASE local_changeIntegerRepresentationToOneIfZeroLeaveOtherwise
+/*C*/         ReleaseDynamicObject(Z_local_changeIntegerRepresentationToOneIfZeroLeaveOtherwise);
 /*C*/      }
            //EXIT LOCAL SCOPE
            //RETURN self
@@ -11944,8 +11982,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_56(local_resultingQuotient, local_resultingRemainder)
-/*C*/      void* Z_anonymousmethod_56(void* frame, void* Z_local_resultingQuotient, void* Z_local_resultingRemainder) {{
+        //START METHOD anonymousmethod_57(local_resultingQuotient, local_resultingRemainder)
+/*C*/      void* Z_anonymousmethod_57(void* frame, void* Z_local_resultingQuotient, void* Z_local_resultingRemainder) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_wrappedResultOfDivision)}
 /*C*/      void* Z_local_wrappedResultOfDivision = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
@@ -11968,8 +12006,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_55(local_integerToBeDivided, local_integerDivisor, local_integerResultOnUndefinedDivision)
-/*C*/      void* Z_anonymousmethod_55(void* frame, void* Z_local_integerToBeDivided, void* Z_local_integerDivisor, void* Z_local_integerResultOnUndefinedDivision) {{
+        //START METHOD anonymousmethod_56(local_integerToBeDivided, local_integerDivisor, local_integerResultOnUndefinedDivision)
+/*C*/      void* Z_anonymousmethod_56(void* frame, void* Z_local_integerToBeDivided, void* Z_local_integerDivisor, void* Z_local_integerResultOnUndefinedDivision) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC()}
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
 /*C*/      void* Z_temporary_2 = ((void *)(0));
@@ -12009,8 +12047,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      Z_temporary_9 = Z_local_integerDivisor;
            //RETAIN temporary_9
 /*C*/      RetainDynamicObject(Z_temporary_9);
-           //CREATE STATIC_OBJECT temporary_11 WITH METHOD anonymousmethod_56
-/*C*/      void* Z_temporary_11 = &Z_anonymousmethod_56;
+           //CREATE STATIC_OBJECT temporary_11 WITH METHOD anonymousmethod_57
+/*C*/      void* Z_temporary_11 = &Z_anonymousmethod_57;
            //CREATE DYNAMIC_OBJECT temporary_10 WITH METHOD[STATIC_OBJECT] temporary_11 FRAME{STATIC(),DYNAMIC(local_wrappedResultOfDivision)}
 /*C*/      void* Z_temporary_10 = allocateDynamicLambda(1,1,Z_temporary_11);
 /*C*/      RetainDynamicObject(Z_local_wrappedResultOfDivision);
@@ -12053,8 +12091,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_55
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_55;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_56
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_56;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC()}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(0,0,Z_temporary_3);
               //CREATE STATIC_OBJECT local_resultOfDividingIntegerByIntegerWithDefaultIfDivisionWasUndefined WITH EMPTY_VALUE
@@ -12612,8 +12650,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_self;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_57()
-/*C*/      void* Z_anonymousmethod_57(void* frame) {{
+        //START METHOD anonymousmethod_58()
+/*C*/      void* Z_anonymousmethod_58(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_trainIsEmpty)}
 /*C*/      void* Z_local_trainIsEmpty = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_3 WITH METHOD classmethod_Conjecture_declareFalse
@@ -12628,8 +12666,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_58()
-/*C*/      void* Z_anonymousmethod_58(void* frame) {{
+        //START METHOD anonymousmethod_59()
+/*C*/      void* Z_anonymousmethod_59(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_realiseThatCargoWasFound)}
 /*C*/      void* Z_local_realiseThatCargoWasFound = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
@@ -12676,8 +12714,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_trainIsEmpty = ((void *)(0));
               //ASSIGN local_trainIsEmpty = temporary_2
 /*C*/         Z_local_trainIsEmpty = Z_temporary_2;
-              //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_57
-/*C*/         void* Z_temporary_9 = &Z_anonymousmethod_57;
+              //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_58
+/*C*/         void* Z_temporary_9 = &Z_anonymousmethod_58;
               //CREATE DYNAMIC_OBJECT temporary_8 WITH METHOD[STATIC_OBJECT] temporary_9 FRAME{STATIC(),DYNAMIC(local_trainIsEmpty)}
 /*C*/         void* Z_temporary_8 = allocateDynamicLambda(1,1,Z_temporary_9);
 /*C*/         RetainDynamicObject(Z_local_trainIsEmpty);
@@ -12686,8 +12724,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_realiseThatCargoWasFound = ((void *)(0));
               //ASSIGN local_realiseThatCargoWasFound = temporary_8
 /*C*/         Z_local_realiseThatCargoWasFound = Z_temporary_8;
-              //CREATE STATIC_OBJECT temporary_12 WITH METHOD anonymousmethod_58
-/*C*/         void* Z_temporary_12 = &Z_anonymousmethod_58;
+              //CREATE STATIC_OBJECT temporary_12 WITH METHOD anonymousmethod_59
+/*C*/         void* Z_temporary_12 = &Z_anonymousmethod_59;
               //CREATE DYNAMIC_OBJECT temporary_11 WITH METHOD[STATIC_OBJECT] temporary_12 FRAME{STATIC(),DYNAMIC(local_realiseThatCargoWasFound)}
 /*C*/         void* Z_temporary_11 = allocateDynamicLambda(1,1,Z_temporary_12);
 /*C*/         RetainDynamicObject(Z_local_realiseThatCargoWasFound);
@@ -12812,8 +12850,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_shouldEmptyTheTrain);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_60(local_carriageCoupledToBack)
-/*C*/      void* Z_anonymousmethod_60(void* frame, void* Z_local_carriageCoupledToBack) {{
+        //START METHOD anonymousmethod_61(local_carriageCoupledToBack)
+/*C*/      void* Z_anonymousmethod_61(void* frame, void* Z_local_carriageCoupledToBack) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_1 WITH EMPTY_VALUE
@@ -12842,12 +12880,12 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_4);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_59()
-/*C*/      void* Z_anonymousmethod_59(void* frame) {{
+        //START METHOD anonymousmethod_60()
+/*C*/      void* Z_anonymousmethod_60(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_60
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_60;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_61
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_61;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_self);
@@ -12876,8 +12914,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_59
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_59;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_60
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_60;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_self);
@@ -12932,8 +12970,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
            //EXIT LOCAL SCOPE
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_62(local_carriageCoupledToFront)
-/*C*/      void* Z_anonymousmethod_62(void* frame, void* Z_local_carriageCoupledToFront) {{
+        //START METHOD anonymousmethod_63(local_carriageCoupledToFront)
+/*C*/      void* Z_anonymousmethod_63(void* frame, void* Z_local_carriageCoupledToFront) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_1 WITH EMPTY_VALUE
@@ -12962,12 +13000,12 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_4);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_61()
-/*C*/      void* Z_anonymousmethod_61(void* frame) {{
+        //START METHOD anonymousmethod_62()
+/*C*/      void* Z_anonymousmethod_62(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_62
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_62;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_63
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_63;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_self);
@@ -12996,8 +13034,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_61
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_61;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_62
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_62;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_self);
@@ -13052,8 +13090,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
            //EXIT LOCAL SCOPE
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_64()
-/*C*/      void* Z_anonymousmethod_64(void* frame) {{
+        //START METHOD anonymousmethod_65()
+/*C*/      void* Z_anonymousmethod_65(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_5 WITH METHOD allocator_TrainCarriage
@@ -13120,12 +13158,12 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_newFrontCarriage);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_63()
-/*C*/      void* Z_anonymousmethod_63(void* frame) {{
+        //START METHOD anonymousmethod_64()
+/*C*/      void* Z_anonymousmethod_64(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_64
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_64;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_65
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_65;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_self);
@@ -13154,8 +13192,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_63
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_63;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_64
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_64;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_self);
@@ -13200,8 +13238,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
            //EXIT LOCAL SCOPE
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_66()
-/*C*/      void* Z_anonymousmethod_66(void* frame) {{
+        //START METHOD anonymousmethod_67()
+/*C*/      void* Z_anonymousmethod_67(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_5 WITH METHOD allocator_TrainCarriage
@@ -13268,12 +13306,12 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_newBackCarriage);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_65()
-/*C*/      void* Z_anonymousmethod_65(void* frame) {{
+        //START METHOD anonymousmethod_66()
+/*C*/      void* Z_anonymousmethod_66(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_66
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_66;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_67
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_67;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_self);
@@ -13302,8 +13340,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_65
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_65;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_66
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_66;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_self);
@@ -13390,8 +13428,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_6);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_67()
-/*C*/      void* Z_anonymousmethod_67(void* frame) {{
+        //START METHOD anonymousmethod_68()
+/*C*/      void* Z_anonymousmethod_68(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_getCurrentCarriageWeAreLookingAt)}
 /*C*/      void* Z_local_getCurrentCarriageWeAreLookingAt = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
@@ -13424,8 +13462,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_70(local_carriageCoupledToBack)
-/*C*/      void* Z_anonymousmethod_70(void* frame, void* Z_local_carriageCoupledToBack) {{
+        //START METHOD anonymousmethod_71(local_carriageCoupledToBack)
+/*C*/      void* Z_anonymousmethod_71(void* frame, void* Z_local_carriageCoupledToBack) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_wrappedCurrentCarriage)}
 /*C*/      void* Z_local_wrappedCurrentCarriage = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
@@ -13448,13 +13486,13 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_69()
-/*C*/      void* Z_anonymousmethod_69(void* frame) {{
+        //START METHOD anonymousmethod_70()
+/*C*/      void* Z_anonymousmethod_70(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_currentCarriageWeAreLookingAt, local_wrappedCurrentCarriage)}
 /*C*/      void* Z_local_currentCarriageWeAreLookingAt = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_wrappedCurrentCarriage = *(((void* *)(frame+sizeof(void*)*1)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_70
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_70;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_71
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_71;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_wrappedCurrentCarriage)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_local_wrappedCurrentCarriage);
@@ -13473,8 +13511,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_68(local_stop)
-/*C*/      void* Z_anonymousmethod_68(void* frame, void* Z_local_stop) {{
+        //START METHOD anonymousmethod_69(local_stop)
+/*C*/      void* Z_anonymousmethod_69(void* frame, void* Z_local_stop) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_carriageReceiver, local_checkIfThereAreMoreCarriagesToLookInside, local_getCurrentCarriageWeAreLookingAt, local_wrappedCurrentCarriage)}
 /*C*/      void* Z_local_carriageReceiver = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_checkIfThereAreMoreCarriagesToLookInside = *(((void* *)(frame+sizeof(void*)*1)));
@@ -13498,8 +13536,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_currentCarriageWeAreLookingAt = ((void *)(0));
               //ASSIGN local_currentCarriageWeAreLookingAt = temporary_2
 /*C*/         Z_local_currentCarriageWeAreLookingAt = Z_temporary_2;
-              //CREATE STATIC_OBJECT temporary_5 WITH METHOD anonymousmethod_69
-/*C*/         void* Z_temporary_5 = &Z_anonymousmethod_69;
+              //CREATE STATIC_OBJECT temporary_5 WITH METHOD anonymousmethod_70
+/*C*/         void* Z_temporary_5 = &Z_anonymousmethod_70;
               //CREATE DYNAMIC_OBJECT temporary_4 WITH METHOD[STATIC_OBJECT] temporary_5 FRAME{STATIC(),DYNAMIC(local_currentCarriageWeAreLookingAt, local_wrappedCurrentCarriage)}
 /*C*/         void* Z_temporary_4 = allocateDynamicLambda(2,2,Z_temporary_5);
 /*C*/         RetainDynamicObject(Z_local_currentCarriageWeAreLookingAt);
@@ -13636,8 +13674,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_getCurrentCarriageWeAreLookingAt = ((void *)(0));
               //ASSIGN local_getCurrentCarriageWeAreLookingAt = temporary_9
 /*C*/         Z_local_getCurrentCarriageWeAreLookingAt = Z_temporary_9;
-              //CREATE STATIC_OBJECT temporary_12 WITH METHOD anonymousmethod_67
-/*C*/         void* Z_temporary_12 = &Z_anonymousmethod_67;
+              //CREATE STATIC_OBJECT temporary_12 WITH METHOD anonymousmethod_68
+/*C*/         void* Z_temporary_12 = &Z_anonymousmethod_68;
               //CREATE DYNAMIC_OBJECT temporary_11 WITH METHOD[STATIC_OBJECT] temporary_12 FRAME{STATIC(),DYNAMIC(local_getCurrentCarriageWeAreLookingAt)}
 /*C*/         void* Z_temporary_11 = allocateDynamicLambda(1,1,Z_temporary_12);
 /*C*/         RetainDynamicObject(Z_local_getCurrentCarriageWeAreLookingAt);
@@ -13646,8 +13684,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_checkIfThereAreMoreCarriagesToLookInside = ((void *)(0));
               //ASSIGN local_checkIfThereAreMoreCarriagesToLookInside = temporary_11
 /*C*/         Z_local_checkIfThereAreMoreCarriagesToLookInside = Z_temporary_11;
-              //CREATE STATIC_OBJECT temporary_15 WITH METHOD anonymousmethod_68
-/*C*/         void* Z_temporary_15 = &Z_anonymousmethod_68;
+              //CREATE STATIC_OBJECT temporary_15 WITH METHOD anonymousmethod_69
+/*C*/         void* Z_temporary_15 = &Z_anonymousmethod_69;
               //CREATE DYNAMIC_OBJECT temporary_14 WITH METHOD[STATIC_OBJECT] temporary_15 FRAME{STATIC(),DYNAMIC(local_carriageReceiver, local_checkIfThereAreMoreCarriagesToLookInside, local_getCurrentCarriageWeAreLookingAt, local_wrappedCurrentCarriage)}
 /*C*/         void* Z_temporary_14 = allocateDynamicLambda(4,4,Z_temporary_15);
 /*C*/         RetainDynamicObject(Z_local_carriageReceiver);
@@ -13678,8 +13716,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
            //EXIT LOCAL SCOPE
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_71(local_carriage)
-/*C*/      void* Z_anonymousmethod_71(void* frame, void* Z_local_carriage) {{
+        //START METHOD anonymousmethod_72(local_carriage)
+/*C*/      void* Z_anonymousmethod_72(void* frame, void* Z_local_carriage) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_cargoReceiver)}
 /*C*/      void* Z_local_cargoReceiver = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
@@ -13706,8 +13744,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_classmethod_Train_iterateThroughObjectsOnTrain(void* frame, void* Z_local_cargoReceiver) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_71
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_71;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_72
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_72;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_cargoReceiver)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_local_cargoReceiver);
@@ -13726,8 +13764,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_76(local_backCoupledCarriage)
-/*C*/      void* Z_anonymousmethod_76(void* frame, void* Z_local_backCoupledCarriage) {{
+        //START METHOD anonymousmethod_77(local_backCoupledCarriage)
+/*C*/      void* Z_anonymousmethod_77(void* frame, void* Z_local_backCoupledCarriage) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_frontCoupledCarriage)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_frontCoupledCarriage = *(((void* *)(frame+sizeof(void*)*1)));
@@ -13759,13 +13797,13 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_3);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_75(local_frontCoupledCarriage)
-/*C*/      void* Z_anonymousmethod_75(void* frame, void* Z_local_frontCoupledCarriage) {{
+        //START METHOD anonymousmethod_76(local_frontCoupledCarriage)
+/*C*/      void* Z_anonymousmethod_76(void* frame, void* Z_local_frontCoupledCarriage) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_theCarriageInQuestion)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_theCarriageInQuestion = *(((void* *)(frame+sizeof(void*)*1)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_76
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_76;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_77
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_77;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self, local_frontCoupledCarriage)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(2,2,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_self);
@@ -13786,13 +13824,13 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_74()
-/*C*/      void* Z_anonymousmethod_74(void* frame) {{
+        //START METHOD anonymousmethod_75()
+/*C*/      void* Z_anonymousmethod_75(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_theCarriageInQuestion)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_theCarriageInQuestion = *(((void* *)(frame+sizeof(void*)*1)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_75
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_75;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_76
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_76;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self, local_theCarriageInQuestion)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(2,2,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_self);
@@ -13813,17 +13851,17 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_78(local_poppedObject)
-/*C*/      void* Z_anonymousmethod_78(void* frame, void* Z_local_poppedObject) {{
+        //START METHOD anonymousmethod_79(local_poppedObject)
+/*C*/      void* Z_anonymousmethod_79(void* frame, void* Z_local_poppedObject) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC()}
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_77()
-/*C*/      void* Z_anonymousmethod_77(void* frame) {{
+        //START METHOD anonymousmethod_78()
+/*C*/      void* Z_anonymousmethod_78(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_78
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_78;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_79
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_79;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC()}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(0,0,Z_temporary_3);
            //CREATE STATIC_OBJECT temporary_5 WITH METHOD classmethod_Train_popFromBack
@@ -13840,17 +13878,17 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_80(local_poppedObject)
-/*C*/      void* Z_anonymousmethod_80(void* frame, void* Z_local_poppedObject) {{
+        //START METHOD anonymousmethod_81(local_poppedObject)
+/*C*/      void* Z_anonymousmethod_81(void* frame, void* Z_local_poppedObject) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC()}
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_79()
-/*C*/      void* Z_anonymousmethod_79(void* frame) {{
+        //START METHOD anonymousmethod_80()
+/*C*/      void* Z_anonymousmethod_80(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_80
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_80;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_81
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_81;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC()}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(0,0,Z_temporary_3);
            //CREATE STATIC_OBJECT temporary_5 WITH METHOD classmethod_Train_popFromFront
@@ -13867,8 +13905,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_81()
-/*C*/      void* Z_anonymousmethod_81(void* frame) {{
+        //START METHOD anonymousmethod_82()
+/*C*/      void* Z_anonymousmethod_82(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_carriageIsConnectedAtFront, local_removeCarriageFromBackOfTrain, local_removeCarriageFromFrontOfTrain)}
 /*C*/      void* Z_local_carriageIsConnectedAtFront = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_removeCarriageFromBackOfTrain = *(((void* *)(frame+sizeof(void*)*1)));
@@ -13911,8 +13949,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_6);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_73()
-/*C*/      void* Z_anonymousmethod_73(void* frame) {{
+        //START METHOD anonymousmethod_74()
+/*C*/      void* Z_anonymousmethod_74(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_carriageToRemoveCargo)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_carriageToRemoveCargo = *(((void* *)(frame+sizeof(void*)*1)));
@@ -13930,8 +13968,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_theCarriageInQuestion = ((void *)(0));
               //ASSIGN local_theCarriageInQuestion = temporary_2
 /*C*/         Z_local_theCarriageInQuestion = Z_temporary_2;
-              //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_74
-/*C*/         void* Z_temporary_4 = &Z_anonymousmethod_74;
+              //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_75
+/*C*/         void* Z_temporary_4 = &Z_anonymousmethod_75;
               //CREATE DYNAMIC_OBJECT temporary_3 WITH METHOD[STATIC_OBJECT] temporary_4 FRAME{STATIC(),DYNAMIC(self, local_theCarriageInQuestion)}
 /*C*/         void* Z_temporary_3 = allocateDynamicLambda(2,2,Z_temporary_4);
 /*C*/         RetainDynamicObject(Z_self);
@@ -13942,8 +13980,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_removeCarriageFromMiddleOfTrain = ((void *)(0));
               //ASSIGN local_removeCarriageFromMiddleOfTrain = temporary_3
 /*C*/         Z_local_removeCarriageFromMiddleOfTrain = Z_temporary_3;
-              //CREATE STATIC_OBJECT temporary_6 WITH METHOD anonymousmethod_77
-/*C*/         void* Z_temporary_6 = &Z_anonymousmethod_77;
+              //CREATE STATIC_OBJECT temporary_6 WITH METHOD anonymousmethod_78
+/*C*/         void* Z_temporary_6 = &Z_anonymousmethod_78;
               //CREATE DYNAMIC_OBJECT temporary_5 WITH METHOD[STATIC_OBJECT] temporary_6 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/         void* Z_temporary_5 = allocateDynamicLambda(1,1,Z_temporary_6);
 /*C*/         RetainDynamicObject(Z_self);
@@ -13952,8 +13990,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_removeCarriageFromBackOfTrain = ((void *)(0));
               //ASSIGN local_removeCarriageFromBackOfTrain = temporary_5
 /*C*/         Z_local_removeCarriageFromBackOfTrain = Z_temporary_5;
-              //CREATE STATIC_OBJECT temporary_8 WITH METHOD anonymousmethod_79
-/*C*/         void* Z_temporary_8 = &Z_anonymousmethod_79;
+              //CREATE STATIC_OBJECT temporary_8 WITH METHOD anonymousmethod_80
+/*C*/         void* Z_temporary_8 = &Z_anonymousmethod_80;
               //CREATE DYNAMIC_OBJECT temporary_7 WITH METHOD[STATIC_OBJECT] temporary_8 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/         void* Z_temporary_7 = allocateDynamicLambda(1,1,Z_temporary_8);
 /*C*/         RetainDynamicObject(Z_self);
@@ -14036,8 +14074,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         ReleaseDynamicObject(Z_temporary_22);
               //RELEASE temporary_21
 /*C*/         ReleaseDynamicObject(Z_temporary_21);
-              //CREATE STATIC_OBJECT temporary_26 WITH METHOD anonymousmethod_81
-/*C*/         void* Z_temporary_26 = &Z_anonymousmethod_81;
+              //CREATE STATIC_OBJECT temporary_26 WITH METHOD anonymousmethod_82
+/*C*/         void* Z_temporary_26 = &Z_anonymousmethod_82;
               //CREATE DYNAMIC_OBJECT temporary_25 WITH METHOD[STATIC_OBJECT] temporary_26 FRAME{STATIC(),DYNAMIC(local_carriageIsConnectedAtFront, local_removeCarriageFromBackOfTrain, local_removeCarriageFromFrontOfTrain)}
 /*C*/         void* Z_temporary_25 = allocateDynamicLambda(3,3,Z_temporary_26);
 /*C*/         RetainDynamicObject(Z_local_carriageIsConnectedAtFront);
@@ -14076,16 +14114,16 @@ Z_local_weakReferenceFlag = (void *)(0==0);
            //EXIT LOCAL SCOPE
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_72(local_carriageToRemoveCargo)
-/*C*/      void* Z_anonymousmethod_72(void* frame, void* Z_local_carriageToRemoveCargo) {{
+        //START METHOD anonymousmethod_73(local_carriageToRemoveCargo)
+/*C*/      void* Z_anonymousmethod_73(void* frame, void* Z_local_carriageToRemoveCargo) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT retval WITH EMPTY_VALUE
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_73
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_73;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_74
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_74;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self, local_carriageToRemoveCargo)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(2,2,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_self);
@@ -14146,8 +14184,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
            //EXIT LOCAL SCOPE
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_84()
-/*C*/      void* Z_anonymousmethod_84(void* frame) {{
+        //START METHOD anonymousmethod_85()
+/*C*/      void* Z_anonymousmethod_85(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_carriage, local_removeCargoFromTrainWithCarriage)}
 /*C*/      void* Z_local_carriage = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_removeCargoFromTrainWithCarriage = *(((void* *)(frame+sizeof(void*)*1)));
@@ -14171,8 +14209,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_83(local_cargo)
-/*C*/      void* Z_anonymousmethod_83(void* frame, void* Z_local_cargo) {{
+        //START METHOD anonymousmethod_84(local_cargo)
+/*C*/      void* Z_anonymousmethod_84(void* frame, void* Z_local_cargo) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_carriage, local_determineIfWeShouldRemoveCargoFromTrain, local_removeCargoFromTrainWithCarriage)}
 /*C*/      void* Z_local_carriage = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_determineIfWeShouldRemoveCargoFromTrain = *(((void* *)(frame+sizeof(void*)*1)));
@@ -14199,8 +14237,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_local_weShouldDeleteThisCargo = ((void *)(0));
            //ASSIGN local_weShouldDeleteThisCargo = temporary_1
 /*C*/      Z_local_weShouldDeleteThisCargo = Z_temporary_1;
-           //CREATE STATIC_OBJECT temporary_6 WITH METHOD anonymousmethod_84
-/*C*/      void* Z_temporary_6 = &Z_anonymousmethod_84;
+           //CREATE STATIC_OBJECT temporary_6 WITH METHOD anonymousmethod_85
+/*C*/      void* Z_temporary_6 = &Z_anonymousmethod_85;
            //CREATE DYNAMIC_OBJECT temporary_5 WITH METHOD[STATIC_OBJECT] temporary_6 FRAME{STATIC(),DYNAMIC(local_carriage, local_removeCargoFromTrainWithCarriage)}
 /*C*/      void* Z_temporary_5 = allocateDynamicLambda(2,2,Z_temporary_6);
 /*C*/      RetainDynamicObject(Z_local_carriage);
@@ -14223,13 +14261,13 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_weShouldDeleteThisCargo);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_82(local_carriage)
-/*C*/      void* Z_anonymousmethod_82(void* frame, void* Z_local_carriage) {{
+        //START METHOD anonymousmethod_83(local_carriage)
+/*C*/      void* Z_anonymousmethod_83(void* frame, void* Z_local_carriage) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_determineIfWeShouldRemoveCargoFromTrain, local_removeCargoFromTrainWithCarriage)}
 /*C*/      void* Z_local_determineIfWeShouldRemoveCargoFromTrain = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_removeCargoFromTrainWithCarriage = *(((void* *)(frame+sizeof(void*)*1)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_83
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_83;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_84
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_84;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_carriage, local_determineIfWeShouldRemoveCargoFromTrain, local_removeCargoFromTrainWithCarriage)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(3,3,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_local_carriage);
@@ -14260,8 +14298,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_72
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_72;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_73
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_73;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_self);
@@ -14270,8 +14308,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_removeCargoFromTrainWithCarriage = ((void *)(0));
               //ASSIGN local_removeCargoFromTrainWithCarriage = temporary_2
 /*C*/         Z_local_removeCargoFromTrainWithCarriage = Z_temporary_2;
-              //CREATE STATIC_OBJECT temporary_6 WITH METHOD anonymousmethod_82
-/*C*/         void* Z_temporary_6 = &Z_anonymousmethod_82;
+              //CREATE STATIC_OBJECT temporary_6 WITH METHOD anonymousmethod_83
+/*C*/         void* Z_temporary_6 = &Z_anonymousmethod_83;
               //CREATE DYNAMIC_OBJECT temporary_5 WITH METHOD[STATIC_OBJECT] temporary_6 FRAME{STATIC(),DYNAMIC(local_determineIfWeShouldRemoveCargoFromTrain, local_removeCargoFromTrainWithCarriage)}
 /*C*/         void* Z_temporary_5 = allocateDynamicLambda(2,2,Z_temporary_6);
 /*C*/         RetainDynamicObject(Z_local_determineIfWeShouldRemoveCargoFromTrain);
@@ -14296,8 +14334,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
            //EXIT LOCAL SCOPE
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_86(local_cargoNotYetTransformed)
-/*C*/      void* Z_anonymousmethod_86(void* frame, void* Z_local_cargoNotYetTransformed) {{
+        //START METHOD anonymousmethod_87(local_cargoNotYetTransformed)
+/*C*/      void* Z_anonymousmethod_87(void* frame, void* Z_local_cargoNotYetTransformed) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_cargoTransformer, local_carriage)}
 /*C*/      void* Z_local_cargoTransformer = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_carriage = *(((void* *)(frame+sizeof(void*)*1)));
@@ -14345,12 +14383,12 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_transformedCargo);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_85(local_carriage)
-/*C*/      void* Z_anonymousmethod_85(void* frame, void* Z_local_carriage) {{
+        //START METHOD anonymousmethod_86(local_carriage)
+/*C*/      void* Z_anonymousmethod_86(void* frame, void* Z_local_carriage) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_cargoTransformer)}
 /*C*/      void* Z_local_cargoTransformer = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_86
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_86;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_87
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_87;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_cargoTransformer, local_carriage)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(2,2,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_local_cargoTransformer);
@@ -14375,8 +14413,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_classmethod_Train_transformObjectsOnTrain(void* frame, void* Z_local_cargoTransformer) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_85
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_85;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_86
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_86;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_cargoTransformer)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_local_cargoTransformer);
@@ -14395,8 +14433,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_88()
-/*C*/      void* Z_anonymousmethod_88(void* frame) {{
+        //START METHOD anonymousmethod_89()
+/*C*/      void* Z_anonymousmethod_89(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_cargo, local_newTrain)}
 /*C*/      void* Z_local_cargo = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_newTrain = *(((void* *)(frame+sizeof(void*)*1)));
@@ -14420,8 +14458,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_87(local_cargo)
-/*C*/      void* Z_anonymousmethod_87(void* frame, void* Z_local_cargo) {{
+        //START METHOD anonymousmethod_88(local_cargo)
+/*C*/      void* Z_anonymousmethod_88(void* frame, void* Z_local_cargo) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_determineIfCargoShouldBeOnNewTrain, local_newTrain)}
 /*C*/      void* Z_local_determineIfCargoShouldBeOnNewTrain = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_newTrain = *(((void* *)(frame+sizeof(void*)*1)));
@@ -14447,8 +14485,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_local_cargoShouldBeOnNewTrain = ((void *)(0));
            //ASSIGN local_cargoShouldBeOnNewTrain = temporary_1
 /*C*/      Z_local_cargoShouldBeOnNewTrain = Z_temporary_1;
-           //CREATE STATIC_OBJECT temporary_6 WITH METHOD anonymousmethod_88
-/*C*/      void* Z_temporary_6 = &Z_anonymousmethod_88;
+           //CREATE STATIC_OBJECT temporary_6 WITH METHOD anonymousmethod_89
+/*C*/      void* Z_temporary_6 = &Z_anonymousmethod_89;
            //CREATE DYNAMIC_OBJECT temporary_5 WITH METHOD[STATIC_OBJECT] temporary_6 FRAME{STATIC(),DYNAMIC(local_cargo, local_newTrain)}
 /*C*/      void* Z_temporary_5 = allocateDynamicLambda(2,2,Z_temporary_6);
 /*C*/      RetainDynamicObject(Z_local_cargo);
@@ -14499,8 +14537,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_local_newTrain = ((void *)(0));
            //ASSIGN local_newTrain = temporary_1
 /*C*/      Z_local_newTrain = Z_temporary_1;
-           //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_87
-/*C*/      void* Z_temporary_9 = &Z_anonymousmethod_87;
+           //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_88
+/*C*/      void* Z_temporary_9 = &Z_anonymousmethod_88;
            //CREATE DYNAMIC_OBJECT temporary_8 WITH METHOD[STATIC_OBJECT] temporary_9 FRAME{STATIC(),DYNAMIC(local_determineIfCargoShouldBeOnNewTrain, local_newTrain)}
 /*C*/      void* Z_temporary_8 = allocateDynamicLambda(2,2,Z_temporary_9);
 /*C*/      RetainDynamicObject(Z_local_determineIfCargoShouldBeOnNewTrain);
@@ -14531,8 +14569,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_90()
-/*C*/      void* Z_anonymousmethod_90(void* frame) {{
+        //START METHOD anonymousmethod_91()
+/*C*/      void* Z_anonymousmethod_91(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_containerOfCurrentFusedObject, local_objectOnTrain)}
 /*C*/      void* Z_local_containerOfCurrentFusedObject = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_objectOnTrain = *(((void* *)(frame+sizeof(void*)*1)));
@@ -14556,8 +14594,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_92(local_objectInContainer)
-/*C*/      void* Z_anonymousmethod_92(void* frame, void* Z_local_objectInContainer) {{
+        //START METHOD anonymousmethod_93(local_objectInContainer)
+/*C*/      void* Z_anonymousmethod_93(void* frame, void* Z_local_objectInContainer) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_containerOfCurrentFusedObject, local_fuseTwoObjects, local_objectOnTrain)}
 /*C*/      void* Z_local_containerOfCurrentFusedObject = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_fuseTwoObjects = *(((void* *)(frame+sizeof(void*)*1)));
@@ -14602,14 +14640,14 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_91()
-/*C*/      void* Z_anonymousmethod_91(void* frame) {{
+        //START METHOD anonymousmethod_92()
+/*C*/      void* Z_anonymousmethod_92(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_containerOfCurrentFusedObject, local_fuseTwoObjects, local_objectOnTrain)}
 /*C*/      void* Z_local_containerOfCurrentFusedObject = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_fuseTwoObjects = *(((void* *)(frame+sizeof(void*)*1)));
 /*C*/      void* Z_local_objectOnTrain = *(((void* *)(frame+sizeof(void*)*2)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_92
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_92;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_93
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_93;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_containerOfCurrentFusedObject, local_fuseTwoObjects, local_objectOnTrain)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(3,3,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_local_containerOfCurrentFusedObject);
@@ -14632,8 +14670,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_89(local_objectOnTrain)
-/*C*/      void* Z_anonymousmethod_89(void* frame, void* Z_local_objectOnTrain) {{
+        //START METHOD anonymousmethod_90(local_objectOnTrain)
+/*C*/      void* Z_anonymousmethod_90(void* frame, void* Z_local_objectOnTrain) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_containerOfCurrentFusedObject, local_fuseTwoObjects)}
 /*C*/      void* Z_local_containerOfCurrentFusedObject = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_fuseTwoObjects = *(((void* *)(frame+sizeof(void*)*1)));
@@ -14641,8 +14679,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_90
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_90;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_91
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_91;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_containerOfCurrentFusedObject, local_objectOnTrain)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(2,2,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_local_containerOfCurrentFusedObject);
@@ -14653,8 +14691,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_insertObjectOnTrainIntoContainer = ((void *)(0));
               //ASSIGN local_insertObjectOnTrainIntoContainer = temporary_2
 /*C*/         Z_local_insertObjectOnTrainIntoContainer = Z_temporary_2;
-              //CREATE STATIC_OBJECT temporary_5 WITH METHOD anonymousmethod_91
-/*C*/         void* Z_temporary_5 = &Z_anonymousmethod_91;
+              //CREATE STATIC_OBJECT temporary_5 WITH METHOD anonymousmethod_92
+/*C*/         void* Z_temporary_5 = &Z_anonymousmethod_92;
               //CREATE DYNAMIC_OBJECT temporary_4 WITH METHOD[STATIC_OBJECT] temporary_5 FRAME{STATIC(),DYNAMIC(local_containerOfCurrentFusedObject, local_fuseTwoObjects, local_objectOnTrain)}
 /*C*/         void* Z_temporary_4 = allocateDynamicLambda(3,3,Z_temporary_5);
 /*C*/         RetainDynamicObject(Z_local_containerOfCurrentFusedObject);
@@ -14755,8 +14793,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_local_containerOfCurrentFusedObject = ((void *)(0));
            //ASSIGN local_containerOfCurrentFusedObject = temporary_1
 /*C*/      Z_local_containerOfCurrentFusedObject = Z_temporary_1;
-           //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_89
-/*C*/      void* Z_temporary_9 = &Z_anonymousmethod_89;
+           //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_90
+/*C*/      void* Z_temporary_9 = &Z_anonymousmethod_90;
            //CREATE DYNAMIC_OBJECT temporary_8 WITH METHOD[STATIC_OBJECT] temporary_9 FRAME{STATIC(),DYNAMIC(local_containerOfCurrentFusedObject, local_fuseTwoObjects)}
 /*C*/      void* Z_temporary_8 = allocateDynamicLambda(2,2,Z_temporary_9);
 /*C*/      RetainDynamicObject(Z_local_containerOfCurrentFusedObject);
@@ -14827,8 +14865,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_newObject;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_93(local_o)
-/*C*/      void* Z_anonymousmethod_93(void* frame, void* Z_local_o) {{
+        //START METHOD anonymousmethod_94(local_o)
+/*C*/      void* Z_anonymousmethod_94(void* frame, void* Z_local_o) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_reversedSomeTrain)}
 /*C*/      void* Z_local_reversedSomeTrain = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
@@ -14878,8 +14916,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_local_reversedSomeTrain = ((void *)(0));
            //ASSIGN local_reversedSomeTrain = temporary_1
 /*C*/      Z_local_reversedSomeTrain = Z_temporary_1;
-           //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_93
-/*C*/      void* Z_temporary_9 = &Z_anonymousmethod_93;
+           //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_94
+/*C*/      void* Z_temporary_9 = &Z_anonymousmethod_94;
            //CREATE DYNAMIC_OBJECT temporary_8 WITH METHOD[STATIC_OBJECT] temporary_9 FRAME{STATIC(),DYNAMIC(local_reversedSomeTrain)}
 /*C*/      void* Z_temporary_8 = allocateDynamicLambda(1,1,Z_temporary_9);
 /*C*/      RetainDynamicObject(Z_local_reversedSomeTrain);
@@ -15112,23 +15150,6 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_95(local_n)
-/*C*/      void* Z_anonymousmethod_95(void* frame, void* Z_local_n) {{
-           //PULL OBJECTS FRAME{STATIC(),DYNAMIC()}
-           //CREATE STATIC_OBJECT temporary_2 WITH METHOD classmethod_Natural_naturalByAddingOne
-/*C*/      void* Z_temporary_2 = &Z_classmethod_Natural_naturalByAddingOne;
-           //CREATE DYNAMIC_OBJECT temporary_1 WITH METHOD[STATIC_OBJECT] temporary_2 FRAME{STATIC(),DYNAMIC(local_n)}
-/*C*/      void* Z_temporary_1 = allocateDynamicLambda(1,1,Z_temporary_2);
-/*C*/      RetainDynamicObject(Z_local_n);
-/*C*/      *(((void* *)(Z_temporary_1+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_n;
-           //CREATE OBJECT retval = INVOKE temporary_1()
-/*C*/      void* Z_retval = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_1))->method))(Z_temporary_1+sizeof(DynamicLambda));
-           //RELEASE temporary_1
-/*C*/      ReleaseDynamicObject(Z_temporary_1);
-           //RETURN retval
-/*C*/      return Z_retval;
-        //FINISH METHOD
-/*C*/   }return NULL;}
         //START METHOD anonymousmethod_96(local_n)
 /*C*/      void* Z_anonymousmethod_96(void* frame, void* Z_local_n) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC()}
@@ -15146,8 +15167,25 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_94(local_n)
-/*C*/      void* Z_anonymousmethod_94(void* frame, void* Z_local_n) {{
+        //START METHOD anonymousmethod_97(local_n)
+/*C*/      void* Z_anonymousmethod_97(void* frame, void* Z_local_n) {{
+           //PULL OBJECTS FRAME{STATIC(),DYNAMIC()}
+           //CREATE STATIC_OBJECT temporary_2 WITH METHOD classmethod_Natural_naturalByAddingOne
+/*C*/      void* Z_temporary_2 = &Z_classmethod_Natural_naturalByAddingOne;
+           //CREATE DYNAMIC_OBJECT temporary_1 WITH METHOD[STATIC_OBJECT] temporary_2 FRAME{STATIC(),DYNAMIC(local_n)}
+/*C*/      void* Z_temporary_1 = allocateDynamicLambda(1,1,Z_temporary_2);
+/*C*/      RetainDynamicObject(Z_local_n);
+/*C*/      *(((void* *)(Z_temporary_1+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_n;
+           //CREATE OBJECT retval = INVOKE temporary_1()
+/*C*/      void* Z_retval = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_1))->method))(Z_temporary_1+sizeof(DynamicLambda));
+           //RELEASE temporary_1
+/*C*/      ReleaseDynamicObject(Z_temporary_1);
+           //RETURN retval
+/*C*/      return Z_retval;
+        //FINISH METHOD
+/*C*/   }return NULL;}
+        //START METHOD anonymousmethod_95(local_n)
+/*C*/      void* Z_anonymousmethod_95(void* frame, void* Z_local_n) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_indexAndNeuralValueLooker, local_wrappedIndexOfNeuralValue)}
 /*C*/      void* Z_local_indexAndNeuralValueLooker = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_wrappedIndexOfNeuralValue = *(((void* *)(frame+sizeof(void*)*1)));
@@ -15181,8 +15219,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
            //RELEASE temporary_5
 /*C*/      ReleaseDynamicObject(Z_temporary_5);
-           //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_96
-/*C*/      void* Z_temporary_9 = &Z_anonymousmethod_96;
+           //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_97
+/*C*/      void* Z_temporary_9 = &Z_anonymousmethod_97;
            //CREATE DYNAMIC_OBJECT temporary_8 WITH METHOD[STATIC_OBJECT] temporary_9 FRAME{STATIC(),DYNAMIC()}
 /*C*/      void* Z_temporary_8 = allocateDynamicLambda(0,0,Z_temporary_9);
            //CREATE STATIC_OBJECT temporary_11 WITH METHOD classmethod_Container_transformStoredObject
@@ -15253,8 +15291,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_wrappedIndexOfNeuralValue = ((void *)(0));
               //ASSIGN local_wrappedIndexOfNeuralValue = temporary_2
 /*C*/         Z_local_wrappedIndexOfNeuralValue = Z_temporary_2;
-              //CREATE STATIC_OBJECT temporary_15 WITH METHOD anonymousmethod_94
-/*C*/         void* Z_temporary_15 = &Z_anonymousmethod_94;
+              //CREATE STATIC_OBJECT temporary_15 WITH METHOD anonymousmethod_95
+/*C*/         void* Z_temporary_15 = &Z_anonymousmethod_95;
               //CREATE DYNAMIC_OBJECT temporary_14 WITH METHOD[STATIC_OBJECT] temporary_15 FRAME{STATIC(),DYNAMIC(local_indexAndNeuralValueLooker, local_wrappedIndexOfNeuralValue)}
 /*C*/         void* Z_temporary_14 = allocateDynamicLambda(2,2,Z_temporary_15);
 /*C*/         RetainDynamicObject(Z_local_indexAndNeuralValueLooker);
@@ -15293,8 +15331,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
            //EXIT LOCAL SCOPE
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_97(local_n1, local_n2)
-/*C*/      void* Z_anonymousmethod_97(void* frame, void* Z_local_n1, void* Z_local_n2) {{
+        //START METHOD anonymousmethod_98(local_n1, local_n2)
+/*C*/      void* Z_anonymousmethod_98(void* frame, void* Z_local_n1, void* Z_local_n2) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC()}
            //CREATE STATIC_OBJECT temporary_1 WITH EMPTY_VALUE
 /*C*/      void* Z_temporary_1 = ((void *)(0));
@@ -15318,8 +15356,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_98(local_n1, local_n2)
-/*C*/      void* Z_anonymousmethod_98(void* frame, void* Z_local_n1, void* Z_local_n2) {{
+        //START METHOD anonymousmethod_99(local_n1, local_n2)
+/*C*/      void* Z_anonymousmethod_99(void* frame, void* Z_local_n1, void* Z_local_n2) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC()}
            //CREATE STATIC_OBJECT temporary_1 WITH EMPTY_VALUE
 /*C*/      void* Z_temporary_1 = ((void *)(0));
@@ -15351,8 +15389,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_98
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_98;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_99
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_99;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC()}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(0,0,Z_temporary_3);
               //CREATE STATIC_OBJECT local_fusionRuleToSumUpNeuralValues WITH EMPTY_VALUE
@@ -15435,8 +15473,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_99(local_neuralValue)
-/*C*/      void* Z_anonymousmethod_99(void* frame, void* Z_local_neuralValue) {{
+        //START METHOD anonymousmethod_100(local_neuralValue)
+/*C*/      void* Z_anonymousmethod_100(void* frame, void* Z_local_neuralValue) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_stdout)}
 /*C*/      void* Z_local_stdout = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_4 WITH METHOD classmethod_NeuralValue_stringRepresentationOfNeuralValue
@@ -15547,8 +15585,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_12);
            //RELEASE temporary_5
 /*C*/      ReleaseDynamicObject(Z_temporary_5);
-           //CREATE STATIC_OBJECT temporary_16 WITH METHOD anonymousmethod_99
-/*C*/      void* Z_temporary_16 = &Z_anonymousmethod_99;
+           //CREATE STATIC_OBJECT temporary_16 WITH METHOD anonymousmethod_100
+/*C*/      void* Z_temporary_16 = &Z_anonymousmethod_100;
            //CREATE DYNAMIC_OBJECT temporary_15 WITH METHOD[STATIC_OBJECT] temporary_16 FRAME{STATIC(),DYNAMIC(local_stdout)}
 /*C*/      void* Z_temporary_15 = allocateDynamicLambda(1,1,Z_temporary_16);
 /*C*/      RetainDynamicObject(Z_local_stdout);
@@ -15605,8 +15643,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_stdout);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_101(local_expectedNeuralValue)
-/*C*/      void* Z_anonymousmethod_101(void* frame, void* Z_local_expectedNeuralValue) {{
+        //START METHOD anonymousmethod_102(local_expectedNeuralValue)
+/*C*/      void* Z_anonymousmethod_102(void* frame, void* Z_local_expectedNeuralValue) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_checkResult, local_neuralValue)}
 /*C*/      void* Z_local_checkResult = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_neuralValue = *(((void* *)(frame+sizeof(void*)*1)));
@@ -15640,45 +15678,6 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_6);
            //RELEASE temporary_2
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
-        //FINISH METHOD
-/*C*/   }return NULL;}
-        //START METHOD anonymousmethod_102(local_n)
-/*C*/      void* Z_anonymousmethod_102(void* frame, void* Z_local_n) {{
-           //PULL OBJECTS FRAME{STATIC(),DYNAMIC()}
-           //CREATE STATIC_OBJECT temporary_5 WITH METHOD allocator_Natural
-/*C*/      void* Z_temporary_5 = &Z_allocator_Natural;
-           //CREATE DYNAMIC_OBJECT temporary_4 WITH METHOD[STATIC_OBJECT] temporary_5 FRAME{STATIC(),DYNAMIC()}
-/*C*/      void* Z_temporary_4 = allocateDynamicLambda(0,0,Z_temporary_5);
-           //CREATE OBJECT temporary_3 = INVOKE temporary_4()
-/*C*/      void* Z_temporary_3 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_4))->method))(Z_temporary_4+sizeof(DynamicLambda));
-           //RELEASE temporary_4
-/*C*/      ReleaseDynamicObject(Z_temporary_4);
-           //CREATE STATIC_OBJECT temporary_6 WITH METHOD classmethod_Natural_one
-/*C*/      void* Z_temporary_6 = &Z_classmethod_Natural_one;
-           //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_6 FRAME{STATIC(),DYNAMIC(temporary_3)}
-/*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_6);
-/*C*/      RetainDynamicObject(Z_temporary_3);
-/*C*/      *(((void* *)(Z_temporary_2+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_temporary_3;
-           //RELEASE temporary_3
-/*C*/      ReleaseDynamicObject(Z_temporary_3);
-           //CREATE OBJECT temporary_1 = INVOKE temporary_2()
-/*C*/      void* Z_temporary_1 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_2))->method))(Z_temporary_2+sizeof(DynamicLambda));
-           //RELEASE temporary_2
-/*C*/      ReleaseDynamicObject(Z_temporary_2);
-           //CREATE STATIC_OBJECT temporary_8 WITH METHOD classmethod_Integer_integerByAdding
-/*C*/      void* Z_temporary_8 = &Z_classmethod_Integer_integerByAdding;
-           //CREATE DYNAMIC_OBJECT temporary_7 WITH METHOD[STATIC_OBJECT] temporary_8 FRAME{STATIC(),DYNAMIC(local_n)}
-/*C*/      void* Z_temporary_7 = allocateDynamicLambda(1,1,Z_temporary_8);
-/*C*/      RetainDynamicObject(Z_local_n);
-/*C*/      *(((void* *)(Z_temporary_7+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_n;
-           //CREATE OBJECT retval = INVOKE temporary_7(temporary_1)
-/*C*/      void* Z_retval = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_7))->method))(Z_temporary_7+sizeof(DynamicLambda), Z_temporary_1);
-           //RELEASE temporary_7
-/*C*/      ReleaseDynamicObject(Z_temporary_7);
-           //RELEASE temporary_1
-/*C*/      ReleaseDynamicObject(Z_temporary_1);
-           //RETURN retval
-/*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
         //START METHOD anonymousmethod_103(local_n)
@@ -15720,8 +15719,47 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_100(local_index, local_neuralValue)
-/*C*/      void* Z_anonymousmethod_100(void* frame, void* Z_local_index, void* Z_local_neuralValue) {{
+        //START METHOD anonymousmethod_104(local_n)
+/*C*/      void* Z_anonymousmethod_104(void* frame, void* Z_local_n) {{
+           //PULL OBJECTS FRAME{STATIC(),DYNAMIC()}
+           //CREATE STATIC_OBJECT temporary_5 WITH METHOD allocator_Natural
+/*C*/      void* Z_temporary_5 = &Z_allocator_Natural;
+           //CREATE DYNAMIC_OBJECT temporary_4 WITH METHOD[STATIC_OBJECT] temporary_5 FRAME{STATIC(),DYNAMIC()}
+/*C*/      void* Z_temporary_4 = allocateDynamicLambda(0,0,Z_temporary_5);
+           //CREATE OBJECT temporary_3 = INVOKE temporary_4()
+/*C*/      void* Z_temporary_3 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_4))->method))(Z_temporary_4+sizeof(DynamicLambda));
+           //RELEASE temporary_4
+/*C*/      ReleaseDynamicObject(Z_temporary_4);
+           //CREATE STATIC_OBJECT temporary_6 WITH METHOD classmethod_Natural_one
+/*C*/      void* Z_temporary_6 = &Z_classmethod_Natural_one;
+           //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_6 FRAME{STATIC(),DYNAMIC(temporary_3)}
+/*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_6);
+/*C*/      RetainDynamicObject(Z_temporary_3);
+/*C*/      *(((void* *)(Z_temporary_2+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_temporary_3;
+           //RELEASE temporary_3
+/*C*/      ReleaseDynamicObject(Z_temporary_3);
+           //CREATE OBJECT temporary_1 = INVOKE temporary_2()
+/*C*/      void* Z_temporary_1 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_2))->method))(Z_temporary_2+sizeof(DynamicLambda));
+           //RELEASE temporary_2
+/*C*/      ReleaseDynamicObject(Z_temporary_2);
+           //CREATE STATIC_OBJECT temporary_8 WITH METHOD classmethod_Integer_integerByAdding
+/*C*/      void* Z_temporary_8 = &Z_classmethod_Integer_integerByAdding;
+           //CREATE DYNAMIC_OBJECT temporary_7 WITH METHOD[STATIC_OBJECT] temporary_8 FRAME{STATIC(),DYNAMIC(local_n)}
+/*C*/      void* Z_temporary_7 = allocateDynamicLambda(1,1,Z_temporary_8);
+/*C*/      RetainDynamicObject(Z_local_n);
+/*C*/      *(((void* *)(Z_temporary_7+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_n;
+           //CREATE OBJECT retval = INVOKE temporary_7(temporary_1)
+/*C*/      void* Z_retval = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_7))->method))(Z_temporary_7+sizeof(DynamicLambda), Z_temporary_1);
+           //RELEASE temporary_7
+/*C*/      ReleaseDynamicObject(Z_temporary_7);
+           //RELEASE temporary_1
+/*C*/      ReleaseDynamicObject(Z_temporary_1);
+           //RETURN retval
+/*C*/      return Z_retval;
+        //FINISH METHOD
+/*C*/   }return NULL;}
+        //START METHOD anonymousmethod_101(local_index, local_neuralValue)
+/*C*/      void* Z_anonymousmethod_101(void* frame, void* Z_local_index, void* Z_local_neuralValue) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_checkResult, local_trainOfExpectedMelodyNeuralValues, local_wrappedCurrentExpectedIndex)}
 /*C*/      void* Z_local_checkResult = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_trainOfExpectedMelodyNeuralValues = *(((void* *)(frame+sizeof(void*)*1)));
@@ -15760,8 +15798,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_8);
            //RELEASE temporary_2
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
-           //CREATE STATIC_OBJECT temporary_11 WITH METHOD anonymousmethod_101
-/*C*/      void* Z_temporary_11 = &Z_anonymousmethod_101;
+           //CREATE STATIC_OBJECT temporary_11 WITH METHOD anonymousmethod_102
+/*C*/      void* Z_temporary_11 = &Z_anonymousmethod_102;
            //CREATE DYNAMIC_OBJECT temporary_10 WITH METHOD[STATIC_OBJECT] temporary_11 FRAME{STATIC(),DYNAMIC(local_checkResult, local_neuralValue)}
 /*C*/      void* Z_temporary_10 = allocateDynamicLambda(2,2,Z_temporary_11);
 /*C*/      RetainDynamicObject(Z_local_checkResult);
@@ -15780,8 +15818,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_12);
            //RELEASE temporary_10
 /*C*/      ReleaseDynamicObject(Z_temporary_10);
-           //CREATE STATIC_OBJECT temporary_16 WITH METHOD anonymousmethod_103
-/*C*/      void* Z_temporary_16 = &Z_anonymousmethod_103;
+           //CREATE STATIC_OBJECT temporary_16 WITH METHOD anonymousmethod_104
+/*C*/      void* Z_temporary_16 = &Z_anonymousmethod_104;
            //CREATE DYNAMIC_OBJECT temporary_15 WITH METHOD[STATIC_OBJECT] temporary_16 FRAME{STATIC(),DYNAMIC()}
 /*C*/      void* Z_temporary_15 = allocateDynamicLambda(0,0,Z_temporary_16);
            //CREATE STATIC_OBJECT temporary_18 WITH METHOD classmethod_Container_transformStoredObject
@@ -16214,8 +16252,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_wrappedCurrentExpectedIndex = ((void *)(0));
               //ASSIGN local_wrappedCurrentExpectedIndex = temporary_91
 /*C*/         Z_local_wrappedCurrentExpectedIndex = Z_temporary_91;
-              //CREATE STATIC_OBJECT temporary_105 WITH METHOD anonymousmethod_100
-/*C*/         void* Z_temporary_105 = &Z_anonymousmethod_100;
+              //CREATE STATIC_OBJECT temporary_105 WITH METHOD anonymousmethod_101
+/*C*/         void* Z_temporary_105 = &Z_anonymousmethod_101;
               //CREATE DYNAMIC_OBJECT temporary_104 WITH METHOD[STATIC_OBJECT] temporary_105 FRAME{STATIC(),DYNAMIC(local_checkResult, local_trainOfExpectedMelodyNeuralValues, local_wrappedCurrentExpectedIndex)}
 /*C*/         void* Z_temporary_104 = allocateDynamicLambda(3,3,Z_temporary_105);
 /*C*/         RetainDynamicObject(Z_local_checkResult);
@@ -16451,76 +16489,96 @@ Z_local_weakReferenceFlag = (void *)(0==0);
         //START METHOD classmethod_DaveReaction_davesMinimumPitchThreasholdMelodyForHappyness()
 /*C*/      void* Z_classmethod_DaveReaction_davesMinimumPitchThreasholdMelodyForHappyness(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC()}
-           //CREATE STATIC_OBJECT temporary_5 WITH METHOD allocator_NeuralValueMelody
-/*C*/      void* Z_temporary_5 = &Z_allocator_NeuralValueMelody;
-           //CREATE DYNAMIC_OBJECT temporary_4 WITH METHOD[STATIC_OBJECT] temporary_5 FRAME{STATIC(),DYNAMIC()}
-/*C*/      void* Z_temporary_4 = allocateDynamicLambda(0,0,Z_temporary_5);
-           //CREATE OBJECT temporary_3 = INVOKE temporary_4()
-/*C*/      void* Z_temporary_3 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_4))->method))(Z_temporary_4+sizeof(DynamicLambda));
-           //RELEASE temporary_4
-/*C*/      ReleaseDynamicObject(Z_temporary_4);
-           //CREATE STATIC_OBJECT temporary_6 WITH METHOD classmethod_NeuralValueMelody_newEmptyMelody
-/*C*/      void* Z_temporary_6 = &Z_classmethod_NeuralValueMelody_newEmptyMelody;
-           //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_6 FRAME{STATIC(),DYNAMIC(temporary_3)}
-/*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_6);
-/*C*/      RetainDynamicObject(Z_temporary_3);
-/*C*/      *(((void* *)(Z_temporary_2+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_temporary_3;
-           //RELEASE temporary_3
-/*C*/      ReleaseDynamicObject(Z_temporary_3);
-           //CREATE OBJECT temporary_1 = INVOKE temporary_2()
-/*C*/      void* Z_temporary_1 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_2))->method))(Z_temporary_2+sizeof(DynamicLambda));
-           //RELEASE temporary_2
-/*C*/      ReleaseDynamicObject(Z_temporary_2);
-           //CREATE STATIC_OBJECT local_daveMinimumPitchThresholdMelody WITH EMPTY_VALUE
-/*C*/      void* Z_local_daveMinimumPitchThresholdMelody = ((void *)(0));
-           //ASSIGN local_daveMinimumPitchThresholdMelody = temporary_1
-/*C*/      Z_local_daveMinimumPitchThresholdMelody = Z_temporary_1;
-           //CREATE STATIC_OBJECT temporary_8 WITH METHOD classmethod_NeuralValueMelody_addNeuralValueToMelody
-/*C*/      void* Z_temporary_8 = &Z_classmethod_NeuralValueMelody_addNeuralValueToMelody;
-           //CREATE DYNAMIC_OBJECT temporary_7 WITH METHOD[STATIC_OBJECT] temporary_8 FRAME{STATIC(),DYNAMIC(local_daveMinimumPitchThresholdMelody)}
-/*C*/      void* Z_temporary_7 = allocateDynamicLambda(1,1,Z_temporary_8);
-/*C*/      RetainDynamicObject(Z_local_daveMinimumPitchThresholdMelody);
-/*C*/      *(((void* *)(Z_temporary_7+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_daveMinimumPitchThresholdMelody;
-           //RELEASE temporary_7
-/*C*/      ReleaseDynamicObject(Z_temporary_7);
-           //CREATE STATIC_OBJECT temporary_13 WITH METHOD allocator_NeuralValue
-/*C*/      void* Z_temporary_13 = &Z_allocator_NeuralValue;
-           //CREATE DYNAMIC_OBJECT temporary_12 WITH METHOD[STATIC_OBJECT] temporary_13 FRAME{STATIC(),DYNAMIC()}
-/*C*/      void* Z_temporary_12 = allocateDynamicLambda(0,0,Z_temporary_13);
-           //CREATE OBJECT temporary_11 = INVOKE temporary_12()
-/*C*/      void* Z_temporary_11 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_12))->method))(Z_temporary_12+sizeof(DynamicLambda));
-           //RELEASE temporary_12
-/*C*/      ReleaseDynamicObject(Z_temporary_12);
-           //CREATE STATIC_OBJECT temporary_14 WITH METHOD classmethod_NeuralValue_baseNeuralValue
-/*C*/      void* Z_temporary_14 = &Z_classmethod_NeuralValue_baseNeuralValue;
-           //CREATE DYNAMIC_OBJECT temporary_10 WITH METHOD[STATIC_OBJECT] temporary_14 FRAME{STATIC(),DYNAMIC(temporary_11)}
-/*C*/      void* Z_temporary_10 = allocateDynamicLambda(1,1,Z_temporary_14);
-/*C*/      RetainDynamicObject(Z_temporary_11);
-/*C*/      *(((void* *)(Z_temporary_10+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_temporary_11;
-           //RELEASE temporary_11
-/*C*/      ReleaseDynamicObject(Z_temporary_11);
-           //CREATE OBJECT temporary_9 = INVOKE temporary_10()
-/*C*/      void* Z_temporary_9 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_10))->method))(Z_temporary_10+sizeof(DynamicLambda));
-           //RELEASE temporary_10
-/*C*/      ReleaseDynamicObject(Z_temporary_10);
-           //RELEASE temporary_9
-/*C*/      ReleaseDynamicObject(Z_temporary_9);
            //CREATE STATIC_OBJECT retval WITH EMPTY_VALUE
 /*C*/      void* Z_retval = ((void *)(0));
-           //ASSIGN retval = local_daveMinimumPitchThresholdMelody
-/*C*/      Z_retval = Z_local_daveMinimumPitchThresholdMelody;
-           //RETAIN retval
-/*C*/      RetainDynamicObject(Z_retval);
-           //RELEASE local_daveMinimumPitchThresholdMelody
-/*C*/      ReleaseDynamicObject(Z_local_daveMinimumPitchThresholdMelody);
+           //ENTER LOCAL SCOPE
+/*C*/      {
+              //CREATE STATIC_OBJECT temporary_6 WITH METHOD allocator_NeuralValue
+/*C*/         void* Z_temporary_6 = &Z_allocator_NeuralValue;
+              //CREATE DYNAMIC_OBJECT temporary_5 WITH METHOD[STATIC_OBJECT] temporary_6 FRAME{STATIC(),DYNAMIC()}
+/*C*/         void* Z_temporary_5 = allocateDynamicLambda(0,0,Z_temporary_6);
+              //CREATE OBJECT temporary_4 = INVOKE temporary_5()
+/*C*/         void* Z_temporary_4 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_5))->method))(Z_temporary_5+sizeof(DynamicLambda));
+              //RELEASE temporary_5
+/*C*/         ReleaseDynamicObject(Z_temporary_5);
+              //CREATE STATIC_OBJECT temporary_7 WITH METHOD classmethod_NeuralValue_baseNeuralValue
+/*C*/         void* Z_temporary_7 = &Z_classmethod_NeuralValue_baseNeuralValue;
+              //CREATE DYNAMIC_OBJECT temporary_3 WITH METHOD[STATIC_OBJECT] temporary_7 FRAME{STATIC(),DYNAMIC(temporary_4)}
+/*C*/         void* Z_temporary_3 = allocateDynamicLambda(1,1,Z_temporary_7);
+/*C*/         RetainDynamicObject(Z_temporary_4);
+/*C*/         *(((void* *)(Z_temporary_3+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_temporary_4;
+              //RELEASE temporary_4
+/*C*/         ReleaseDynamicObject(Z_temporary_4);
+              //CREATE OBJECT temporary_2 = INVOKE temporary_3()
+/*C*/         void* Z_temporary_2 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_3))->method))(Z_temporary_3+sizeof(DynamicLambda));
+              //RELEASE temporary_3
+/*C*/         ReleaseDynamicObject(Z_temporary_3);
+              //CREATE STATIC_OBJECT local_davesThresholdNeuralValue WITH EMPTY_VALUE
+/*C*/         void* Z_local_davesThresholdNeuralValue = ((void *)(0));
+              //ASSIGN local_davesThresholdNeuralValue = temporary_2
+/*C*/         Z_local_davesThresholdNeuralValue = Z_temporary_2;
+              //CREATE STATIC_OBJECT temporary_12 WITH METHOD allocator_NeuralValueMelody
+/*C*/         void* Z_temporary_12 = &Z_allocator_NeuralValueMelody;
+              //CREATE DYNAMIC_OBJECT temporary_11 WITH METHOD[STATIC_OBJECT] temporary_12 FRAME{STATIC(),DYNAMIC()}
+/*C*/         void* Z_temporary_11 = allocateDynamicLambda(0,0,Z_temporary_12);
+              //CREATE OBJECT temporary_10 = INVOKE temporary_11()
+/*C*/         void* Z_temporary_10 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_11))->method))(Z_temporary_11+sizeof(DynamicLambda));
+              //RELEASE temporary_11
+/*C*/         ReleaseDynamicObject(Z_temporary_11);
+              //CREATE STATIC_OBJECT temporary_13 WITH METHOD classmethod_NeuralValueMelody_newEmptyMelody
+/*C*/         void* Z_temporary_13 = &Z_classmethod_NeuralValueMelody_newEmptyMelody;
+              //CREATE DYNAMIC_OBJECT temporary_9 WITH METHOD[STATIC_OBJECT] temporary_13 FRAME{STATIC(),DYNAMIC(temporary_10)}
+/*C*/         void* Z_temporary_9 = allocateDynamicLambda(1,1,Z_temporary_13);
+/*C*/         RetainDynamicObject(Z_temporary_10);
+/*C*/         *(((void* *)(Z_temporary_9+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_temporary_10;
+              //RELEASE temporary_10
+/*C*/         ReleaseDynamicObject(Z_temporary_10);
+              //CREATE OBJECT temporary_8 = INVOKE temporary_9()
+/*C*/         void* Z_temporary_8 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_9))->method))(Z_temporary_9+sizeof(DynamicLambda));
+              //RELEASE temporary_9
+/*C*/         ReleaseDynamicObject(Z_temporary_9);
+              //CREATE STATIC_OBJECT local_davesThresholdMelody WITH EMPTY_VALUE
+/*C*/         void* Z_local_davesThresholdMelody = ((void *)(0));
+              //ASSIGN local_davesThresholdMelody = temporary_8
+/*C*/         Z_local_davesThresholdMelody = Z_temporary_8;
+              //CREATE STATIC_OBJECT temporary_15 WITH METHOD classmethod_NeuralValueMelody_addNeuralValueToMelody
+/*C*/         void* Z_temporary_15 = &Z_classmethod_NeuralValueMelody_addNeuralValueToMelody;
+              //CREATE DYNAMIC_OBJECT temporary_14 WITH METHOD[STATIC_OBJECT] temporary_15 FRAME{STATIC(),DYNAMIC(local_davesThresholdMelody)}
+/*C*/         void* Z_temporary_14 = allocateDynamicLambda(1,1,Z_temporary_15);
+/*C*/         RetainDynamicObject(Z_local_davesThresholdMelody);
+/*C*/         *(((void* *)(Z_temporary_14+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_davesThresholdMelody;
+              //RELEASE temporary_14
+/*C*/         ReleaseDynamicObject(Z_temporary_14);
+              //CREATE STATIC_OBJECT temporary_16 WITH EMPTY_VALUE
+/*C*/         void* Z_temporary_16 = ((void *)(0));
+              //ASSIGN temporary_16 = local_davesThresholdNeuralValue
+/*C*/         Z_temporary_16 = Z_local_davesThresholdNeuralValue;
+              //RETAIN temporary_16
+/*C*/         RetainDynamicObject(Z_temporary_16);
+              //RELEASE temporary_16
+/*C*/         ReleaseDynamicObject(Z_temporary_16);
+              //CREATE STATIC_OBJECT temporary_1 WITH EMPTY_VALUE
+/*C*/         void* Z_temporary_1 = ((void *)(0));
+              //ASSIGN temporary_1 = local_davesThresholdMelody
+/*C*/         Z_temporary_1 = Z_local_davesThresholdMelody;
+              //RETAIN temporary_1
+/*C*/         RetainDynamicObject(Z_temporary_1);
+              //ASSIGN retval = temporary_1
+/*C*/         Z_retval = Z_temporary_1;
+              //RELEASE local_davesThresholdMelody
+/*C*/         ReleaseDynamicObject(Z_local_davesThresholdMelody);
+              //RELEASE local_davesThresholdNeuralValue
+/*C*/         ReleaseDynamicObject(Z_local_davesThresholdNeuralValue);
+/*C*/      }
+           //EXIT LOCAL SCOPE
            //RETURN retval
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_105()
-/*C*/      void* Z_anonymousmethod_105(void* frame) {{
-           //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_provideDavesReaction)}
-/*C*/      void* Z_local_provideDavesReaction = *(((void* *)(frame+sizeof(void*)*0)));
+        //START METHOD anonymousmethod_106()
+/*C*/      void* Z_anonymousmethod_106(void* frame) {{
+           //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_methodToPassReactionTo)}
+/*C*/      void* Z_local_methodToPassReactionTo = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_6 WITH METHOD allocator_DaveReaction
 /*C*/      void* Z_temporary_6 = &Z_allocator_DaveReaction;
            //CREATE DYNAMIC_OBJECT temporary_5 WITH METHOD[STATIC_OBJECT] temporary_6 FRAME{STATIC(),DYNAMIC()}
@@ -16543,8 +16601,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_3);
            //CREATE STATIC_OBJECT temporary_8 WITH EMPTY_VALUE
 /*C*/      void* Z_temporary_8 = ((void *)(0));
-           //ASSIGN temporary_8 = local_provideDavesReaction
-/*C*/      Z_temporary_8 = Z_local_provideDavesReaction;
+           //ASSIGN temporary_8 = local_methodToPassReactionTo
+/*C*/      Z_temporary_8 = Z_local_methodToPassReactionTo;
            //RETAIN temporary_8
 /*C*/      RetainDynamicObject(Z_temporary_8);
            //CREATE OBJECT temporary_1 = INVOKE temporary_8(temporary_2)
@@ -16555,8 +16613,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_104(local_provideDavesReaction)
-/*C*/      void* Z_anonymousmethod_104(void* frame, void* Z_local_provideDavesReaction) {{
+        //START METHOD anonymousmethod_105(local_methodToPassReactionTo)
+/*C*/      void* Z_anonymousmethod_105(void* frame, void* Z_local_methodToPassReactionTo) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_melodyForDaveToReactTo)}
 /*C*/      void* Z_local_melodyForDaveToReactTo = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_4 WITH METHOD classmethod_DaveReaction_davesMinimumPitchThreasholdMelodyForHappyness
@@ -16583,12 +16641,12 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_local_pitchOfMelodyMeetsDavesMinimumStandardsForHappyness = ((void *)(0));
            //ASSIGN local_pitchOfMelodyMeetsDavesMinimumStandardsForHappyness = temporary_1
 /*C*/      Z_local_pitchOfMelodyMeetsDavesMinimumStandardsForHappyness = Z_temporary_1;
-           //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_105
-/*C*/      void* Z_temporary_9 = &Z_anonymousmethod_105;
-           //CREATE DYNAMIC_OBJECT temporary_8 WITH METHOD[STATIC_OBJECT] temporary_9 FRAME{STATIC(),DYNAMIC(local_provideDavesReaction)}
+           //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_106
+/*C*/      void* Z_temporary_9 = &Z_anonymousmethod_106;
+           //CREATE DYNAMIC_OBJECT temporary_8 WITH METHOD[STATIC_OBJECT] temporary_9 FRAME{STATIC(),DYNAMIC(local_methodToPassReactionTo)}
 /*C*/      void* Z_temporary_8 = allocateDynamicLambda(1,1,Z_temporary_9);
-/*C*/      RetainDynamicObject(Z_local_provideDavesReaction);
-/*C*/      *(((void* *)(Z_temporary_8+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_provideDavesReaction;
+/*C*/      RetainDynamicObject(Z_local_methodToPassReactionTo);
+/*C*/      *(((void* *)(Z_temporary_8+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_methodToPassReactionTo;
            //CREATE STATIC_OBJECT temporary_11 WITH METHOD classmethod_Boolean_ifTrue
 /*C*/      void* Z_temporary_11 = &Z_classmethod_Boolean_ifTrue;
            //CREATE DYNAMIC_OBJECT temporary_10 WITH METHOD[STATIC_OBJECT] temporary_11 FRAME{STATIC(),DYNAMIC(local_pitchOfMelodyMeetsDavesMinimumStandardsForHappyness)}
@@ -16612,16 +16670,16 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_104
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_104;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_105
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_105;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_melodyForDaveToReactTo)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_local_melodyForDaveToReactTo);
 /*C*/         *(((void* *)(Z_temporary_2+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_melodyForDaveToReactTo;
-              //CREATE STATIC_OBJECT local_getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness WITH EMPTY_VALUE
-/*C*/         void* Z_local_getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness = ((void *)(0));
-              //ASSIGN local_getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness = temporary_2
-/*C*/         Z_local_getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness = Z_temporary_2;
+              //CREATE STATIC_OBJECT local_retrieveDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappinessAndPassToMethod WITH EMPTY_VALUE
+/*C*/         void* Z_local_retrieveDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappinessAndPassToMethod = ((void *)(0));
+              //ASSIGN local_retrieveDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappinessAndPassToMethod = temporary_2
+/*C*/         Z_local_retrieveDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappinessAndPassToMethod = Z_temporary_2;
               //CREATE STATIC_OBJECT temporary_8 WITH METHOD allocator_DaveReaction
 /*C*/         void* Z_temporary_8 = &Z_allocator_DaveReaction;
               //CREATE DYNAMIC_OBJECT temporary_7 WITH METHOD[STATIC_OBJECT] temporary_8 FRAME{STATIC(),DYNAMIC()}
@@ -16648,8 +16706,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         Z_local_frownByDefault = Z_temporary_4;
               //CREATE STATIC_OBJECT temporary_11 WITH EMPTY_VALUE
 /*C*/         void* Z_temporary_11 = ((void *)(0));
-              //ASSIGN temporary_11 = local_getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness
-/*C*/         Z_temporary_11 = Z_local_getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness;
+              //ASSIGN temporary_11 = local_retrieveDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappinessAndPassToMethod
+/*C*/         Z_temporary_11 = Z_local_retrieveDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappinessAndPassToMethod;
               //RETAIN temporary_11
 /*C*/         RetainDynamicObject(Z_temporary_11);
               //CREATE STATIC_OBJECT temporary_12 WITH EMPTY_VALUE
@@ -16684,8 +16742,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         Z_retval = Z_temporary_1;
               //RELEASE local_davesReationToMelody
 /*C*/         ReleaseDynamicObject(Z_local_davesReationToMelody);
-              //RELEASE local_getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness
-/*C*/         ReleaseDynamicObject(Z_local_getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness);
+              //RELEASE local_retrieveDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappinessAndPassToMethod
+/*C*/         ReleaseDynamicObject(Z_local_retrieveDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappinessAndPassToMethod);
               //RELEASE local_frownByDefault
 /*C*/         ReleaseDynamicObject(Z_local_frownByDefault);
 /*C*/      }
@@ -16694,8 +16752,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_107()
-/*C*/      void* Z_anonymousmethod_107(void* frame) {{
+        //START METHOD anonymousmethod_108()
+/*C*/      void* Z_anonymousmethod_108(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_daveReactionSmileString, local_provideSmileString)}
 /*C*/      void* Z_local_daveReactionSmileString = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_provideSmileString = *(((void* *)(frame+sizeof(void*)*1)));
@@ -16719,8 +16777,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_106(local_provideSmileString)
-/*C*/      void* Z_anonymousmethod_106(void* frame, void* Z_local_provideSmileString) {{
+        //START METHOD anonymousmethod_107(local_provideSmileString)
+/*C*/      void* Z_anonymousmethod_107(void* frame, void* Z_local_provideSmileString) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_daveReactionSmileString)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_daveReactionSmileString = *(((void* *)(frame+sizeof(void*)*1)));
@@ -16760,8 +16818,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_local_davesReactionIsASmile = ((void *)(0));
            //ASSIGN local_davesReactionIsASmile = temporary_1
 /*C*/      Z_local_davesReactionIsASmile = Z_temporary_1;
-           //CREATE STATIC_OBJECT temporary_12 WITH METHOD anonymousmethod_107
-/*C*/      void* Z_temporary_12 = &Z_anonymousmethod_107;
+           //CREATE STATIC_OBJECT temporary_12 WITH METHOD anonymousmethod_108
+/*C*/      void* Z_temporary_12 = &Z_anonymousmethod_108;
            //CREATE DYNAMIC_OBJECT temporary_11 WITH METHOD[STATIC_OBJECT] temporary_12 FRAME{STATIC(),DYNAMIC(local_daveReactionSmileString, local_provideSmileString)}
 /*C*/      void* Z_temporary_11 = allocateDynamicLambda(2,2,Z_temporary_12);
 /*C*/      RetainDynamicObject(Z_local_daveReactionSmileString);
@@ -16848,8 +16906,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_temporary_16 = ((void *)(0));
               //ENTER LOCAL SCOPE
 /*C*/         {
-                 //CREATE STATIC_OBJECT temporary_18 WITH METHOD anonymousmethod_106
-/*C*/            void* Z_temporary_18 = &Z_anonymousmethod_106;
+                 //CREATE STATIC_OBJECT temporary_18 WITH METHOD anonymousmethod_107
+/*C*/            void* Z_temporary_18 = &Z_anonymousmethod_107;
                  //CREATE DYNAMIC_OBJECT temporary_17 WITH METHOD[STATIC_OBJECT] temporary_18 FRAME{STATIC(),DYNAMIC(self, local_daveReactionSmileString)}
 /*C*/            void* Z_temporary_17 = allocateDynamicLambda(2,2,Z_temporary_18);
 /*C*/            RetainDynamicObject(Z_self);
@@ -17322,8 +17380,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_108()
-/*C*/      void* Z_anonymousmethod_108(void* frame) {{
+        //START METHOD anonymousmethod_109()
+/*C*/      void* Z_anonymousmethod_109(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_melodyInQuestion, local_wrappedCalculatedGamma)}
 /*C*/      void* Z_local_melodyInQuestion = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_wrappedCalculatedGamma = *(((void* *)(frame+sizeof(void*)*1)));
@@ -17498,8 +17556,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_temporary_23 = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_25 WITH METHOD anonymousmethod_108
-/*C*/         void* Z_temporary_25 = &Z_anonymousmethod_108;
+              //CREATE STATIC_OBJECT temporary_25 WITH METHOD anonymousmethod_109
+/*C*/         void* Z_temporary_25 = &Z_anonymousmethod_109;
               //CREATE DYNAMIC_OBJECT temporary_24 WITH METHOD[STATIC_OBJECT] temporary_25 FRAME{STATIC(),DYNAMIC(local_melodyInQuestion, local_wrappedCalculatedGamma)}
 /*C*/         void* Z_temporary_24 = allocateDynamicLambda(2,2,Z_temporary_25);
 /*C*/         RetainDynamicObject(Z_local_melodyInQuestion);
@@ -17644,8 +17702,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_self;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_110()
-/*C*/      void* Z_anonymousmethod_110(void* frame) {{
+        //START METHOD anonymousmethod_111()
+/*C*/      void* Z_anonymousmethod_111(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_keyExistsInBucket, local_singleMappingInBucket, local_valueInQuestion)}
 /*C*/      void* Z_local_keyExistsInBucket = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_singleMappingInBucket = *(((void* *)(frame+sizeof(void*)*1)));
@@ -17680,8 +17738,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_5);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_109(local_singleMappingInBucket)
-/*C*/      void* Z_anonymousmethod_109(void* frame, void* Z_local_singleMappingInBucket) {{
+        //START METHOD anonymousmethod_110(local_singleMappingInBucket)
+/*C*/      void* Z_anonymousmethod_110(void* frame, void* Z_local_singleMappingInBucket) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_keyExistsInBucket, local_keyInQuestion, local_valueInQuestion)}
 /*C*/      void* Z_local_keyExistsInBucket = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_keyInQuestion = *(((void* *)(frame+sizeof(void*)*1)));
@@ -17712,8 +17770,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_local_keyOfMappingMatchesKeyInQuestion = ((void *)(0));
            //ASSIGN local_keyOfMappingMatchesKeyInQuestion = temporary_1
 /*C*/      Z_local_keyOfMappingMatchesKeyInQuestion = Z_temporary_1;
-           //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_110
-/*C*/      void* Z_temporary_9 = &Z_anonymousmethod_110;
+           //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_111
+/*C*/      void* Z_temporary_9 = &Z_anonymousmethod_111;
            //CREATE DYNAMIC_OBJECT temporary_8 WITH METHOD[STATIC_OBJECT] temporary_9 FRAME{STATIC(),DYNAMIC(local_keyExistsInBucket, local_singleMappingInBucket, local_valueInQuestion)}
 /*C*/      void* Z_temporary_8 = allocateDynamicLambda(3,3,Z_temporary_9);
 /*C*/      RetainDynamicObject(Z_local_keyExistsInBucket);
@@ -17738,8 +17796,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_keyOfMappingMatchesKeyInQuestion);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_111()
-/*C*/      void* Z_anonymousmethod_111(void* frame) {{
+        //START METHOD anonymousmethod_112()
+/*C*/      void* Z_anonymousmethod_112(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_keyInQuestion, local_valueInQuestion)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_keyInQuestion = *(((void* *)(frame+sizeof(void*)*1)));
@@ -17828,8 +17886,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_temporary_8 = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_10 WITH METHOD anonymousmethod_109
-/*C*/         void* Z_temporary_10 = &Z_anonymousmethod_109;
+              //CREATE STATIC_OBJECT temporary_10 WITH METHOD anonymousmethod_110
+/*C*/         void* Z_temporary_10 = &Z_anonymousmethod_110;
               //CREATE DYNAMIC_OBJECT temporary_9 WITH METHOD[STATIC_OBJECT] temporary_10 FRAME{STATIC(),DYNAMIC(local_keyExistsInBucket, local_keyInQuestion, local_valueInQuestion)}
 /*C*/         void* Z_temporary_9 = allocateDynamicLambda(3,3,Z_temporary_10);
 /*C*/         RetainDynamicObject(Z_local_keyExistsInBucket);
@@ -17882,8 +17940,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_local_weShouldAddKeyValueAsNewPairInMappings = ((void *)(0));
            //ASSIGN local_weShouldAddKeyValueAsNewPairInMappings = temporary_15
 /*C*/      Z_local_weShouldAddKeyValueAsNewPairInMappings = Z_temporary_15;
-           //CREATE STATIC_OBJECT temporary_20 WITH METHOD anonymousmethod_111
-/*C*/      void* Z_temporary_20 = &Z_anonymousmethod_111;
+           //CREATE STATIC_OBJECT temporary_20 WITH METHOD anonymousmethod_112
+/*C*/      void* Z_temporary_20 = &Z_anonymousmethod_112;
            //CREATE DYNAMIC_OBJECT temporary_19 WITH METHOD[STATIC_OBJECT] temporary_20 FRAME{STATIC(),DYNAMIC(self, local_keyInQuestion, local_valueInQuestion)}
 /*C*/      void* Z_temporary_19 = allocateDynamicLambda(3,3,Z_temporary_20);
 /*C*/      RetainDynamicObject(Z_self);
@@ -17908,36 +17966,6 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_keyExistsInBucket);
            //RELEASE local_weShouldAddKeyValueAsNewPairInMappings
 /*C*/      ReleaseDynamicObject(Z_local_weShouldAddKeyValueAsNewPairInMappings);
-        //FINISH METHOD
-/*C*/   }return NULL;}
-        //START METHOD anonymousmethod_112(local_mappingInBucket)
-/*C*/      void* Z_anonymousmethod_112(void* frame, void* Z_local_mappingInBucket) {{
-           //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_keyInQuestion)}
-/*C*/      void* Z_local_keyInQuestion = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD classmethod_SingleMapping_getKey
-/*C*/      void* Z_temporary_3 = &Z_classmethod_SingleMapping_getKey;
-           //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_mappingInBucket)}
-/*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
-/*C*/      RetainDynamicObject(Z_local_mappingInBucket);
-/*C*/      *(((void* *)(Z_temporary_2+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_mappingInBucket;
-           //CREATE OBJECT temporary_1 = INVOKE temporary_2()
-/*C*/      void* Z_temporary_1 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_2))->method))(Z_temporary_2+sizeof(DynamicLambda));
-           //RELEASE temporary_2
-/*C*/      ReleaseDynamicObject(Z_temporary_2);
-           //CREATE OBJECT temporary_5 = (local_keyInQuestion AS template_SetObject)->instancemethod_isEqualTo
-/*C*/      void* Z_temporary_5 = ((struct Z_template_SetObject *)(Z_local_keyInQuestion))->Z_instancemethod_isEqualTo;
-           //CREATE DYNAMIC_OBJECT temporary_4 WITH METHOD[STATIC_OBJECT] temporary_5 FRAME{STATIC(),DYNAMIC(local_keyInQuestion)}
-/*C*/      void* Z_temporary_4 = allocateDynamicLambda(1,1,Z_temporary_5);
-/*C*/      RetainDynamicObject(Z_local_keyInQuestion);
-/*C*/      *(((void* *)(Z_temporary_4+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_keyInQuestion;
-           //CREATE OBJECT retval = INVOKE temporary_4(temporary_1)
-/*C*/      void* Z_retval = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_4))->method))(Z_temporary_4+sizeof(DynamicLambda), Z_temporary_1);
-           //RELEASE temporary_4
-/*C*/      ReleaseDynamicObject(Z_temporary_4);
-           //RELEASE temporary_1
-/*C*/      ReleaseDynamicObject(Z_temporary_1);
-           //RETURN retval
-/*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
         //START METHOD anonymousmethod_113(local_mappingInBucket)
@@ -17970,12 +17998,42 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
+        //START METHOD anonymousmethod_114(local_mappingInBucket)
+/*C*/      void* Z_anonymousmethod_114(void* frame, void* Z_local_mappingInBucket) {{
+           //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_keyInQuestion)}
+/*C*/      void* Z_local_keyInQuestion = *(((void* *)(frame+sizeof(void*)*0)));
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD classmethod_SingleMapping_getKey
+/*C*/      void* Z_temporary_3 = &Z_classmethod_SingleMapping_getKey;
+           //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_mappingInBucket)}
+/*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
+/*C*/      RetainDynamicObject(Z_local_mappingInBucket);
+/*C*/      *(((void* *)(Z_temporary_2+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_mappingInBucket;
+           //CREATE OBJECT temporary_1 = INVOKE temporary_2()
+/*C*/      void* Z_temporary_1 = ((void*(*)(void*))(((DynamicLambda *)(Z_temporary_2))->method))(Z_temporary_2+sizeof(DynamicLambda));
+           //RELEASE temporary_2
+/*C*/      ReleaseDynamicObject(Z_temporary_2);
+           //CREATE OBJECT temporary_5 = (local_keyInQuestion AS template_SetObject)->instancemethod_isEqualTo
+/*C*/      void* Z_temporary_5 = ((struct Z_template_SetObject *)(Z_local_keyInQuestion))->Z_instancemethod_isEqualTo;
+           //CREATE DYNAMIC_OBJECT temporary_4 WITH METHOD[STATIC_OBJECT] temporary_5 FRAME{STATIC(),DYNAMIC(local_keyInQuestion)}
+/*C*/      void* Z_temporary_4 = allocateDynamicLambda(1,1,Z_temporary_5);
+/*C*/      RetainDynamicObject(Z_local_keyInQuestion);
+/*C*/      *(((void* *)(Z_temporary_4+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_keyInQuestion;
+           //CREATE OBJECT retval = INVOKE temporary_4(temporary_1)
+/*C*/      void* Z_retval = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_4))->method))(Z_temporary_4+sizeof(DynamicLambda), Z_temporary_1);
+           //RELEASE temporary_4
+/*C*/      ReleaseDynamicObject(Z_temporary_4);
+           //RELEASE temporary_1
+/*C*/      ReleaseDynamicObject(Z_temporary_1);
+           //RETURN retval
+/*C*/      return Z_retval;
+        //FINISH METHOD
+/*C*/   }return NULL;}
         //START METHOD classmethod_MappingBucket_removeKeyFromBucket(local_keyInQuestion)
 /*C*/      void* Z_classmethod_MappingBucket_removeKeyFromBucket(void* frame, void* Z_local_keyInQuestion) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_113
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_113;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_114
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_114;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_keyInQuestion)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_local_keyInQuestion);
@@ -17996,8 +18054,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_115()
-/*C*/      void* Z_anonymousmethod_115(void* frame) {{
+        //START METHOD anonymousmethod_116()
+/*C*/      void* Z_anonymousmethod_116(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_mappingInBucket, local_valueRetriver)}
 /*C*/      void* Z_local_mappingInBucket = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_valueRetriver = *(((void* *)(frame+sizeof(void*)*1)));
@@ -18025,8 +18083,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_114(local_mappingInBucket)
-/*C*/      void* Z_anonymousmethod_114(void* frame, void* Z_local_mappingInBucket) {{
+        //START METHOD anonymousmethod_115(local_mappingInBucket)
+/*C*/      void* Z_anonymousmethod_115(void* frame, void* Z_local_mappingInBucket) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_keyInQuestion, local_valueRetriver)}
 /*C*/      void* Z_local_keyInQuestion = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_valueRetriver = *(((void* *)(frame+sizeof(void*)*1)));
@@ -18056,8 +18114,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_local_keyInQuestionMatchesThisMappingInBucket = ((void *)(0));
            //ASSIGN local_keyInQuestionMatchesThisMappingInBucket = temporary_1
 /*C*/      Z_local_keyInQuestionMatchesThisMappingInBucket = Z_temporary_1;
-           //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_115
-/*C*/      void* Z_temporary_9 = &Z_anonymousmethod_115;
+           //CREATE STATIC_OBJECT temporary_9 WITH METHOD anonymousmethod_116
+/*C*/      void* Z_temporary_9 = &Z_anonymousmethod_116;
            //CREATE DYNAMIC_OBJECT temporary_8 WITH METHOD[STATIC_OBJECT] temporary_9 FRAME{STATIC(),DYNAMIC(local_mappingInBucket, local_valueRetriver)}
 /*C*/      void* Z_temporary_8 = allocateDynamicLambda(2,2,Z_temporary_9);
 /*C*/      RetainDynamicObject(Z_local_mappingInBucket);
@@ -18084,8 +18142,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_classmethod_MappingBucket_retriveValueForKeyIfItExists(void* frame, void* Z_local_keyInQuestion, void* Z_local_valueRetriver) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_114
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_114;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_115
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_115;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_keyInQuestion, local_valueRetriver)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(2,2,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_local_keyInQuestion);
@@ -18453,8 +18511,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_self;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_116(local_bucketToInsertKeyAndValue)
-/*C*/      void* Z_anonymousmethod_116(void* frame, void* Z_local_bucketToInsertKeyAndValue) {{
+        //START METHOD anonymousmethod_117(local_bucketToInsertKeyAndValue)
+/*C*/      void* Z_anonymousmethod_117(void* frame, void* Z_local_bucketToInsertKeyAndValue) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_key, local_value)}
 /*C*/      void* Z_local_key = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_value = *(((void* *)(frame+sizeof(void*)*1)));
@@ -18518,8 +18576,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      Z_temporary_6 = Z_local_bucketIdentifierForKey;
            //RETAIN temporary_6
 /*C*/      RetainDynamicObject(Z_temporary_6);
-           //CREATE STATIC_OBJECT temporary_8 WITH METHOD anonymousmethod_116
-/*C*/      void* Z_temporary_8 = &Z_anonymousmethod_116;
+           //CREATE STATIC_OBJECT temporary_8 WITH METHOD anonymousmethod_117
+/*C*/      void* Z_temporary_8 = &Z_anonymousmethod_117;
            //CREATE DYNAMIC_OBJECT temporary_7 WITH METHOD[STATIC_OBJECT] temporary_8 FRAME{STATIC(),DYNAMIC(local_key, local_value)}
 /*C*/      void* Z_temporary_7 = allocateDynamicLambda(2,2,Z_temporary_8);
 /*C*/      RetainDynamicObject(Z_local_key);
@@ -18544,8 +18602,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_bucketIdentifierForKey);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_117(local_bucketMatchingIdentifier)
-/*C*/      void* Z_anonymousmethod_117(void* frame, void* Z_local_bucketMatchingIdentifier) {{
+        //START METHOD anonymousmethod_118(local_bucketMatchingIdentifier)
+/*C*/      void* Z_anonymousmethod_118(void* frame, void* Z_local_bucketMatchingIdentifier) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_key)}
 /*C*/      void* Z_local_key = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
@@ -18600,8 +18658,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      Z_temporary_6 = Z_local_bucketIdentifierForKey;
            //RETAIN temporary_6
 /*C*/      RetainDynamicObject(Z_temporary_6);
-           //CREATE STATIC_OBJECT temporary_8 WITH METHOD anonymousmethod_117
-/*C*/      void* Z_temporary_8 = &Z_anonymousmethod_117;
+           //CREATE STATIC_OBJECT temporary_8 WITH METHOD anonymousmethod_118
+/*C*/      void* Z_temporary_8 = &Z_anonymousmethod_118;
            //CREATE DYNAMIC_OBJECT temporary_7 WITH METHOD[STATIC_OBJECT] temporary_8 FRAME{STATIC(),DYNAMIC(local_key)}
 /*C*/      void* Z_temporary_7 = allocateDynamicLambda(1,1,Z_temporary_8);
 /*C*/      RetainDynamicObject(Z_local_key);
@@ -18624,8 +18682,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_bucketIdentifierForKey);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_119(local_theValueThatWasFoundMatchingKey)
-/*C*/      void* Z_anonymousmethod_119(void* frame, void* Z_local_theValueThatWasFoundMatchingKey) {{
+        //START METHOD anonymousmethod_120(local_theValueThatWasFoundMatchingKey)
+/*C*/      void* Z_anonymousmethod_120(void* frame, void* Z_local_theValueThatWasFoundMatchingKey) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_containerWithFoundValueMatchingKey)}
 /*C*/      void* Z_local_containerWithFoundValueMatchingKey = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
@@ -18648,8 +18706,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_118(local_bucketMatchingIdentifier)
-/*C*/      void* Z_anonymousmethod_118(void* frame, void* Z_local_bucketMatchingIdentifier) {{
+        //START METHOD anonymousmethod_119(local_bucketMatchingIdentifier)
+/*C*/      void* Z_anonymousmethod_119(void* frame, void* Z_local_bucketMatchingIdentifier) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_containerWithFoundValueMatchingKey, local_key)}
 /*C*/      void* Z_local_containerWithFoundValueMatchingKey = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_key = *(((void* *)(frame+sizeof(void*)*1)));
@@ -18659,8 +18717,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      Z_temporary_2 = Z_local_key;
            //RETAIN temporary_2
 /*C*/      RetainDynamicObject(Z_temporary_2);
-           //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_119
-/*C*/      void* Z_temporary_4 = &Z_anonymousmethod_119;
+           //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_120
+/*C*/      void* Z_temporary_4 = &Z_anonymousmethod_120;
            //CREATE DYNAMIC_OBJECT temporary_3 WITH METHOD[STATIC_OBJECT] temporary_4 FRAME{STATIC(),DYNAMIC(local_containerWithFoundValueMatchingKey)}
 /*C*/      void* Z_temporary_3 = allocateDynamicLambda(1,1,Z_temporary_4);
 /*C*/      RetainDynamicObject(Z_local_containerWithFoundValueMatchingKey);
@@ -18737,8 +18795,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      Z_temporary_12 = Z_local_bucketIdentifierForKey;
            //RETAIN temporary_12
 /*C*/      RetainDynamicObject(Z_temporary_12);
-           //CREATE STATIC_OBJECT temporary_14 WITH METHOD anonymousmethod_118
-/*C*/      void* Z_temporary_14 = &Z_anonymousmethod_118;
+           //CREATE STATIC_OBJECT temporary_14 WITH METHOD anonymousmethod_119
+/*C*/      void* Z_temporary_14 = &Z_anonymousmethod_119;
            //CREATE DYNAMIC_OBJECT temporary_13 WITH METHOD[STATIC_OBJECT] temporary_14 FRAME{STATIC(),DYNAMIC(local_containerWithFoundValueMatchingKey, local_key)}
 /*C*/      void* Z_temporary_13 = allocateDynamicLambda(2,2,Z_temporary_14);
 /*C*/      RetainDynamicObject(Z_local_containerWithFoundValueMatchingKey);
@@ -18977,8 +19035,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_5);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_120()
-/*C*/      void* Z_anonymousmethod_120(void* frame) {{
+        //START METHOD anonymousmethod_121()
+/*C*/      void* Z_anonymousmethod_121(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_bucketAtTheRootOfThisTree, local_bucketRetriver)}
 /*C*/      void* Z_local_bucketAtTheRootOfThisTree = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_bucketRetriver = *(((void* *)(frame+sizeof(void*)*1)));
@@ -19002,8 +19060,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_122()
-/*C*/      void* Z_anonymousmethod_122(void* frame) {{
+        //START METHOD anonymousmethod_123()
+/*C*/      void* Z_anonymousmethod_123(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_bucketIdentifier, local_bucketRetriver, local_insertTreeOnBranch)}
 /*C*/      void* Z_local_bucketIdentifier = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_bucketRetriver = *(((void* *)(frame+sizeof(void*)*1)));
@@ -19114,8 +19172,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_newTreeToInsert);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_124()
-/*C*/      void* Z_anonymousmethod_124(void* frame) {{
+        //START METHOD anonymousmethod_125()
+/*C*/      void* Z_anonymousmethod_125(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_bucketIdentifier, local_bucketRetriver, local_newBucketShouldBeCreatedIfItDoesntExist, local_treeFoundOnBranch)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_bucketIdentifier = *(((void* *)(frame+sizeof(void*)*1)));
@@ -19166,8 +19224,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_5);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_123(local_treeFoundOnBranch)
-/*C*/      void* Z_anonymousmethod_123(void* frame, void* Z_local_treeFoundOnBranch) {{
+        //START METHOD anonymousmethod_124(local_treeFoundOnBranch)
+/*C*/      void* Z_anonymousmethod_124(void* frame, void* Z_local_treeFoundOnBranch) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_bucketIdentifier, local_bucketRetriver, local_newBucketShouldBeCreatedIfItDoesntExist, local_treeExistsDownBranch)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_bucketIdentifier = *(((void* *)(frame+sizeof(void*)*1)));
@@ -19188,8 +19246,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_temporary_5 = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_7 WITH METHOD anonymousmethod_124
-/*C*/         void* Z_temporary_7 = &Z_anonymousmethod_124;
+              //CREATE STATIC_OBJECT temporary_7 WITH METHOD anonymousmethod_125
+/*C*/         void* Z_temporary_7 = &Z_anonymousmethod_125;
               //CREATE DYNAMIC_OBJECT temporary_6 WITH METHOD[STATIC_OBJECT] temporary_7 FRAME{STATIC(),DYNAMIC(self, local_bucketIdentifier, local_bucketRetriver, local_newBucketShouldBeCreatedIfItDoesntExist, local_treeFoundOnBranch)}
 /*C*/         void* Z_temporary_6 = allocateDynamicLambda(5,5,Z_temporary_7);
 /*C*/         RetainDynamicObject(Z_self);
@@ -19224,8 +19282,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_5);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_121(local_observeTreeDownBranch, local_insertTreeOnBranch)
-/*C*/      void* Z_anonymousmethod_121(void* frame, void* Z_local_observeTreeDownBranch, void* Z_local_insertTreeOnBranch) {{
+        //START METHOD anonymousmethod_122(local_observeTreeDownBranch, local_insertTreeOnBranch)
+/*C*/      void* Z_anonymousmethod_122(void* frame, void* Z_local_observeTreeDownBranch, void* Z_local_insertTreeOnBranch) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_bucketIdentifier, local_bucketRetriver, local_newBucketShouldBeCreatedIfItDoesntExist)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_bucketIdentifier = *(((void* *)(frame+sizeof(void*)*1)));
@@ -19235,8 +19293,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_122
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_122;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_123
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_123;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_bucketIdentifier, local_bucketRetriver, local_insertTreeOnBranch)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(3,3,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_local_bucketIdentifier);
@@ -19273,8 +19331,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_treeExistsDownBranch = ((void *)(0));
               //ASSIGN local_treeExistsDownBranch = temporary_4
 /*C*/         Z_local_treeExistsDownBranch = Z_temporary_4;
-              //CREATE STATIC_OBJECT temporary_12 WITH METHOD anonymousmethod_123
-/*C*/         void* Z_temporary_12 = &Z_anonymousmethod_123;
+              //CREATE STATIC_OBJECT temporary_12 WITH METHOD anonymousmethod_124
+/*C*/         void* Z_temporary_12 = &Z_anonymousmethod_124;
               //CREATE DYNAMIC_OBJECT temporary_11 WITH METHOD[STATIC_OBJECT] temporary_12 FRAME{STATIC(),DYNAMIC(self, local_bucketIdentifier, local_bucketRetriver, local_newBucketShouldBeCreatedIfItDoesntExist, local_treeExistsDownBranch)}
 /*C*/         void* Z_temporary_11 = allocateDynamicLambda(5,5,Z_temporary_12);
 /*C*/         RetainDynamicObject(Z_self);
@@ -19359,8 +19417,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
            //EXIT LOCAL SCOPE
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_125()
-/*C*/      void* Z_anonymousmethod_125(void* frame) {{
+        //START METHOD anonymousmethod_126()
+/*C*/      void* Z_anonymousmethod_126(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_continueLookingDownBranchWithBranchObserverActionAndBranchInsertionAction, local_theTreeInQuestion)}
 /*C*/      void* Z_local_continueLookingDownBranchWithBranchObserverActionAndBranchInsertionAction = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_theTreeInQuestion = *(((void* *)(frame+sizeof(void*)*1)));
@@ -19392,8 +19450,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_4);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_126()
-/*C*/      void* Z_anonymousmethod_126(void* frame) {{
+        //START METHOD anonymousmethod_127()
+/*C*/      void* Z_anonymousmethod_127(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_continueLookingDownBranchWithBranchObserverActionAndBranchInsertionAction, local_theTreeInQuestion)}
 /*C*/      void* Z_local_continueLookingDownBranchWithBranchObserverActionAndBranchInsertionAction = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_theTreeInQuestion = *(((void* *)(frame+sizeof(void*)*1)));
@@ -19447,8 +19505,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_temporary_4 = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_6 WITH METHOD anonymousmethod_120
-/*C*/         void* Z_temporary_6 = &Z_anonymousmethod_120;
+              //CREATE STATIC_OBJECT temporary_6 WITH METHOD anonymousmethod_121
+/*C*/         void* Z_temporary_6 = &Z_anonymousmethod_121;
               //CREATE DYNAMIC_OBJECT temporary_5 WITH METHOD[STATIC_OBJECT] temporary_6 FRAME{STATIC(),DYNAMIC(local_bucketAtTheRootOfThisTree, local_bucketRetriver)}
 /*C*/         void* Z_temporary_5 = allocateDynamicLambda(2,2,Z_temporary_6);
 /*C*/         RetainDynamicObject(Z_local_bucketAtTheRootOfThisTree);
@@ -19459,8 +19517,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_retriveThisBucket = ((void *)(0));
               //ASSIGN local_retriveThisBucket = temporary_5
 /*C*/         Z_local_retriveThisBucket = Z_temporary_5;
-              //CREATE STATIC_OBJECT temporary_8 WITH METHOD anonymousmethod_121
-/*C*/         void* Z_temporary_8 = &Z_anonymousmethod_121;
+              //CREATE STATIC_OBJECT temporary_8 WITH METHOD anonymousmethod_122
+/*C*/         void* Z_temporary_8 = &Z_anonymousmethod_122;
               //CREATE DYNAMIC_OBJECT temporary_7 WITH METHOD[STATIC_OBJECT] temporary_8 FRAME{STATIC(),DYNAMIC(self, local_bucketIdentifier, local_bucketRetriver, local_newBucketShouldBeCreatedIfItDoesntExist)}
 /*C*/         void* Z_temporary_7 = allocateDynamicLambda(4,4,Z_temporary_8);
 /*C*/         RetainDynamicObject(Z_self);
@@ -19491,8 +19549,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_temporary_12 = ((void *)(0));
               //ENTER LOCAL SCOPE
 /*C*/         {
-                 //CREATE STATIC_OBJECT temporary_14 WITH METHOD anonymousmethod_125
-/*C*/            void* Z_temporary_14 = &Z_anonymousmethod_125;
+                 //CREATE STATIC_OBJECT temporary_14 WITH METHOD anonymousmethod_126
+/*C*/            void* Z_temporary_14 = &Z_anonymousmethod_126;
                  //CREATE DYNAMIC_OBJECT temporary_13 WITH METHOD[STATIC_OBJECT] temporary_14 FRAME{STATIC(),DYNAMIC(local_continueLookingDownBranchWithBranchObserverActionAndBranchInsertionAction, local_theTreeInQuestion)}
 /*C*/            void* Z_temporary_13 = allocateDynamicLambda(2,2,Z_temporary_14);
 /*C*/            RetainDynamicObject(Z_local_continueLookingDownBranchWithBranchObserverActionAndBranchInsertionAction);
@@ -19519,8 +19577,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_temporary_16 = ((void *)(0));
               //ENTER LOCAL SCOPE
 /*C*/         {
-                 //CREATE STATIC_OBJECT temporary_18 WITH METHOD anonymousmethod_126
-/*C*/            void* Z_temporary_18 = &Z_anonymousmethod_126;
+                 //CREATE STATIC_OBJECT temporary_18 WITH METHOD anonymousmethod_127
+/*C*/            void* Z_temporary_18 = &Z_anonymousmethod_127;
                  //CREATE DYNAMIC_OBJECT temporary_17 WITH METHOD[STATIC_OBJECT] temporary_18 FRAME{STATIC(),DYNAMIC(local_continueLookingDownBranchWithBranchObserverActionAndBranchInsertionAction, local_theTreeInQuestion)}
 /*C*/            void* Z_temporary_17 = allocateDynamicLambda(2,2,Z_temporary_18);
 /*C*/            RetainDynamicObject(Z_local_continueLookingDownBranchWithBranchObserverActionAndBranchInsertionAction);
@@ -19672,8 +19730,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_newObject;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_128(local_q)
-/*C*/      void* Z_anonymousmethod_128(void* frame, void* Z_local_q) {{
+        //START METHOD anonymousmethod_129(local_q)
+/*C*/      void* Z_anonymousmethod_129(void* frame, void* Z_local_q) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_i)}
 /*C*/      void* Z_local_i = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_1 WITH EMPTY_VALUE
@@ -19690,16 +19748,16 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_e);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_127(local_y)
-/*C*/      void* Z_anonymousmethod_127(void* frame, void* Z_local_y) {{
+        //START METHOD anonymousmethod_128(local_y)
+/*C*/      void* Z_anonymousmethod_128(void* frame, void* Z_local_y) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_i)}
 /*C*/      void* Z_local_i = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
 /*C*/      void* Z_temporary_2 = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_128
-/*C*/         void* Z_temporary_4 = &Z_anonymousmethod_128;
+              //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_129
+/*C*/         void* Z_temporary_4 = &Z_anonymousmethod_129;
               //CREATE DYNAMIC_OBJECT temporary_3 WITH METHOD[STATIC_OBJECT] temporary_4 FRAME{STATIC(),DYNAMIC(local_i)}
 /*C*/         void* Z_temporary_3 = allocateDynamicLambda(1,1,Z_temporary_4);
 /*C*/         RetainDynamicObject(Z_local_i);
@@ -19787,8 +19845,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_local_i = ((void *)(0));
            //ASSIGN local_i = temporary_5
 /*C*/      Z_local_i = Z_temporary_5;
-           //CREATE STATIC_OBJECT temporary_13 WITH METHOD anonymousmethod_127
-/*C*/      void* Z_temporary_13 = &Z_anonymousmethod_127;
+           //CREATE STATIC_OBJECT temporary_13 WITH METHOD anonymousmethod_128
+/*C*/      void* Z_temporary_13 = &Z_anonymousmethod_128;
            //CREATE DYNAMIC_OBJECT temporary_12 WITH METHOD[STATIC_OBJECT] temporary_13 FRAME{STATIC(),DYNAMIC(local_i)}
 /*C*/      void* Z_temporary_12 = allocateDynamicLambda(1,1,Z_temporary_13);
 /*C*/      RetainDynamicObject(Z_local_i);
@@ -19823,8 +19881,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_self;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_130(local_retrivedNeuralValue)
-/*C*/      void* Z_anonymousmethod_130(void* frame, void* Z_local_retrivedNeuralValue) {{
+        //START METHOD anonymousmethod_131(local_retrivedNeuralValue)
+/*C*/      void* Z_anonymousmethod_131(void* frame, void* Z_local_retrivedNeuralValue) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_wrappedWeight)}
 /*C*/      void* Z_local_wrappedWeight = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
@@ -19847,8 +19905,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_129(local_mappingOfOutputIndexToWeight)
-/*C*/      void* Z_anonymousmethod_129(void* frame, void* Z_local_mappingOfOutputIndexToWeight) {{
+        //START METHOD anonymousmethod_130(local_mappingOfOutputIndexToWeight)
+/*C*/      void* Z_anonymousmethod_130(void* frame, void* Z_local_mappingOfOutputIndexToWeight) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_outputIndex, local_wrappedWeight)}
 /*C*/      void* Z_local_outputIndex = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_wrappedWeight = *(((void* *)(frame+sizeof(void*)*1)));
@@ -19858,8 +19916,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      Z_temporary_2 = Z_local_outputIndex;
            //RETAIN temporary_2
 /*C*/      RetainDynamicObject(Z_temporary_2);
-           //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_130
-/*C*/      void* Z_temporary_4 = &Z_anonymousmethod_130;
+           //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_131
+/*C*/      void* Z_temporary_4 = &Z_anonymousmethod_131;
            //CREATE DYNAMIC_OBJECT temporary_3 WITH METHOD[STATIC_OBJECT] temporary_4 FRAME{STATIC(),DYNAMIC(local_wrappedWeight)}
 /*C*/      void* Z_temporary_3 = allocateDynamicLambda(1,1,Z_temporary_4);
 /*C*/      RetainDynamicObject(Z_local_wrappedWeight);
@@ -19920,8 +19978,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      Z_temporary_9 = Z_local_inputIndex;
            //RETAIN temporary_9
 /*C*/      RetainDynamicObject(Z_temporary_9);
-           //CREATE STATIC_OBJECT temporary_11 WITH METHOD anonymousmethod_129
-/*C*/      void* Z_temporary_11 = &Z_anonymousmethod_129;
+           //CREATE STATIC_OBJECT temporary_11 WITH METHOD anonymousmethod_130
+/*C*/      void* Z_temporary_11 = &Z_anonymousmethod_130;
            //CREATE DYNAMIC_OBJECT temporary_10 WITH METHOD[STATIC_OBJECT] temporary_11 FRAME{STATIC(),DYNAMIC(local_outputIndex, local_wrappedWeight)}
 /*C*/      void* Z_temporary_10 = allocateDynamicLambda(2,2,Z_temporary_11);
 /*C*/      RetainDynamicObject(Z_local_outputIndex);
@@ -19960,8 +20018,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_133(local_mappingOfOutputIndexToWeight)
-/*C*/      void* Z_anonymousmethod_133(void* frame, void* Z_local_mappingOfOutputIndexToWeight) {{
+        //START METHOD anonymousmethod_134(local_mappingOfOutputIndexToWeight)
+/*C*/      void* Z_anonymousmethod_134(void* frame, void* Z_local_mappingOfOutputIndexToWeight) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_provideMappingOfOutputIndexToWeight)}
 /*C*/      void* Z_local_provideMappingOfOutputIndexToWeight = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
@@ -19984,8 +20042,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_132(local_provideMappingOfOutputIndexToWeight)
-/*C*/      void* Z_anonymousmethod_132(void* frame, void* Z_local_provideMappingOfOutputIndexToWeight) {{
+        //START METHOD anonymousmethod_133(local_provideMappingOfOutputIndexToWeight)
+/*C*/      void* Z_anonymousmethod_133(void* frame, void* Z_local_provideMappingOfOutputIndexToWeight) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_inputIndex)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_inputIndex = *(((void* *)(frame+sizeof(void*)*1)));
@@ -19995,8 +20053,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      Z_temporary_2 = Z_local_inputIndex;
            //RETAIN temporary_2
 /*C*/      RetainDynamicObject(Z_temporary_2);
-           //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_133
-/*C*/      void* Z_temporary_4 = &Z_anonymousmethod_133;
+           //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_134
+/*C*/      void* Z_temporary_4 = &Z_anonymousmethod_134;
            //CREATE DYNAMIC_OBJECT temporary_3 WITH METHOD[STATIC_OBJECT] temporary_4 FRAME{STATIC(),DYNAMIC(local_provideMappingOfOutputIndexToWeight)}
 /*C*/      void* Z_temporary_3 = allocateDynamicLambda(1,1,Z_temporary_4);
 /*C*/      RetainDynamicObject(Z_local_provideMappingOfOutputIndexToWeight);
@@ -20019,8 +20077,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_3);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_131(local_givenInputIndex)
-/*C*/      void* Z_anonymousmethod_131(void* frame, void* Z_local_givenInputIndex) {{
+        //START METHOD anonymousmethod_132(local_givenInputIndex)
+/*C*/      void* Z_anonymousmethod_132(void* frame, void* Z_local_givenInputIndex) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_inputIndex)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_inputIndex = *(((void* *)(frame+sizeof(void*)*1)));
@@ -20028,8 +20086,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_temporary_1 = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_132
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_132;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_133
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_133;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self, local_inputIndex)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(2,2,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_self);
@@ -20148,8 +20206,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_131
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_131;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_132
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_132;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self, local_inputIndex)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(2,2,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_self);
@@ -20384,32 +20442,6 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_self;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_136(local_n)
-/*C*/      void* Z_anonymousmethod_136(void* frame, void* Z_local_n) {{
-           //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_neuralValueToAddToSum)}
-/*C*/      void* Z_local_neuralValueToAddToSum = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_1 WITH EMPTY_VALUE
-/*C*/      void* Z_temporary_1 = ((void *)(0));
-           //ASSIGN temporary_1 = local_neuralValueToAddToSum
-/*C*/      Z_temporary_1 = Z_local_neuralValueToAddToSum;
-           //RETAIN temporary_1
-/*C*/      RetainDynamicObject(Z_temporary_1);
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD classmethod_NeuralValue_neuralValueByAddingNeuralValue
-/*C*/      void* Z_temporary_3 = &Z_classmethod_NeuralValue_neuralValueByAddingNeuralValue;
-           //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_n)}
-/*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
-/*C*/      RetainDynamicObject(Z_local_n);
-/*C*/      *(((void* *)(Z_temporary_2+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_n;
-           //CREATE OBJECT retval = INVOKE temporary_2(temporary_1)
-/*C*/      void* Z_retval = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_2))->method))(Z_temporary_2+sizeof(DynamicLambda), Z_temporary_1);
-           //RELEASE temporary_2
-/*C*/      ReleaseDynamicObject(Z_temporary_2);
-           //RELEASE temporary_1
-/*C*/      ReleaseDynamicObject(Z_temporary_1);
-           //RETURN retval
-/*C*/      return Z_retval;
-        //FINISH METHOD
-/*C*/   }return NULL;}
         //START METHOD anonymousmethod_137(local_n)
 /*C*/      void* Z_anonymousmethod_137(void* frame, void* Z_local_n) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_neuralValueToAddToSum)}
@@ -20436,12 +20468,38 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_135(local_neuralValueToAddToSum)
-/*C*/      void* Z_anonymousmethod_135(void* frame, void* Z_local_neuralValueToAddToSum) {{
+        //START METHOD anonymousmethod_138(local_n)
+/*C*/      void* Z_anonymousmethod_138(void* frame, void* Z_local_n) {{
+           //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_neuralValueToAddToSum)}
+/*C*/      void* Z_local_neuralValueToAddToSum = *(((void* *)(frame+sizeof(void*)*0)));
+           //CREATE STATIC_OBJECT temporary_1 WITH EMPTY_VALUE
+/*C*/      void* Z_temporary_1 = ((void *)(0));
+           //ASSIGN temporary_1 = local_neuralValueToAddToSum
+/*C*/      Z_temporary_1 = Z_local_neuralValueToAddToSum;
+           //RETAIN temporary_1
+/*C*/      RetainDynamicObject(Z_temporary_1);
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD classmethod_NeuralValue_neuralValueByAddingNeuralValue
+/*C*/      void* Z_temporary_3 = &Z_classmethod_NeuralValue_neuralValueByAddingNeuralValue;
+           //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_n)}
+/*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
+/*C*/      RetainDynamicObject(Z_local_n);
+/*C*/      *(((void* *)(Z_temporary_2+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_n;
+           //CREATE OBJECT retval = INVOKE temporary_2(temporary_1)
+/*C*/      void* Z_retval = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_2))->method))(Z_temporary_2+sizeof(DynamicLambda), Z_temporary_1);
+           //RELEASE temporary_2
+/*C*/      ReleaseDynamicObject(Z_temporary_2);
+           //RELEASE temporary_1
+/*C*/      ReleaseDynamicObject(Z_temporary_1);
+           //RETURN retval
+/*C*/      return Z_retval;
+        //FINISH METHOD
+/*C*/   }return NULL;}
+        //START METHOD anonymousmethod_136(local_neuralValueToAddToSum)
+/*C*/      void* Z_anonymousmethod_136(void* frame, void* Z_local_neuralValueToAddToSum) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_wrappedNeuralValueSumAtThisOutputIndex)}
 /*C*/      void* Z_local_wrappedNeuralValueSumAtThisOutputIndex = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_137
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_137;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_138
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_138;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_neuralValueToAddToSum)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_local_neuralValueToAddToSum);
@@ -20460,8 +20518,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_138(local_inputIndex, local_inputNeuralValue)
-/*C*/      void* Z_anonymousmethod_138(void* frame, void* Z_local_inputIndex, void* Z_local_inputNeuralValue) {{
+        //START METHOD anonymousmethod_139(local_inputIndex, local_inputNeuralValue)
+/*C*/      void* Z_anonymousmethod_139(void* frame, void* Z_local_inputIndex, void* Z_local_inputNeuralValue) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_addNeuralValueToTheNeuralValueSumAtThisOutputIndex, local_outputIndex)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_addNeuralValueToTheNeuralValueSumAtThisOutputIndex = *(((void* *)(frame+sizeof(void*)*1)));
@@ -20564,8 +20622,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_resultingNeuralValueForThisInput);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_134(local_outputIndex)
-/*C*/      void* Z_anonymousmethod_134(void* frame, void* Z_local_outputIndex) {{
+        //START METHOD anonymousmethod_135(local_outputIndex)
+/*C*/      void* Z_anonymousmethod_135(void* frame, void* Z_local_outputIndex) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_inputMelody, local_producedMelodyAfterForwardPropogation)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_inputMelody = *(((void* *)(frame+sizeof(void*)*1)));
@@ -20620,8 +20678,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_temporary_13 = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_15 WITH METHOD anonymousmethod_135
-/*C*/         void* Z_temporary_15 = &Z_anonymousmethod_135;
+              //CREATE STATIC_OBJECT temporary_15 WITH METHOD anonymousmethod_136
+/*C*/         void* Z_temporary_15 = &Z_anonymousmethod_136;
               //CREATE DYNAMIC_OBJECT temporary_14 WITH METHOD[STATIC_OBJECT] temporary_15 FRAME{STATIC(),DYNAMIC(local_wrappedNeuralValueSumAtThisOutputIndex)}
 /*C*/         void* Z_temporary_14 = allocateDynamicLambda(1,1,Z_temporary_15);
 /*C*/         RetainDynamicObject(Z_local_wrappedNeuralValueSumAtThisOutputIndex);
@@ -20630,8 +20688,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_addNeuralValueToTheNeuralValueSumAtThisOutputIndex = ((void *)(0));
               //ASSIGN local_addNeuralValueToTheNeuralValueSumAtThisOutputIndex = temporary_14
 /*C*/         Z_local_addNeuralValueToTheNeuralValueSumAtThisOutputIndex = Z_temporary_14;
-              //CREATE STATIC_OBJECT temporary_18 WITH METHOD anonymousmethod_138
-/*C*/         void* Z_temporary_18 = &Z_anonymousmethod_138;
+              //CREATE STATIC_OBJECT temporary_18 WITH METHOD anonymousmethod_139
+/*C*/         void* Z_temporary_18 = &Z_anonymousmethod_139;
               //CREATE DYNAMIC_OBJECT temporary_17 WITH METHOD[STATIC_OBJECT] temporary_18 FRAME{STATIC(),DYNAMIC(self, local_addNeuralValueToTheNeuralValueSumAtThisOutputIndex, local_outputIndex)}
 /*C*/         void* Z_temporary_17 = allocateDynamicLambda(3,3,Z_temporary_18);
 /*C*/         RetainDynamicObject(Z_self);
@@ -20720,8 +20778,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_temporary_9 = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_11 WITH METHOD anonymousmethod_134
-/*C*/         void* Z_temporary_11 = &Z_anonymousmethod_134;
+              //CREATE STATIC_OBJECT temporary_11 WITH METHOD anonymousmethod_135
+/*C*/         void* Z_temporary_11 = &Z_anonymousmethod_135;
               //CREATE DYNAMIC_OBJECT temporary_10 WITH METHOD[STATIC_OBJECT] temporary_11 FRAME{STATIC(),DYNAMIC(self, local_inputMelody, local_producedMelodyAfterForwardPropogation)}
 /*C*/         void* Z_temporary_10 = allocateDynamicLambda(3,3,Z_temporary_11);
 /*C*/         RetainDynamicObject(Z_self);
@@ -20858,32 +20916,6 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_141(local_n)
-/*C*/      void* Z_anonymousmethod_141(void* frame, void* Z_local_n) {{
-           //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_partialGamma)}
-/*C*/      void* Z_local_partialGamma = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_1 WITH EMPTY_VALUE
-/*C*/      void* Z_temporary_1 = ((void *)(0));
-           //ASSIGN temporary_1 = local_partialGamma
-/*C*/      Z_temporary_1 = Z_local_partialGamma;
-           //RETAIN temporary_1
-/*C*/      RetainDynamicObject(Z_temporary_1);
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD classmethod_NeuralValue_neuralValueByAddingNeuralValue
-/*C*/      void* Z_temporary_3 = &Z_classmethod_NeuralValue_neuralValueByAddingNeuralValue;
-           //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_n)}
-/*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
-/*C*/      RetainDynamicObject(Z_local_n);
-/*C*/      *(((void* *)(Z_temporary_2+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_n;
-           //CREATE OBJECT retval = INVOKE temporary_2(temporary_1)
-/*C*/      void* Z_retval = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_2))->method))(Z_temporary_2+sizeof(DynamicLambda), Z_temporary_1);
-           //RELEASE temporary_2
-/*C*/      ReleaseDynamicObject(Z_temporary_2);
-           //RELEASE temporary_1
-/*C*/      ReleaseDynamicObject(Z_temporary_1);
-           //RETURN retval
-/*C*/      return Z_retval;
-        //FINISH METHOD
-/*C*/   }return NULL;}
         //START METHOD anonymousmethod_142(local_n)
 /*C*/      void* Z_anonymousmethod_142(void* frame, void* Z_local_n) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_partialGamma)}
@@ -20910,8 +20942,34 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_140(local_outgoingNeuralConnectionIndex, local_gammaOfForwardNeuron)
-/*C*/      void* Z_anonymousmethod_140(void* frame, void* Z_local_outgoingNeuralConnectionIndex, void* Z_local_gammaOfForwardNeuron) {{
+        //START METHOD anonymousmethod_143(local_n)
+/*C*/      void* Z_anonymousmethod_143(void* frame, void* Z_local_n) {{
+           //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_partialGamma)}
+/*C*/      void* Z_local_partialGamma = *(((void* *)(frame+sizeof(void*)*0)));
+           //CREATE STATIC_OBJECT temporary_1 WITH EMPTY_VALUE
+/*C*/      void* Z_temporary_1 = ((void *)(0));
+           //ASSIGN temporary_1 = local_partialGamma
+/*C*/      Z_temporary_1 = Z_local_partialGamma;
+           //RETAIN temporary_1
+/*C*/      RetainDynamicObject(Z_temporary_1);
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD classmethod_NeuralValue_neuralValueByAddingNeuralValue
+/*C*/      void* Z_temporary_3 = &Z_classmethod_NeuralValue_neuralValueByAddingNeuralValue;
+           //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_n)}
+/*C*/      void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
+/*C*/      RetainDynamicObject(Z_local_n);
+/*C*/      *(((void* *)(Z_temporary_2+sizeof(DynamicLambda)+sizeof(void*)*0))) = Z_local_n;
+           //CREATE OBJECT retval = INVOKE temporary_2(temporary_1)
+/*C*/      void* Z_retval = ((void*(*)(void*,void*))(((DynamicLambda *)(Z_temporary_2))->method))(Z_temporary_2+sizeof(DynamicLambda), Z_temporary_1);
+           //RELEASE temporary_2
+/*C*/      ReleaseDynamicObject(Z_temporary_2);
+           //RELEASE temporary_1
+/*C*/      ReleaseDynamicObject(Z_temporary_1);
+           //RETURN retval
+/*C*/      return Z_retval;
+        //FINISH METHOD
+/*C*/   }return NULL;}
+        //START METHOD anonymousmethod_141(local_outgoingNeuralConnectionIndex, local_gammaOfForwardNeuron)
+/*C*/      void* Z_anonymousmethod_141(void* frame, void* Z_local_outgoingNeuralConnectionIndex, void* Z_local_gammaOfForwardNeuron) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_incomingNeuralConnectionIndex, local_wrappedProducedCorrespondingGammaforMelody)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_incomingNeuralConnectionIndex = *(((void* *)(frame+sizeof(void*)*1)));
@@ -20982,8 +21040,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_local_partialGamma = ((void *)(0));
            //ASSIGN local_partialGamma = temporary_7
 /*C*/      Z_local_partialGamma = Z_temporary_7;
-           //CREATE STATIC_OBJECT temporary_15 WITH METHOD anonymousmethod_142
-/*C*/      void* Z_temporary_15 = &Z_anonymousmethod_142;
+           //CREATE STATIC_OBJECT temporary_15 WITH METHOD anonymousmethod_143
+/*C*/      void* Z_temporary_15 = &Z_anonymousmethod_143;
            //CREATE DYNAMIC_OBJECT temporary_14 WITH METHOD[STATIC_OBJECT] temporary_15 FRAME{STATIC(),DYNAMIC(local_partialGamma)}
 /*C*/      void* Z_temporary_14 = allocateDynamicLambda(1,1,Z_temporary_15);
 /*C*/      RetainDynamicObject(Z_local_partialGamma);
@@ -21006,8 +21064,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_partialGamma);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_139(local_incomingNeuralConnectionIndex)
-/*C*/      void* Z_anonymousmethod_139(void* frame, void* Z_local_incomingNeuralConnectionIndex) {{
+        //START METHOD anonymousmethod_140(local_incomingNeuralConnectionIndex)
+/*C*/      void* Z_anonymousmethod_140(void* frame, void* Z_local_incomingNeuralConnectionIndex) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_producedGammaMelodyOfPreviousLayer, local_startingGammaMelody)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_producedGammaMelodyOfPreviousLayer = *(((void* *)(frame+sizeof(void*)*1)));
@@ -21062,8 +21120,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_temporary_14 = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_16 WITH METHOD anonymousmethod_140
-/*C*/         void* Z_temporary_16 = &Z_anonymousmethod_140;
+              //CREATE STATIC_OBJECT temporary_16 WITH METHOD anonymousmethod_141
+/*C*/         void* Z_temporary_16 = &Z_anonymousmethod_141;
               //CREATE DYNAMIC_OBJECT temporary_15 WITH METHOD[STATIC_OBJECT] temporary_16 FRAME{STATIC(),DYNAMIC(self, local_incomingNeuralConnectionIndex, local_wrappedProducedCorrespondingGammaforMelody)}
 /*C*/         void* Z_temporary_15 = allocateDynamicLambda(3,3,Z_temporary_16);
 /*C*/         RetainDynamicObject(Z_self);
@@ -21162,8 +21220,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_temporary_9 = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_11 WITH METHOD anonymousmethod_139
-/*C*/         void* Z_temporary_11 = &Z_anonymousmethod_139;
+              //CREATE STATIC_OBJECT temporary_11 WITH METHOD anonymousmethod_140
+/*C*/         void* Z_temporary_11 = &Z_anonymousmethod_140;
               //CREATE DYNAMIC_OBJECT temporary_10 WITH METHOD[STATIC_OBJECT] temporary_11 FRAME{STATIC(),DYNAMIC(self, local_producedGammaMelodyOfPreviousLayer, local_startingGammaMelody)}
 /*C*/         void* Z_temporary_10 = allocateDynamicLambda(3,3,Z_temporary_11);
 /*C*/         RetainDynamicObject(Z_self);
@@ -21212,8 +21270,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_144(local_outputIndex, local_gammaValue)
-/*C*/      void* Z_anonymousmethod_144(void* frame, void* Z_local_outputIndex, void* Z_local_gammaValue) {{
+        //START METHOD anonymousmethod_145(local_outputIndex, local_gammaValue)
+/*C*/      void* Z_anonymousmethod_145(void* frame, void* Z_local_outputIndex, void* Z_local_gammaValue) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_inputIndex, local_inputValue)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_inputIndex = *(((void* *)(frame+sizeof(void*)*1)));
@@ -21350,8 +21408,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_newWeight);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_143(local_inputIndex, local_inputValue)
-/*C*/      void* Z_anonymousmethod_143(void* frame, void* Z_local_inputIndex, void* Z_local_inputValue) {{
+        //START METHOD anonymousmethod_144(local_inputIndex, local_inputValue)
+/*C*/      void* Z_anonymousmethod_144(void* frame, void* Z_local_inputIndex, void* Z_local_inputValue) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_gammaMelody)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_gammaMelody = *(((void* *)(frame+sizeof(void*)*1)));
@@ -21359,8 +21417,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_temporary_2 = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_144
-/*C*/         void* Z_temporary_4 = &Z_anonymousmethod_144;
+              //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_145
+/*C*/         void* Z_temporary_4 = &Z_anonymousmethod_145;
               //CREATE DYNAMIC_OBJECT temporary_3 WITH METHOD[STATIC_OBJECT] temporary_4 FRAME{STATIC(),DYNAMIC(self, local_inputIndex, local_inputValue)}
 /*C*/         void* Z_temporary_3 = allocateDynamicLambda(3,3,Z_temporary_4);
 /*C*/         RetainDynamicObject(Z_self);
@@ -21507,8 +21565,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_temporary_31 = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_33 WITH METHOD anonymousmethod_143
-/*C*/         void* Z_temporary_33 = &Z_anonymousmethod_143;
+              //CREATE STATIC_OBJECT temporary_33 WITH METHOD anonymousmethod_144
+/*C*/         void* Z_temporary_33 = &Z_anonymousmethod_144;
               //CREATE DYNAMIC_OBJECT temporary_32 WITH METHOD[STATIC_OBJECT] temporary_33 FRAME{STATIC(),DYNAMIC(self, local_gammaMelody)}
 /*C*/         void* Z_temporary_32 = allocateDynamicLambda(2,2,Z_temporary_33);
 /*C*/         RetainDynamicObject(Z_self);
@@ -21588,8 +21646,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_newObject;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_146(local_e)
-/*C*/      void* Z_anonymousmethod_146(void* frame, void* Z_local_e) {{
+        //START METHOD anonymousmethod_147(local_e)
+/*C*/      void* Z_anonymousmethod_147(void* frame, void* Z_local_e) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_sizeOfInternalLayers, local_trainOfInternalLayers)}
 /*C*/      void* Z_local_sizeOfInternalLayers = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_trainOfInternalLayers = *(((void* *)(frame+sizeof(void*)*1)));
@@ -21643,8 +21701,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_145()
-/*C*/      void* Z_anonymousmethod_145(void* frame) {{
+        //START METHOD anonymousmethod_146()
+/*C*/      void* Z_anonymousmethod_146(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_numberOfInputs, local_numberOfInternalLayers, local_sizeOfInternalLayers)}
 /*C*/      void* Z_local_numberOfInputs = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_numberOfInternalLayers = *(((void* *)(frame+sizeof(void*)*1)));
@@ -21774,8 +21832,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_temporary_31 = ((void *)(0));
               //ENTER LOCAL SCOPE
 /*C*/         {
-                 //CREATE STATIC_OBJECT temporary_33 WITH METHOD anonymousmethod_146
-/*C*/            void* Z_temporary_33 = &Z_anonymousmethod_146;
+                 //CREATE STATIC_OBJECT temporary_33 WITH METHOD anonymousmethod_147
+/*C*/            void* Z_temporary_33 = &Z_anonymousmethod_147;
                  //CREATE DYNAMIC_OBJECT temporary_32 WITH METHOD[STATIC_OBJECT] temporary_33 FRAME{STATIC(),DYNAMIC(local_sizeOfInternalLayers, local_trainOfInternalLayers)}
 /*C*/            void* Z_temporary_32 = allocateDynamicLambda(2,2,Z_temporary_33);
 /*C*/            RetainDynamicObject(Z_local_sizeOfInternalLayers);
@@ -21838,8 +21896,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_145
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_145;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_146
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_146;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_numberOfInputs, local_numberOfInternalLayers, local_sizeOfInternalLayers)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(3,3,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_local_numberOfInputs);
@@ -21984,8 +22042,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_147()
-/*C*/      void* Z_anonymousmethod_147(void* frame) {{
+        //START METHOD anonymousmethod_148()
+/*C*/      void* Z_anonymousmethod_148(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_5 WITH METHOD allocator_Train
@@ -22016,8 +22074,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ((struct Z_template_DavesBrain *)(Z_self))->Z_attribute_DavesBrain_traceOfLastForwardPropogationOnClassifyingInputMelody = Z_temporary_1;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_148(local_melodyInQuestion)
-/*C*/      void* Z_anonymousmethod_148(void* frame, void* Z_local_melodyInQuestion) {{
+        //START METHOD anonymousmethod_149(local_melodyInQuestion)
+/*C*/      void* Z_anonymousmethod_149(void* frame, void* Z_local_melodyInQuestion) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
@@ -22042,8 +22100,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_150(local_melody)
-/*C*/      void* Z_anonymousmethod_150(void* frame, void* Z_local_melody) {{
+        //START METHOD anonymousmethod_151(local_melody)
+/*C*/      void* Z_anonymousmethod_151(void* frame, void* Z_local_melody) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_recordMelodyInTraceOfForwardPropogation)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_recordMelodyInTraceOfForwardPropogation = *(((void* *)(frame+sizeof(void*)*1)));
@@ -22101,14 +22159,14 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_149()
-/*C*/      void* Z_anonymousmethod_149(void* frame) {{
+        //START METHOD anonymousmethod_150()
+/*C*/      void* Z_anonymousmethod_150(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_recordMelodyInTraceOfForwardPropogation, local_transformWorkingMelodyWithTransformation)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_recordMelodyInTraceOfForwardPropogation = *(((void* *)(frame+sizeof(void*)*1)));
 /*C*/      void* Z_local_transformWorkingMelodyWithTransformation = *(((void* *)(frame+sizeof(void*)*2)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_150
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_150;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_151
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_151;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self, local_recordMelodyInTraceOfForwardPropogation)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(2,2,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_self);
@@ -22129,8 +22187,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_153(local_melody)
-/*C*/      void* Z_anonymousmethod_153(void* frame, void* Z_local_melody) {{
+        //START METHOD anonymousmethod_154(local_melody)
+/*C*/      void* Z_anonymousmethod_154(void* frame, void* Z_local_melody) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_recordMelodyInTraceOfForwardPropogation, local_someLayerInDavesBrain)}
 /*C*/      void* Z_local_recordMelodyInTraceOfForwardPropogation = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_someLayerInDavesBrain = *(((void* *)(frame+sizeof(void*)*1)));
@@ -22196,8 +22254,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_152(local_someLayerInDavesBrain)
-/*C*/      void* Z_anonymousmethod_152(void* frame, void* Z_local_someLayerInDavesBrain) {{
+        //START METHOD anonymousmethod_153(local_someLayerInDavesBrain)
+/*C*/      void* Z_anonymousmethod_153(void* frame, void* Z_local_someLayerInDavesBrain) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_recordMelodyInTraceOfForwardPropogation, local_transformWorkingMelodyWithTransformation)}
 /*C*/      void* Z_local_recordMelodyInTraceOfForwardPropogation = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_transformWorkingMelodyWithTransformation = *(((void* *)(frame+sizeof(void*)*1)));
@@ -22205,8 +22263,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_temporary_2 = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_153
-/*C*/         void* Z_temporary_4 = &Z_anonymousmethod_153;
+              //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_154
+/*C*/         void* Z_temporary_4 = &Z_anonymousmethod_154;
               //CREATE DYNAMIC_OBJECT temporary_3 WITH METHOD[STATIC_OBJECT] temporary_4 FRAME{STATIC(),DYNAMIC(local_recordMelodyInTraceOfForwardPropogation, local_someLayerInDavesBrain)}
 /*C*/         void* Z_temporary_3 = allocateDynamicLambda(2,2,Z_temporary_4);
 /*C*/         RetainDynamicObject(Z_local_recordMelodyInTraceOfForwardPropogation);
@@ -22243,14 +22301,14 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_151()
-/*C*/      void* Z_anonymousmethod_151(void* frame) {{
+        //START METHOD anonymousmethod_152()
+/*C*/      void* Z_anonymousmethod_152(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self, local_recordMelodyInTraceOfForwardPropogation, local_transformWorkingMelodyWithTransformation)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_recordMelodyInTraceOfForwardPropogation = *(((void* *)(frame+sizeof(void*)*1)));
 /*C*/      void* Z_local_transformWorkingMelodyWithTransformation = *(((void* *)(frame+sizeof(void*)*2)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_152
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_152;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_153
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_153;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_recordMelodyInTraceOfForwardPropogation, local_transformWorkingMelodyWithTransformation)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(2,2,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_local_recordMelodyInTraceOfForwardPropogation);
@@ -22281,8 +22339,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_147
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_147;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_148
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_148;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_self);
@@ -22291,8 +22349,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_beginTraceOfForwardPropogation = ((void *)(0));
               //ASSIGN local_beginTraceOfForwardPropogation = temporary_2
 /*C*/         Z_local_beginTraceOfForwardPropogation = Z_temporary_2;
-              //CREATE STATIC_OBJECT temporary_5 WITH METHOD anonymousmethod_148
-/*C*/         void* Z_temporary_5 = &Z_anonymousmethod_148;
+              //CREATE STATIC_OBJECT temporary_5 WITH METHOD anonymousmethod_149
+/*C*/         void* Z_temporary_5 = &Z_anonymousmethod_149;
               //CREATE DYNAMIC_OBJECT temporary_4 WITH METHOD[STATIC_OBJECT] temporary_5 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/         void* Z_temporary_4 = allocateDynamicLambda(1,1,Z_temporary_5);
 /*C*/         RetainDynamicObject(Z_self);
@@ -22343,8 +22401,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_transformWorkingMelodyWithTransformation = ((void *)(0));
               //ASSIGN local_transformWorkingMelodyWithTransformation = temporary_13
 /*C*/         Z_local_transformWorkingMelodyWithTransformation = Z_temporary_13;
-              //CREATE STATIC_OBJECT temporary_16 WITH METHOD anonymousmethod_149
-/*C*/         void* Z_temporary_16 = &Z_anonymousmethod_149;
+              //CREATE STATIC_OBJECT temporary_16 WITH METHOD anonymousmethod_150
+/*C*/         void* Z_temporary_16 = &Z_anonymousmethod_150;
               //CREATE DYNAMIC_OBJECT temporary_15 WITH METHOD[STATIC_OBJECT] temporary_16 FRAME{STATIC(),DYNAMIC(self, local_recordMelodyInTraceOfForwardPropogation, local_transformWorkingMelodyWithTransformation)}
 /*C*/         void* Z_temporary_15 = allocateDynamicLambda(3,3,Z_temporary_16);
 /*C*/         RetainDynamicObject(Z_self);
@@ -22357,8 +22415,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_transformWorkingMelodyByForwardPropergationThroughNeuralOutputLayer = ((void *)(0));
               //ASSIGN local_transformWorkingMelodyByForwardPropergationThroughNeuralOutputLayer = temporary_15
 /*C*/         Z_local_transformWorkingMelodyByForwardPropergationThroughNeuralOutputLayer = Z_temporary_15;
-              //CREATE STATIC_OBJECT temporary_18 WITH METHOD anonymousmethod_151
-/*C*/         void* Z_temporary_18 = &Z_anonymousmethod_151;
+              //CREATE STATIC_OBJECT temporary_18 WITH METHOD anonymousmethod_152
+/*C*/         void* Z_temporary_18 = &Z_anonymousmethod_152;
               //CREATE DYNAMIC_OBJECT temporary_17 WITH METHOD[STATIC_OBJECT] temporary_18 FRAME{STATIC(),DYNAMIC(self, local_recordMelodyInTraceOfForwardPropogation, local_transformWorkingMelodyWithTransformation)}
 /*C*/         void* Z_temporary_17 = allocateDynamicLambda(3,3,Z_temporary_18);
 /*C*/         RetainDynamicObject(Z_self);
@@ -22557,8 +22615,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_155(local_finalMelody)
-/*C*/      void* Z_anonymousmethod_155(void* frame, void* Z_local_finalMelody) {{
+        //START METHOD anonymousmethod_156(local_finalMelody)
+/*C*/      void* Z_anonymousmethod_156(void* frame, void* Z_local_finalMelody) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_wrappedFinalMelody)}
 /*C*/      void* Z_local_wrappedFinalMelody = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
@@ -22581,8 +22639,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_154()
-/*C*/      void* Z_anonymousmethod_154(void* frame) {{
+        //START METHOD anonymousmethod_155()
+/*C*/      void* Z_anonymousmethod_155(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_6 WITH METHOD allocator_NeuralValueMelody
@@ -22631,8 +22689,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_local_wrappedFinalMelody = ((void *)(0));
            //ASSIGN local_wrappedFinalMelody = temporary_1
 /*C*/      Z_local_wrappedFinalMelody = Z_temporary_1;
-           //CREATE STATIC_OBJECT temporary_15 WITH METHOD anonymousmethod_155
-/*C*/      void* Z_temporary_15 = &Z_anonymousmethod_155;
+           //CREATE STATIC_OBJECT temporary_15 WITH METHOD anonymousmethod_156
+/*C*/      void* Z_temporary_15 = &Z_anonymousmethod_156;
            //CREATE DYNAMIC_OBJECT temporary_14 WITH METHOD[STATIC_OBJECT] temporary_15 FRAME{STATIC(),DYNAMIC(local_wrappedFinalMelody)}
 /*C*/      void* Z_temporary_14 = allocateDynamicLambda(1,1,Z_temporary_15);
 /*C*/      RetainDynamicObject(Z_local_wrappedFinalMelody);
@@ -22667,8 +22725,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_157(local_layerInBrain)
-/*C*/      void* Z_anonymousmethod_157(void* frame, void* Z_local_layerInBrain) {{
+        //START METHOD anonymousmethod_158(local_layerInBrain)
+/*C*/      void* Z_anonymousmethod_158(void* frame, void* Z_local_layerInBrain) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_gammaMelodiesCorrespondingToForwardPropogationTrace, local_wrappedWorkingGammaMelody)}
 /*C*/      void* Z_local_gammaMelodiesCorrespondingToForwardPropogationTrace = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_wrappedWorkingGammaMelody = *(((void* *)(frame+sizeof(void*)*1)));
@@ -22738,17 +22796,17 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_local_producedGammaMelody);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_159(local__)
-/*C*/      void* Z_anonymousmethod_159(void* frame, void* Z_local__) {{
+        //START METHOD anonymousmethod_160(local__)
+/*C*/      void* Z_anonymousmethod_160(void* frame, void* Z_local__) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC()}
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_158()
-/*C*/      void* Z_anonymousmethod_158(void* frame) {{
+        //START METHOD anonymousmethod_159()
+/*C*/      void* Z_anonymousmethod_159(void* frame) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_gammaMelodiesCorrespondingToForwardPropogationTrace)}
 /*C*/      void* Z_local_gammaMelodiesCorrespondingToForwardPropogationTrace = *(((void* *)(frame+sizeof(void*)*0)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_159
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_159;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_160
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_160;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC()}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(0,0,Z_temporary_3);
            //CREATE STATIC_OBJECT temporary_5 WITH METHOD classmethod_Train_popFromFront
@@ -22765,8 +22823,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_156(local_initialGammaMelody)
-/*C*/      void* Z_anonymousmethod_156(void* frame, void* Z_local_initialGammaMelody) {{
+        //START METHOD anonymousmethod_157(local_initialGammaMelody)
+/*C*/      void* Z_anonymousmethod_157(void* frame, void* Z_local_initialGammaMelody) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT retval WITH EMPTY_VALUE
@@ -22829,8 +22887,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_gammaMelodiesCorrespondingToForwardPropogationTrace = ((void *)(0));
               //ASSIGN local_gammaMelodiesCorrespondingToForwardPropogationTrace = temporary_9
 /*C*/         Z_local_gammaMelodiesCorrespondingToForwardPropogationTrace = Z_temporary_9;
-              //CREATE STATIC_OBJECT temporary_16 WITH METHOD anonymousmethod_157
-/*C*/         void* Z_temporary_16 = &Z_anonymousmethod_157;
+              //CREATE STATIC_OBJECT temporary_16 WITH METHOD anonymousmethod_158
+/*C*/         void* Z_temporary_16 = &Z_anonymousmethod_158;
               //CREATE DYNAMIC_OBJECT temporary_15 WITH METHOD[STATIC_OBJECT] temporary_16 FRAME{STATIC(),DYNAMIC(local_gammaMelodiesCorrespondingToForwardPropogationTrace, local_wrappedWorkingGammaMelody)}
 /*C*/         void* Z_temporary_15 = allocateDynamicLambda(2,2,Z_temporary_16);
 /*C*/         RetainDynamicObject(Z_local_gammaMelodiesCorrespondingToForwardPropogationTrace);
@@ -22859,8 +22917,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_neuralLayersInDavesBrainInReverseOrder = ((void *)(0));
               //ASSIGN local_neuralLayersInDavesBrainInReverseOrder = temporary_17
 /*C*/         Z_local_neuralLayersInDavesBrainInReverseOrder = Z_temporary_17;
-              //CREATE STATIC_OBJECT temporary_22 WITH METHOD anonymousmethod_158
-/*C*/         void* Z_temporary_22 = &Z_anonymousmethod_158;
+              //CREATE STATIC_OBJECT temporary_22 WITH METHOD anonymousmethod_159
+/*C*/         void* Z_temporary_22 = &Z_anonymousmethod_159;
               //CREATE DYNAMIC_OBJECT temporary_21 WITH METHOD[STATIC_OBJECT] temporary_22 FRAME{STATIC(),DYNAMIC(local_gammaMelodiesCorrespondingToForwardPropogationTrace)}
 /*C*/         void* Z_temporary_21 = allocateDynamicLambda(1,1,Z_temporary_22);
 /*C*/         RetainDynamicObject(Z_local_gammaMelodiesCorrespondingToForwardPropogationTrace);
@@ -22955,8 +23013,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      return Z_retval;
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_161(local_provideNeuralLayer)
-/*C*/      void* Z_anonymousmethod_161(void* frame, void* Z_local_provideNeuralLayer) {{
+        //START METHOD anonymousmethod_162(local_provideNeuralLayer)
+/*C*/      void* Z_anonymousmethod_162(void* frame, void* Z_local_provideNeuralLayer) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
@@ -22997,8 +23055,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_7);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_164(local_gammaMelody)
-/*C*/      void* Z_anonymousmethod_164(void* frame, void* Z_local_gammaMelody) {{
+        //START METHOD anonymousmethod_165(local_gammaMelody)
+/*C*/      void* Z_anonymousmethod_165(void* frame, void* Z_local_gammaMelody) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_layerToAdjustWeightsFor, local_traceInputMelody)}
 /*C*/      void* Z_local_layerToAdjustWeightsFor = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_traceInputMelody = *(((void* *)(frame+sizeof(void*)*1)));
@@ -23030,13 +23088,13 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_3);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_163(local_traceInputMelody)
-/*C*/      void* Z_anonymousmethod_163(void* frame, void* Z_local_traceInputMelody) {{
+        //START METHOD anonymousmethod_164(local_traceInputMelody)
+/*C*/      void* Z_anonymousmethod_164(void* frame, void* Z_local_traceInputMelody) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_copyOfAllGammaMelodiesCorrespondingToTraceInputMelodies, local_layerToAdjustWeightsFor)}
 /*C*/      void* Z_local_copyOfAllGammaMelodiesCorrespondingToTraceInputMelodies = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_layerToAdjustWeightsFor = *(((void* *)(frame+sizeof(void*)*1)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_164
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_164;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_165
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_165;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_layerToAdjustWeightsFor, local_traceInputMelody)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(2,2,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_local_layerToAdjustWeightsFor);
@@ -23057,13 +23115,13 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_162(local_layerToAdjustWeightsFor)
-/*C*/      void* Z_anonymousmethod_162(void* frame, void* Z_local_layerToAdjustWeightsFor) {{
+        //START METHOD anonymousmethod_163(local_layerToAdjustWeightsFor)
+/*C*/      void* Z_anonymousmethod_163(void* frame, void* Z_local_layerToAdjustWeightsFor) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_copyOfAllGammaMelodiesCorrespondingToTraceInputMelodies, local_copyOfAllTraceInputMelodies)}
 /*C*/      void* Z_local_copyOfAllGammaMelodiesCorrespondingToTraceInputMelodies = *(((void* *)(frame+sizeof(void*)*0)));
 /*C*/      void* Z_local_copyOfAllTraceInputMelodies = *(((void* *)(frame+sizeof(void*)*1)));
-           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_163
-/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_163;
+           //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_164
+/*C*/      void* Z_temporary_3 = &Z_anonymousmethod_164;
            //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(local_copyOfAllGammaMelodiesCorrespondingToTraceInputMelodies, local_layerToAdjustWeightsFor)}
 /*C*/      void* Z_temporary_2 = allocateDynamicLambda(2,2,Z_temporary_3);
 /*C*/      RetainDynamicObject(Z_local_copyOfAllGammaMelodiesCorrespondingToTraceInputMelodies);
@@ -23084,16 +23142,16 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_160(local_forwardPropogationTrace, local_gammaMelodiesCorrespondingToForwardTrace)
-/*C*/      void* Z_anonymousmethod_160(void* frame, void* Z_local_forwardPropogationTrace, void* Z_local_gammaMelodiesCorrespondingToForwardTrace) {{
+        //START METHOD anonymousmethod_161(local_forwardPropogationTrace, local_gammaMelodiesCorrespondingToForwardTrace)
+/*C*/      void* Z_anonymousmethod_161(void* frame, void* Z_local_forwardPropogationTrace, void* Z_local_gammaMelodiesCorrespondingToForwardTrace) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(self)}
 /*C*/      void* Z_self = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT retval WITH EMPTY_VALUE
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_161
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_161;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_162
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_162;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_self);
@@ -23146,8 +23204,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/            void* Z_local_copyOfAllGammaMelodiesCorrespondingToTraceInputMelodies = ((void *)(0));
                  //ASSIGN local_copyOfAllGammaMelodiesCorrespondingToTraceInputMelodies = temporary_9
 /*C*/            Z_local_copyOfAllGammaMelodiesCorrespondingToTraceInputMelodies = Z_temporary_9;
-                 //CREATE STATIC_OBJECT temporary_14 WITH METHOD anonymousmethod_162
-/*C*/            void* Z_temporary_14 = &Z_anonymousmethod_162;
+                 //CREATE STATIC_OBJECT temporary_14 WITH METHOD anonymousmethod_163
+/*C*/            void* Z_temporary_14 = &Z_anonymousmethod_163;
                  //CREATE DYNAMIC_OBJECT temporary_13 WITH METHOD[STATIC_OBJECT] temporary_14 FRAME{STATIC(),DYNAMIC(local_copyOfAllGammaMelodiesCorrespondingToTraceInputMelodies, local_copyOfAllTraceInputMelodies)}
 /*C*/            void* Z_temporary_13 = allocateDynamicLambda(2,2,Z_temporary_14);
 /*C*/            RetainDynamicObject(Z_local_copyOfAllGammaMelodiesCorrespondingToTraceInputMelodies);
@@ -23200,8 +23258,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      void* Z_retval = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_154
-/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_154;
+              //CREATE STATIC_OBJECT temporary_3 WITH METHOD anonymousmethod_155
+/*C*/         void* Z_temporary_3 = &Z_anonymousmethod_155;
               //CREATE DYNAMIC_OBJECT temporary_2 WITH METHOD[STATIC_OBJECT] temporary_3 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/         void* Z_temporary_2 = allocateDynamicLambda(1,1,Z_temporary_3);
 /*C*/         RetainDynamicObject(Z_self);
@@ -23210,8 +23268,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_getTheFinalMelodyFromForwardPropogationTraceAndRemoveItFromTheTrace = ((void *)(0));
               //ASSIGN local_getTheFinalMelodyFromForwardPropogationTraceAndRemoveItFromTheTrace = temporary_2
 /*C*/         Z_local_getTheFinalMelodyFromForwardPropogationTraceAndRemoveItFromTheTrace = Z_temporary_2;
-              //CREATE STATIC_OBJECT temporary_5 WITH METHOD anonymousmethod_156
-/*C*/         void* Z_temporary_5 = &Z_anonymousmethod_156;
+              //CREATE STATIC_OBJECT temporary_5 WITH METHOD anonymousmethod_157
+/*C*/         void* Z_temporary_5 = &Z_anonymousmethod_157;
               //CREATE DYNAMIC_OBJECT temporary_4 WITH METHOD[STATIC_OBJECT] temporary_5 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/         void* Z_temporary_4 = allocateDynamicLambda(1,1,Z_temporary_5);
 /*C*/         RetainDynamicObject(Z_self);
@@ -23220,8 +23278,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_local_forEachLayerInDavesBrainProduceTheGammaMelodiesStartingFromTheInitialGammaMelody = ((void *)(0));
               //ASSIGN local_forEachLayerInDavesBrainProduceTheGammaMelodiesStartingFromTheInitialGammaMelody = temporary_4
 /*C*/         Z_local_forEachLayerInDavesBrainProduceTheGammaMelodiesStartingFromTheInitialGammaMelody = Z_temporary_4;
-              //CREATE STATIC_OBJECT temporary_7 WITH METHOD anonymousmethod_160
-/*C*/         void* Z_temporary_7 = &Z_anonymousmethod_160;
+              //CREATE STATIC_OBJECT temporary_7 WITH METHOD anonymousmethod_161
+/*C*/         void* Z_temporary_7 = &Z_anonymousmethod_161;
               //CREATE DYNAMIC_OBJECT temporary_6 WITH METHOD[STATIC_OBJECT] temporary_7 FRAME{STATIC(),DYNAMIC(self)}
 /*C*/         void* Z_temporary_6 = allocateDynamicLambda(1,1,Z_temporary_7);
 /*C*/         RetainDynamicObject(Z_self);
@@ -23358,8 +23416,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
            //EXIT LOCAL SCOPE
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_166(local_i)
-/*C*/      void* Z_anonymousmethod_166(void* frame, void* Z_local_i) {{
+        //START METHOD anonymousmethod_167(local_i)
+/*C*/      void* Z_anonymousmethod_167(void* frame, void* Z_local_i) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_testMelody)}
 /*C*/      void* Z_local_testMelody = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_3 WITH EMPTY_VALUE
@@ -23404,16 +23462,16 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_165(local_composerOfMelodyRequiringMethodToInsertIntegerAsNeuralValueIntoMelody)
-/*C*/      void* Z_anonymousmethod_165(void* frame, void* Z_local_composerOfMelodyRequiringMethodToInsertIntegerAsNeuralValueIntoMelody) {{
+        //START METHOD anonymousmethod_166(local_composerOfMelodyRequiringMethodToInsertIntegerAsNeuralValueIntoMelody)
+/*C*/      void* Z_anonymousmethod_166(void* frame, void* Z_local_composerOfMelodyRequiringMethodToInsertIntegerAsNeuralValueIntoMelody) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC(local_testMelody)}
 /*C*/      void* Z_local_testMelody = *(((void* *)(frame+sizeof(void*)*0)));
            //CREATE STATIC_OBJECT temporary_2 WITH EMPTY_VALUE
 /*C*/      void* Z_temporary_2 = ((void *)(0));
            //ENTER LOCAL SCOPE
 /*C*/      {
-              //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_166
-/*C*/         void* Z_temporary_4 = &Z_anonymousmethod_166;
+              //CREATE STATIC_OBJECT temporary_4 WITH METHOD anonymousmethod_167
+/*C*/         void* Z_temporary_4 = &Z_anonymousmethod_167;
               //CREATE DYNAMIC_OBJECT temporary_3 WITH METHOD[STATIC_OBJECT] temporary_4 FRAME{STATIC(),DYNAMIC(local_testMelody)}
 /*C*/         void* Z_temporary_3 = allocateDynamicLambda(1,1,Z_temporary_4);
 /*C*/         RetainDynamicObject(Z_local_testMelody);
@@ -23448,8 +23506,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/      ReleaseDynamicObject(Z_temporary_2);
         //FINISH METHOD
 /*C*/   }return NULL;}
-        //START METHOD anonymousmethod_167(local_insertIntegerAsNeuralValueIntoMelody)
-/*C*/      void* Z_anonymousmethod_167(void* frame, void* Z_local_insertIntegerAsNeuralValueIntoMelody) {{
+        //START METHOD anonymousmethod_168(local_insertIntegerAsNeuralValueIntoMelody)
+/*C*/      void* Z_anonymousmethod_168(void* frame, void* Z_local_insertIntegerAsNeuralValueIntoMelody) {{
            //PULL OBJECTS FRAME{STATIC(),DYNAMIC()}
            //CREATE STATIC_OBJECT temporary_3 WITH LITERAL_NATURAL[10000]
 /*C*/      long tempvar_1[] = {1,1,0,-1};
@@ -23675,8 +23733,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/         void* Z_temporary_56 = ((void *)(0));
               //ENTER LOCAL SCOPE
 /*C*/         {
-                 //CREATE STATIC_OBJECT temporary_58 WITH METHOD anonymousmethod_165
-/*C*/            void* Z_temporary_58 = &Z_anonymousmethod_165;
+                 //CREATE STATIC_OBJECT temporary_58 WITH METHOD anonymousmethod_166
+/*C*/            void* Z_temporary_58 = &Z_anonymousmethod_166;
                  //CREATE DYNAMIC_OBJECT temporary_57 WITH METHOD[STATIC_OBJECT] temporary_58 FRAME{STATIC(),DYNAMIC(local_testMelody)}
 /*C*/            void* Z_temporary_57 = allocateDynamicLambda(1,1,Z_temporary_58);
 /*C*/            RetainDynamicObject(Z_local_testMelody);
@@ -23685,8 +23743,8 @@ Z_local_weakReferenceFlag = (void *)(0==0);
 /*C*/            void* Z_local_composeTestMelody = ((void *)(0));
                  //ASSIGN local_composeTestMelody = temporary_57
 /*C*/            Z_local_composeTestMelody = Z_temporary_57;
-                 //CREATE STATIC_OBJECT temporary_61 WITH METHOD anonymousmethod_167
-/*C*/            void* Z_temporary_61 = &Z_anonymousmethod_167;
+                 //CREATE STATIC_OBJECT temporary_61 WITH METHOD anonymousmethod_168
+/*C*/            void* Z_temporary_61 = &Z_anonymousmethod_168;
                  //CREATE DYNAMIC_OBJECT temporary_60 WITH METHOD[STATIC_OBJECT] temporary_61 FRAME{STATIC(),DYNAMIC()}
 /*C*/            void* Z_temporary_60 = allocateDynamicLambda(0,0,Z_temporary_61);
                  //CREATE STATIC_OBJECT temporary_62 WITH EMPTY_VALUE

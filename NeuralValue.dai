@@ -7,35 +7,47 @@
 		\::newNeuralValueWithIntegerRepresentation (\[Integer]:zero)
 	}
 
+	@@
+		
+	@@
 	~ newNeuralValueWithIntegerRepresentation *([Integer] integerRepresentation) {
 		\::new;
-		.integerRepresentationOfNeuralValue = integerRepresentationThatIsntZero
-	}	!{
-			[Wrapper<[Integer]>] wrappedIntegerRepresentationThatShouldntBeZero = \[Wrapper<[Integer]>]:wrapperWithObject integerRepresentation;
-			[Boolean] integerRepresentationIsZero = \integerRepresentation:isEqualTo \[Integer]:zero;
-			\integerRepresentationIsZero:ifTrue *{\wrappedIntegerRepresentationThatShouldntBeZero:store \[Natural]:one};
-			[Integer] integerRepresentationThatIsntZero = \wrappedIntegerRepresentationThatShouldntBeZero:unwrap;
+		.integerRepresentationOfNeuralValue = \changeIntegerRepresentationToOneIfZeroLeaveOtherwise;
+	}  !{
+			[->[Integer]] changeIntegerRepresentationToOneIfZeroLeaveOtherwise = *->[Integer] {
+				[Wrapper<[Integer]>] wrappedIntegerRepresentationThatShouldntBeZero = \[Wrapper<[Integer]>]:wrapperWithObject integerRepresentation;
+				[Boolean] integerRepresentationIsZero = \integerRepresentation:isEqualTo \[Integer]:zero;
+				\integerRepresentationIsZero:ifTrue *{\wrappedIntegerRepresentationThatShouldntBeZero:store \[Natural]:one};
+			}
+			-> (\wrappedIntegerRepresentationThatShouldntBeZero:unwrap)
 		}
 
-	++ stringRepresentationOfNeuralValue *->[String] {} -> (\[String]:stringRepresentationOfInteger .integerRepresentationOfNeuralValue)
+	++ stringRepresentationOfNeuralValue *->[String] {
+
+	} 
+	-> (\[String]:stringRepresentationOfInteger .integerRepresentationOfNeuralValue)
 
 	++ isGreaterThenNeuralValue *([NeuralValue] neuralValueToCompareToThisOne) -> [Boolean] {
 		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
 		[Integer] integerRepresentationOfOtherNeuralValue = \neuralValueToCompareToThisOne:getIntegerRepresentationOfNeuralValue;
-	} -> (\integerRepresentationOfThisNeuralValue:isGreaterThan integerRepresentationOfOtherNeuralValue)
+	} 
+	-> (\integerRepresentationOfThisNeuralValue:isGreaterThan integerRepresentationOfOtherNeuralValue)
 
-	++ getIntegerRepresentationOfNeuralValue *-> .integerRepresentationOfNeuralValue
+	++ getIntegerRepresentationOfNeuralValue *->[Integer]{
+
+	}
+	-> .integerRepresentationOfNeuralValue
 
 	++ isEqualToNeuralValue *([NeuralValue] neuralValueToCompareToThisOne) -> [Boolean] {
 		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
 		[Integer] integerRepresentationOfOtherNeuralValue = \neuralValueToCompareToThisOne:getIntegerRepresentationOfNeuralValue;
-	} -> (\integerRepresentationOfThisNeuralValue:isEqualTo integerRepresentationOfOtherNeuralValue)
+	} 
+	-> (\integerRepresentationOfThisNeuralValue:isEqualTo integerRepresentationOfOtherNeuralValue)
 
 	++ neuralValueByAddingNeuralValue *([NeuralValue] otherNeuralValue) -> [NeuralValue] {
 		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
 		[Integer] integerRepresentationOfOtherNeuralValue = \otherNeuralValue:getIntegerRepresentationOfNeuralValue;
-		[NeuralValue] resultNeuralValue = \[NeuralValue]:newNeuralValueWithIntegerRepresentation 
-			(\integerRepresentationOfThisNeuralValue:integerByAdding integerRepresentationOfOtherNeuralValue)
+		[NeuralValue] resultNeuralValue = \[NeuralValue]:newNeuralValueWithIntegerRepresentation (\integerRepresentationOfThisNeuralValue:integerByAdding integerRepresentationOfOtherNeuralValue)
 	} -> resultNeuralValue
 
 	++ neuralValueByMultiplyingNeuralValue *([NeuralValue] otherNeuralValue) -> [NeuralValue] {

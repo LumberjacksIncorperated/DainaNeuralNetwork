@@ -2,17 +2,28 @@
 [] (DaveReaction, DavesBrain, NeuralValueMelody, Natural, Integer, NeuralValue, SystemIO, OutputStream, String)
 {
 	^ *{
+		\[NeuralValue]:_test_Class;
+		\[NeuralValueMelody]:_test_Class;
 
 		[DavesBrain] davesBrain = \[DavesBrain]:newNeuralLayerWithNumberOfInputsNumberOfInternalLayersSizeOfInternalLayers numberOfInputsToDavesBrain numberOfNeuralLayersInDavesBrain sizeOfNeuralLayersInDavesBrain;
 		[DaveReaction] reactionDaveHadToSaidMelody = \davesBrain:classifyInputMelodyThroughDavesBrain testMelody;
 
-
+		\davesBrain:learnDaveSomeKnowledgeWithInputMelodyAndHowDaveShouldReact testMelody (\[DaveReaction]:daveFrownReaction);
+		[DaveReaction] reactionDaveHadToSaidMelodyAfterLearning = \davesBrain:classifyInputMelodyThroughDavesBrain testMelody;
+		\davesBrain:learnDaveSomeKnowledgeWithInputMelodyAndHowDaveShouldReact testMelody (\[DaveReaction]:daveFrownReaction);
+		[DaveReaction] reactionDaveHadToSaidMelodyAfterLearning2 = \davesBrain:classifyInputMelodyThroughDavesBrain testMelody;
 
 
 		[OutputStream] stdout = \[SystemIO]:stdout;
 
 		\stdout:writeString (\[String]:newString "Daves brain test.....\n");
 		\stdout:writeString (\reactionDaveHadToSaidMelody:stringRepresentationOfReaction);
+		\stdout:writeString (\[String]:newString "\n");
+		\stdout:writeString (\[String]:newString "Daves brain test after learning.....\n");
+		\stdout:writeString (\reactionDaveHadToSaidMelodyAfterLearning:stringRepresentationOfReaction);
+		\stdout:writeString (\[String]:newString "\n");
+		\stdout:writeString (\[String]:newString "Daves brain test after learning2.....\n");
+		\stdout:writeString (\reactionDaveHadToSaidMelodyAfterLearning2:stringRepresentationOfReaction);
 		\stdout:writeString (\[String]:newString "\n");
 
 
@@ -22,14 +33,14 @@
 
 	}	!{
 			[Natural] numberOfInputsToDavesBrain = \[Natural]:newNatural 3;
-			[Natural] numberOfNeuralLayersInDavesBrain = \[Natural]:newNatural 2; 
-			[Natural] sizeOfNeuralLayersInDavesBrain = \[Natural]:newNatural 5;
+			[Natural] numberOfNeuralLayersInDavesBrain = \[Natural]:newNatural 4; 
+			[Natural] sizeOfNeuralLayersInDavesBrain = \[Natural]:newNatural 7;
 
 			[NeuralValueMelody] testMelody = \[NeuralValueMelody]:newEmptyMelody;
 			(\composeTestMelody *([[Integer]->] insertIntegerAsNeuralValueIntoMelody) {
-				\insertIntegerAsNeuralValueIntoMelody (\[Integer]:newPositive 20);
-				\insertIntegerAsNeuralValueIntoMelody (\[Integer]:newNegative 147);
-				\insertIntegerAsNeuralValueIntoMelody (\[Integer]:newPositive 0);
+				\insertIntegerAsNeuralValueIntoMelody (\[Integer]:newPositive 10000);
+				\insertIntegerAsNeuralValueIntoMelody (\[Integer]:newNegative 10000);
+				\insertIntegerAsNeuralValueIntoMelody (\[Integer]:newPositive 10000);
 			})	!{
 					[[[[Integer]->]->]->] composeTestMelody = *([[[Integer]->]->] composerOfMelodyRequiringMethodToInsertIntegerAsNeuralValueIntoMelody) {
 						\composerOfMelodyRequiringMethodToInsertIntegerAsNeuralValueIntoMelody methodToInsertIntegerAsNeuralValueIntoMelody

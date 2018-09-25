@@ -7,37 +7,36 @@
 	:: davesMinimumPitchThreasholdMelodyForHappyness *-> [NeuralValueMelody] {
 		[NeuralValueMelody] daveMinimumPitchThresholdMelody = \[NeuralValueMelody]:newEmptyMelody;
 		daveMinimumPitchThresholdMelody:addNeuralValueToMelody (\[NeuralValue]:baseNeuralValue);
-	} -> daveMinimumPitchThresholdMelody
+	} 
+	-> daveMinimumPitchThresholdMelody
+
 
 	:: getDavesReationToAMelody *([NeuralValueMelody] melodyForDaveToReactTo) -> [DaveReaction] {
-		[DaveReaction] davesReationToMelody = \[ExtendedControlFlow<[DaveReaction]>]:retriveUsingDefaultOnFailure 
-			getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness frownByDefault
-	}	!{
+		[DaveReaction] davesReationToMelody = \[ExtendedControlFlow<[DaveReaction]>]:retriveUsingDefaultOnFailure getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness frownByDefault
+	}  !{
 			[[[DaveReaction]->]->] getDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappiness = *([[DaveReaction]->] provideDavesReaction) {
 				[Boolean] pitchOfMelodyMeetsDavesMinimumStandardsForHappyness = \melodyForDaveToReactTo:isMelodyHigherThenSomeOtherMelody \[DaveReaction]:davesMinimumPitchThreasholdMelodyForHappyness;
 				\pitchOfMelodyMeetsDavesMinimumStandardsForHappyness:ifTrue *{\provideDavesReaction \[DaveReaction]:daveSmileReaction}
 			};
 
-			[DaveReaction] frownByDefault = \[DaveReaction]:daveFrownReaction
+			[DaveReaction] frownByDefault = \[DaveReaction]:daveFrownReaction;
 		}
-	 -> davesReationToMelody
+	-> davesReationToMelody
 
 	 ++ stringRepresentationOfReaction *-> [String] {
-	 	[String] stringRepresentationOfReaction =
-	 		(\[ExtendedControlFlow<[String]>]:retriveUsingDefaultOnFailure getSmileStringIfDavesReactionWasASmile useFrownStringByDefault)
-	 			!{
-	 				[[[String]->]->] getSmileStringIfDavesReactionWasASmile = *([[String]->] provideSmileString) {
-	 					[Boolean] davesReactionIsASmile = \:isEqualTo (\[DaveReaction]:daveSmileReaction);
-	 					\davesReactionIsASmile:ifTrue *{\provideSmileString daveReactionSmileString}
-					};
-
-					[String] useFrownStringByDefault = daveReactionFrownString;
-	 			}
-	 }	!{
+	 	[String] stringRepresentationOfReaction = (\[ExtendedControlFlow<[String]>]:retriveUsingDefaultOnFailure getSmileStringIfDavesReactionWasASmile useFrownStringByDefault)
+	 	   !{
+	 			[[[String]->]->] getSmileStringIfDavesReactionWasASmile = *([[String]->] provideSmileString) {
+	 				[Boolean] davesReactionIsASmile = \:isEqualTo (\[DaveReaction]:daveSmileReaction);
+	 				\davesReactionIsASmile:ifTrue *{\provideSmileString daveReactionSmileString}
+				};
+				[String] useFrownStringByDefault = daveReactionFrownString;
+	 		}
+	 } !{
 	 		[String] daveReactionSmileString = \[String]:newString "Dave smiled :)";
 	 		[String] daveReactionFrownString = \[String]:newString "Dave Frowned :(";
 	 	}
-	  -> stringRepresentationOfReaction
+	-> stringRepresentationOfReaction
 
 }
 

@@ -1,0 +1,46 @@
+
+[Test : [Object]] (Object, String, SystemIO, OutputStream, Conjecture, Boolean)
+	[OutputStream] stdout
+{
+	~ newBaseTest *{
+		\::new;
+		.stdout = \[SystemIO]:stdout
+	}
+
+	- printToStandardOutput *([String] stringForStdout) {
+		\.stdout:writeString stringForStdout
+	}
+
+	- printTestResultForTestName *([Boolean] testDidFail, [String] testName) {
+		\testDidFail:ifTrue showTestFailureMessage;
+		\testDidFail:ifFalse showTestSuccessMessage;
+	} 	!{
+			[->] showTestSuccessMessage = *{
+				\:printToStandardOutput (\[String]:newString "SUCCESS: ");
+				\:printToStandardOutput testName;
+				\:printToStandardOutput (\[String]:newString "\n");
+			};
+			
+			[->] showTestFailureMessage = *{
+				\:printToStandardOutput (\[String]:newString "FAILURE: ");
+				\:printToStandardOutput testName;
+				\:printToStandardOutput (\[String]:newString "\n");
+			}
+		}
+
+	++ callTestWithNameAndProcedure *([String] name, [[[Boolean]->]->] testProcedure) {
+		[Conjecture] testHasFailed = \[Conjecture]:propose;
+		\testProcedure ifAnyTestResultIsFalseInProcedureThenDeclareTheTestToHaveFailed
+			!{
+				[[Boolean]->] ifAnyTestResultIsFalseInProcedureThenDeclareTheTestToHaveFailed = *([Boolean] testSucceeded) {
+					\testSucceeded:ifFalse testHasFailed:declareTrue
+				};
+			};
+		[Boolean] testDidFail = \testHasFailed:isTrue;
+		\:printTestResultForTestName testDidFail name;
+	}	
+
+}
+
+
+

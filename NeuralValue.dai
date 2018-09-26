@@ -1,4 +1,8 @@
+@@
+	We cannot extend Natural in this case, because we want to extend beyond this in complexity
 
+	"Extend if we will not go beyond it, include otherwise"
+@@
 [NeuralValue : [Object]] (Object, Integer, Boolean, Wrapper, Natural, String, SystemIO, OutputStream, Test)
 	[Integer] integerRepresentationOfNeuralValue
 {
@@ -12,12 +16,20 @@
 	@@
 	~ newNeuralValueWithIntegerRepresentation *([Integer] integerRepresentation) {
 		\::new;
+		@@ We need to show that a transformation has occured, which is why we use the slash
 		.integerRepresentationOfNeuralValue = \changeIntegerRepresentationToOneIfZeroLeaveOtherwise;
+		@@ We don't need to make it reusable because its not, otherwise it becomes an instance method
 	}  !{
 			[->[Integer]] changeIntegerRepresentationToOneIfZeroLeaveOtherwise = *->[Integer] {
 				[Wrapper<[Integer]>] wrappedIntegerRepresentationThatShouldntBeZero = \[Wrapper<[Integer]>]:wrapperWithObject integerRepresentation;
 				[Boolean] integerRepresentationIsZero = \integerRepresentation:isEqualTo \[Integer]:zero;
-				\integerRepresentationIsZero:ifTrue *{\wrappedIntegerRepresentationThatShouldntBeZero:store \[Natural]:one};
+				@@ It has become very important to name things since we have a new level of implicit arguements
+				\integerRepresentationIsZero:ifTrue changeWrappedIntegerToOne
+				   !{
+				   		[->] changeWrappedIntegerToOne = *{
+				   			\wrappedIntegerRepresentationThatShouldntBeZero:store \[Natural]:one
+				   		};
+					};
 			}
 			-> (\wrappedIntegerRepresentationThatShouldntBeZero:unwrap)
 		}
@@ -33,7 +45,7 @@
 	} 
 	-> (\integerRepresentationOfThisNeuralValue:isGreaterThan integerRepresentationOfOtherNeuralValue)
 
-	++ getIntegerRepresentationOfNeuralValue *->[Integer]{
+	++ getIntegerRepresentationOfNeuralValue *->[Integer] {
 
 	}
 	-> .integerRepresentationOfNeuralValue
@@ -47,54 +59,67 @@
 	++ neuralValueByAddingNeuralValue *([NeuralValue] otherNeuralValue) -> [NeuralValue] {
 		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
 		[Integer] integerRepresentationOfOtherNeuralValue = \otherNeuralValue:getIntegerRepresentationOfNeuralValue;
-		[NeuralValue] resultNeuralValue = \[NeuralValue]:newNeuralValueWithIntegerRepresentation (\integerRepresentationOfThisNeuralValue:integerByAdding integerRepresentationOfOtherNeuralValue)
-	} -> resultNeuralValue
+		[Integer] resultantIntegerFromAddingRepresentationValues = (\integerRepresentationOfThisNeuralValue:integerByAdding integerRepresentationOfOtherNeuralValue);
+	}
+	-> (\[NeuralValue]:newNeuralValueWithIntegerRepresentation resultantIntegerFromAddingRepresentationValues)
 
 	++ neuralValueByMultiplyingNeuralValue *([NeuralValue] otherNeuralValue) -> [NeuralValue] {
 		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
 		[Integer] integerRepresentationOfOtherNeuralValue = \otherNeuralValue:getIntegerRepresentationOfNeuralValue;
-		[NeuralValue] resultNeuralValue = \[NeuralValue]:newNeuralValueWithIntegerRepresentation 
-			(\integerRepresentationOfThisNeuralValue:integerByMultiplying integerRepresentationOfOtherNeuralValue)
-	} -> resultNeuralValue
+		[Integer] resultantIntegerFromMultiplyingRepresentationValues = (\integerRepresentationOfThisNeuralValue:integerByMultiplying integerRepresentationOfOtherNeuralValue);
+	} 
+	-> (\[NeuralValue]:newNeuralValueWithIntegerRepresentation resultantIntegerFromMultiplyingRepresentationValues)
 
 	++ neuralValueBySubtractingNeuralValue *([NeuralValue] otherNeuralValue) -> [NeuralValue] {
 		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
 		[Integer] integerRepresentationOfOtherNeuralValue = \otherNeuralValue:getIntegerRepresentationOfNeuralValue;
-		[NeuralValue] resultNeuralValue = \[NeuralValue]:newNeuralValueWithIntegerRepresentation 
-			(\integerRepresentationOfThisNeuralValue:integerBySubtracting integerRepresentationOfOtherNeuralValue)
-	} -> resultNeuralValue
+		[Integer] resultantIntegerFromSubtractingRepresentationValues = (\integerRepresentationOfThisNeuralValue:integerBySubtracting integerRepresentationOfOtherNeuralValue);
+	} 
+	-> (\[NeuralValue]:newNeuralValueWithIntegerRepresentation resultantIntegerFromSubtractingRepresentationValues)
 
 	++ neuralValueByDividingByNeuralValue *([NeuralValue] neuralValueDivisor) -> [NeuralValue] {
 		[Integer] integerRepresentationOfThisNeuralValue = \:getIntegerRepresentationOfNeuralValue;
 		[Integer] integerRepresentationOfDivisorNeuralValue = \neuralValueDivisor:getIntegerRepresentationOfNeuralValue;
-		[Integer] integerResultOfDivision = \resultOfDividingIntegerByIntegerWithDefaultIfDivisionWasUndefined integerRepresentationOfThisNeuralValue integerRepresentationOfDivisorNeuralValue (\[Integer]:zero)
+		[Integer] integerResultOfDivision = \resultOfDividingIntegerByIntegerWithDefaultIfDivisionWasUndefined integerRepresentationOfThisNeuralValue integerRepresentationOfDivisorNeuralValue (\[Integer]:zero);
 	}	!{
 			[[Integer][Integer][Integer]->[Integer]] resultOfDividingIntegerByIntegerWithDefaultIfDivisionWasUndefined = *([Integer] integerToBeDivided, [Integer] integerDivisor, [Integer] integerResultOnUndefinedDivision) -> [Integer] {
 				[Wrapper<[Integer]>] wrappedResultOfDivision = \[Wrapper<[Integer]>]:wrapperWithObject integerResultOnUndefinedDivision;
-				\integerToBeDivided:divisionByIntegerProvidingResultAndRemainderIfDefined integerDivisor *([Integer] resultingQuotient, [Integer] resultingRemainder) {
-		 			\wrappedResultOfDivision:store resultingQuotient;
-		 		}
-			} -> \wrappedResultOfDivision:unwrap
+				@@
+					The advantage of a callback like this over a single return is that we can have several return values, with a:
+						1/ Defined
+						2/ Contained
+					transformation on these return values in the middle.
+
+
+				@@
+				\integerToBeDivided:divisionByIntegerProvidingResultAndRemainderIfDefined integerDivisor methodToProvideResultAndRemainderToWhichStoresResultInWrappedObject
+				   !{
+				   		[[Integer][Integer]->] methodToProvideResultAndRemainderToWhichStoresResultInWrappedObject = *([Integer] resultingQuotient, [Integer] resultingRemainder) {
+		 					\wrappedResultOfDivision:store resultingQuotient
+		 				}
+		 			};
+			} 
+			-> \wrappedResultOfDivision:unwrap
 		}
 	 -> (\[NeuralValue]:newNeuralValueWithIntegerRepresentation integerResultOfDivision)
+
+	:: _test_getIntegerRepresentationOfNeuralValue *([[Boolean]->] methodToPassTestResultTo) {
+		[Integer] theIntegerRepresentation = \[Integer]:newNegative 40;
+		[NeuralValue] neuralValue = \[NeuralValue]:newNeuralValueWithIntegerRepresentation (theIntegerRepresentation);
+		\methodToPassTestResultTo (\theIntegerRepresentation:isEqualTo (\neuralValue:getIntegerRepresentationOfNeuralValue));	
+		\methodToPassTestResultTo (\theIntegerRepresentation:isEqualTo (\neuralValue:getIntegerRepresentationOfNeuralValue));		
+	}
+
+	:: _test_Class *{
+		[Test] test = \[Test]:newBaseTest;
+		\test:callTestWithNameAndProcedure (\[String]:newString "getIntegerRepresentationOfNeuralValue") ([NeuralValue]:_test_getIntegerRepresentationOfNeuralValue);
+	}
 
 	++ DEBUGPrintNeuralValue *{
 	 	[OutputStream] stdout = \[SystemIO]:stdout;
 		\stdout:writeString (\[String]:newString "Value: ");
 		\stdout:writeString (\:stringRepresentationOfNeuralValue);
 		\stdout:writeString (\[String]:newString "\n");
-	}
-
-	:: _test_getIntegerRepresentationOfNeuralValue *([[Boolean]->] testResult) {
-		[Integer] theIntegerRepresentation = \[Integer]:newNegative 40;
-		[NeuralValue] neuralValue = \[NeuralValue]:newNeuralValueWithIntegerRepresentation (theIntegerRepresentation);
-		\testResult (\theIntegerRepresentation:isEqualTo (\neuralValue:getIntegerRepresentationOfNeuralValue));	
-		\testResult (\theIntegerRepresentation:isEqualTo (\neuralValue:getIntegerRepresentationOfNeuralValue));		
-	}
-
-	:: _test_Class *{
-		[Test] test = \[Test]:newBaseTest;
-		\test:callTestWithNameAndProcedure (\[String]:newString "getIntegerRepresentationOfNeuralValue") ([NeuralValue]:_test_getIntegerRepresentationOfNeuralValue);
 	}
 }
 

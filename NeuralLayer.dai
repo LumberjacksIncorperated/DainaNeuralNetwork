@@ -9,162 +9,164 @@
 		.weightSetForThisLayer = \[NeuralLayerWeightSet]:newNeuralLayerWeightSetWithDefaultValueForWeights defaultWeightNeuralValue;
 		.numberOfIncomingNeuralConnections = numberOfIncomingNeuralConnections;
 		.numberOfOutgoingNeuralConnections = numberOfOutgoingNeuralConnections;
-	}	!{
+	}  !{
 			[NeuralValue] defaultWeightNeuralValue = (\[NeuralValue]:newNeuralValueWithIntegerRepresentation (\[Integer]:newPositive 500))
 		}
 
 	++ produceMelodyByForwardPropogatingInputMelodyThroughLayer *([NeuralValueMelody] inputMelody) -> [NeuralValueMelody] {
 		[NeuralValueMelody] producedMelodyAfterForwardPropogation = \[NeuralValueMelody]:newEmptyMelody;
-		\[ControlFlowExtended]:repeatNTimesFromZero .numberOfOutgoingNeuralConnections produceNextOutgoingNeuralValueByPropogatingValuesFromInputMelody
-			!{
-				[[Natural]->] produceNextOutgoingNeuralValueByPropogatingValuesFromInputMelody = *([Natural] outputIndex) {
+		@@
+			It is the same thing as having variables in scope like before, except that these can now be passed too.
+
+			In this way we are making them slightly less readable, at the benefit of making them much more powerful
+				1/ Limited to the scope
+				2/ But has power to remain in correct signature and change alot
+
+			For example: "produceNextOutgoingNeuralValueByPropogatingInputMelodyValues" has the correct signature, but instead of just returning something
+						 it can change the whole context
+		@@
+		\[ControlFlowExtended]:repeatNTimesFromZero .numberOfOutgoingNeuralConnections produceNextOutgoingNeuralValueByPropogatingInputMelodyValues
+		   !{
+		   		@@
+		   			When we can pass in functions, the names do not matter, only the type to which they are applied
+
+		   			This allows us to have INPUT names, and OUTPUT names, so that seperately, we can have a TRANSFORMATION of CONTEXT
+		   		@@
+				[[Natural]->] produceNextOutgoingNeuralValueByPropogatingInputMelodyValues = *([Natural] outputIndex) {
 					[Wrapper<[NeuralValue]>] wrappedNeuralValueSumAtThisOutputIndex = \[Wrapper<[NeuralValue]>]:wrapperWithObject (\[NeuralValue]:baseNeuralValue);
-					(\inputMelody:lookAtEachIndexAndNeuralValueInSequence *([Natural] inputIndex, [NeuralValue] inputNeuralValue) {
-									[OutputStream] stdout = \[SystemIO]:stdout;
-									@\stdout:writeString (\[String]:newString "This is probably wrong...: ");
-									@\stdout:writeString (\[String]:stringRepresentationOfInteger outputIndex);
-									@\stdout:writeString (\[String]:newString " ");
-									@\stdout:writeString (\[String]:stringRepresentationOfInteger inputIndex);
-									@\stdout:writeString (\[String]:newString "\n");
-						[NeuralValue] weightForInputAndOutputIndex = \.weightSetForThisLayer:getWeightWithInputIndexAndOutputIndex inputIndex outputIndex;
-						@\.weightSetForThisLayer:debugDumpInternalPointerToSTDOUT;
-						[NeuralValue] resultingNeuralValueForThisInput = \[NeuralPropogation]:forwardPropogationResultWithWeightAndInputValue weightForInputAndOutputIndex inputNeuralValue;
-						\addNeuralValueToTheNeuralValueSumAtThisOutputIndex resultingNeuralValueForThisInput;
-					})	!{
+					\inputMelody:lookAtEachIndexAndNeuralValueInSequence takeInputValueAndAddItsContributionToOutputMelody	
+					   !{
 							[[NeuralValue]->] addNeuralValueToTheNeuralValueSumAtThisOutputIndex = *([NeuralValue] neuralValueToAddToSum) {
 								\wrappedNeuralValueSumAtThisOutputIndex:transformStoredObject *([NeuralValue] n)-> \n:neuralValueByAddingNeuralValue neuralValueToAddToSum
-							}
-						}	
+							};
+							[[Natural][NeuralValue]->] takeInputValueAndAddItsContributionToOutputMelody = *([Natural] inputIndex, [NeuralValue] inputNeuralValue) {
+								[NeuralValue] weightForInputAndOutputIndex = \.weightSetForThisLayer:getWeightWithInputIndexAndOutputIndex inputIndex outputIndex;
+								[NeuralValue] resultingNeuralValueForThisInput = \[NeuralPropogation]:forwardPropogationResultWithWeightAndInputValue weightForInputAndOutputIndex inputNeuralValue;
+								\addNeuralValueToTheNeuralValueSumAtThisOutputIndex resultingNeuralValueForThisInput;
+							};
+						};
 					\producedMelodyAfterForwardPropogation:addNeuralValueToMelody (\wrappedNeuralValueSumAtThisOutputIndex:unwrap);
 				}		
 			}
-	} -> producedMelodyAfterForwardPropogation
+	}
+	-> producedMelodyAfterForwardPropogation
 
 	++ produceInitialGammaMelodyWithFinalMelodyAndHowDaveShouldReact *([NeuralValueMelody] finalMelody, [DaveReaction] howDaveShouldReact) -> [NeuralValueMelody] {
 		[NeuralValue] gammaForInitialGammaMelody = \[NeuralPropogation]:initialGammaForFinalMelodyAndExpectedReaction finalMelody howDaveShouldReact;
 		[NeuralValueMelody] initialGammaMelody = \[NeuralValueMelody]:newEmptyMelody;
 		\initialGammaMelody:addNeuralValueToMelody gammaForInitialGammaMelody;
-	} -> initialGammaMelody
+	}
+	-> initialGammaMelody
 
 	++ produceGammaMelodyOfPreviousLayerUsingStartingGammaMelody *([NeuralValueMelody] startingGammaMelody) -> [NeuralValueMelody] {
 		[NeuralValueMelody] producedGammaMelodyOfPreviousLayer = \[NeuralValueMelody]:newEmptyMelody;
 		\[ControlFlow]:repeatNTimes .numberOfIncomingNeuralConnections forEachIncomingNeuralConnectionProduceTheCorrespondingGammaForMelody
-			!{
+		   !{
 				[[Natural]->] forEachIncomingNeuralConnectionProduceTheCorrespondingGammaForMelody = *([Natural] incomingNeuralConnectionIndex) {
 					[Wrapper<[NeuralValue]>] wrappedProducedCorrespondingGammaforMelody = \[Wrapper<[NeuralValue]>]:wrapperWithObject (\[NeuralValue]:baseNeuralValue);
 					\startingGammaMelody:lookAtEachIndexAndNeuralValueInSequence forEachCorrespondingOutgoingNeuralConnectionCalculatePartialGammaAndAddThisToTheGamma
-						!{
-							[[Natural][NeuralValue]->] forEachCorrespondingOutgoingNeuralConnectionCalculatePartialGammaAndAddThisToTheGamma = 
-							 *([Natural] outgoingNeuralConnectionIndex, [NeuralValue] gammaOfForwardNeuron) {
+					   !{
+					   		@@
+					   			See here that this gives us the oppertunity to rename incoming indexes
+					   		@@
+							[[Natural][NeuralValue]->] forEachCorrespondingOutgoingNeuralConnectionCalculatePartialGammaAndAddThisToTheGamma = *([Natural] outgoingNeuralConnectionIndex, [NeuralValue] gammaOfForwardNeuron) {
 							 	[NeuralValue] weight = \.weightSetForThisLayer:getWeightWithInputIndexAndOutputIndex incomingNeuralConnectionIndex outgoingNeuralConnectionIndex;
 							 	[NeuralValue] partialGamma = \[NeuralPropogation]:backwardPropogationPartialGammaForWeightWithGammaOfForwardNeuronAndNumberOfNeuralInputs
 							 		weight gammaOfForwardNeuron .numberOfIncomingNeuralConnections;
-							 	\wrappedProducedCorrespondingGammaforMelody:transformStoredObject *([NeuralValue] n) -> \n:neuralValueByAddingNeuralValue partialGamma
+							 	\wrappedProducedCorrespondingGammaforMelody:transformStoredObject addPartialGammaToStoredValue
+							 	   !{
+							 			[[NeuralValue]->] addPartialGammaToStoredValue = *([NeuralValue] n)->[NeuralValue] {
+							 			
+							 			}
+							 			-> \n:neuralValueByAddingNeuralValue partialGamma
+							 	   };
 							 }
 						};
-					\producedGammaMelodyOfPreviousLayer:addNeuralValueToMelody \wrappedProducedCorrespondingGammaforMelody:unwrap
+					\producedGammaMelodyOfPreviousLayer:addNeuralValueToMelody (\wrappedProducedCorrespondingGammaforMelody:unwrap)
 				}
 			}
-	} -> producedGammaMelodyOfPreviousLayer
+	}
+	-> producedGammaMelodyOfPreviousLayer
 
-
-
+	@@
+		Remember, it is not just things from function scope but also from class instances.
+	@@
 	++ adjustWeightsByUsingGammaMelodyAndInputMelody *([NeuralValueMelody] gammaMelody, [NeuralValueMelody] traceInputMelody) {
-		[OutputStream] stdout = \[SystemIO]:stdout;
-		\stdout:writeString (\[String]:newString "TRAC: \n");
-		\gammaMelody:DEBUGPrintMelody;
-		\traceInputMelody:DEBUGPrintMelody;
-		\stdout:writeString (\[String]:newString "TRAC: \n");
 		\traceInputMelody:lookAtEachIndexAndNeuralValueInSequence forEachInputIndexModifyEachWeightAccordingToTheCorrespondingGammaValue
-			!{
+		   !{
 				[[Natural][NeuralValue]->] forEachInputIndexModifyEachWeightAccordingToTheCorrespondingGammaValue = *([Natural] inputIndex, [NeuralValue] inputValue) {
 					\gammaMelody:lookAtEachIndexAndNeuralValueInSequence forEachOutputIndexAndGammaValueModifyWeight
-						!{
+					   !{
 							[[Natural][NeuralValue]->] forEachOutputIndexAndGammaValueModifyWeight = *([Natural] outputIndex, [NeuralValue] gammaValue) {
-								[NeuralValue] weightCorrection = \[NeuralPropogation]:backwardsPropogationWeightCorrectionWithGammaAndInputValueAndNumberOfNeuralInputs
-									gammaValue inputValue .numberOfIncomingNeuralConnections;
+								[NeuralValue] weightCorrection = \[NeuralPropogation]:backwardsPropogationWeightCorrectionWithGammaAndInputValueAndNumberOfNeuralInputs gammaValue inputValue .numberOfIncomingNeuralConnections;
 								[NeuralValue] currentWeight = \.weightSetForThisLayer:getWeightWithInputIndexAndOutputIndex inputIndex outputIndex;
 								[NeuralValue] newWeight = \currentWeight:neuralValueByAddingNeuralValue weightCorrection;
 								\.weightSetForThisLayer:setWeightForInputIndexAndOutputIndex newWeight inputIndex outputIndex;
-								@\.weightSetForThisLayer:debugDumpInternalPointerToSTDOUT;
-								@\stdout:writeString (\[String]:newString "\n");
-								@\stdout:writeString (\[String]:stringRepresentationOfInteger outputIndex);
-								@\stdout:writeString (\[String]:newString " ");
-								@\stdout:writeString (\[String]:stringRepresentationOfInteger inputIndex);
-								@\stdout:writeString (\[String]:newString "\n");
-								@\currentWeight:DEBUGPrintNeuralValue;
-								@\newWeight:DEBUGPrintNeuralValue;
-								@\inputValue:DEBUGPrintNeuralValue;
-								@\gammaValue:DEBUGPrintNeuralValue;
-								@\currentWeight:DEBUGPrintNeuralValue;
 							}
 						}
 				}
 			}
-
 	}
 }
-
-
 
 [NeuralLayerWeightSet : [Object]] (Object, NeuralValue, Mapping, Integer, Natural, Conjecture, ControlFlow, Wrapper, ExtendedControlFlow,OutputStream, String, SystemIO) -> (NeuralLayer)
 	[Mapping<[Natural] [Mapping<[Natural] [NeuralValue]>]>] mappingOfInputAndOutputIndexToWeight
 	[NeuralValue] defaultNeuralValueForWeights
-	[[[[[[[[]->]->[Integer]]->]->]->]->]->] x
 {
 	~ newNeuralLayerWeightSetWithDefaultValueForWeights *([NeuralValue] defaultNeuralValueForWeights) {
 		\::new;
-		.defaultNeuralValueForWeights = defaultNeuralValueForWeights
-		[Integer] i = \[Integer]:newPositive 1;
-		.x = *([[[[[[[]->]->[Integer]]->]->]->]->] y) {
-			\y m
-				!{
-					[[[[[[]->]->[Integer]]->]->]->] m = *([[[[[]->]->[Integer]]->]->] q) {[Integer] e = i}
-				}
-		}
+		.defaultNeuralValueForWeights = defaultNeuralValueForWeights;
 		.mappingOfInputAndOutputIndexToWeight = \[Mapping<[Natural] [Mapping<[Natural] [NeuralValue]>]>]:newEmptyMapping;
 	}
 
 	++ getWeightWithInputIndexAndOutputIndex *([Natural] inputIndex, [Natural] outputIndex) -> [NeuralValue] {
 		[Wrapper<[NeuralValue]>] wrappedWeight = \[Wrapper<[NeuralValue]>]:wrapperWithObject .defaultNeuralValueForWeights;
-		\.mappingOfInputAndOutputIndexToWeight:retriveMappedValueWithKey inputIndex *([Mapping<[Natural] [NeuralValue]>] mappingOfOutputIndexToWeight) {
-			\mappingOfOutputIndexToWeight:retriveMappedValueWithKey outputIndex *([NeuralValue] retrivedNeuralValue) {
-									@[OutputStream] stdout = \[SystemIO]:stdout;
-									@\stdout:writeString (\[String]:newString "This is gettin...: ");
-									@\stdout:writeString (\[String]:stringRepresentationOfInteger outputIndex);
-									@\stdout:writeString (\[String]:newString " ");
-									@\stdout:writeString (\[String]:stringRepresentationOfInteger inputIndex);
-									@\stdout:writeString (\[String]:newString "\n");
-				\wrappedWeight:store retrivedNeuralValue;
-			}
-		}
-	} -> \wrappedWeight:unwrap
+		@@
+			It enables us to encapsulate the work inside, instead of returning it and then operating on it afterwards,
+			we encapsulate the end result within the functions
+
+			We can stack them internally, and include the transformation per layer without writing linear code.
+
+			ALLOWS US TO ALSO ENCAPSULATE THE DEFAULT STUFF
+		@@
+		\.mappingOfInputAndOutputIndexToWeight:retriveMappedValueWithKey inputIndex methodToProvideFoundMappingTo
+		   !{
+		   		[[Mapping<[Natural] [NeuralValue]>]->] methodToProvideFoundMappingTo = *([Mapping<[Natural] [NeuralValue]>] mappingOfOutputIndexToWeight) {
+					\mappingOfOutputIndexToWeight:retriveMappedValueWithKey outputIndex methodToProvideFoundWeightMappingTo
+					   !{	
+						   	[[NeuralValue]->] methodToProvideFoundWeightMappingTo = *([NeuralValue] retrivedNeuralValue) {
+								\wrappedWeight:store retrivedNeuralValue;
+							};
+						};
+				};
+			};
+	}
+	-> \wrappedWeight:unwrap
 
 	++ setWeightForInputIndexAndOutputIndex *([NeuralValue] weightToSet, [Natural] inputIndex, [Natural] outputIndex) {
-		[Mapping<[Natural] [NeuralValue]>] mappingOfOutputIndexToWeight = \retriveMappingOfOutputIndexToWeightForInputIndexOrCreateItIfItDoesntExist inputIndex;
+		[Mapping<[Natural] [NeuralValue]>] mappingOfOutputIndexToWeight = \retriveMappingOfOutputIndexToWeightForInputIndexOrCreateItIfItDoesntExist;
 		\mappingOfOutputIndexToWeight:mapKeyToValue outputIndex weightToSet
 	}	!{
-			[[Natural]->[Mapping<[Natural] [NeuralValue]>]] retriveMappingOfOutputIndexToWeightForInputIndexOrCreateItIfItDoesntExist = 
-				*([Natural] givenInputIndex) -> [Mapping<[Natural] [NeuralValue]>] {
-					[Mapping<[Natural] [NeuralValue]>] mappingOfOutputIndexToWeightForInputIndex = (\[ExtendedControlFlow<[Mapping<[Natural] [NeuralValue]>]>]:retriveUsingDefaultOnFailure attemptToRetriveMappingFromMappingOfInputAndOutputToWeight
-					 (defaultMappingIfItDoesntExistAlready))
-						!{
-							[[[Mapping<[Natural] [NeuralValue]>]->]->] attemptToRetriveMappingFromMappingOfInputAndOutputToWeight = *([[Mapping<[Natural] [NeuralValue]>]->] provideMappingOfOutputIndexToWeight) {
-								\.mappingOfInputAndOutputIndexToWeight:retriveMappedValueWithKey inputIndex *([Mapping<[Natural] [NeuralValue]>] mappingOfOutputIndexToWeight) {
-									\provideMappingOfOutputIndexToWeight mappingOfOutputIndexToWeight;
-									@ DEBUG
-									@[OutputStream] stdout = \[SystemIO]:stdout;
-									@\stdout:writeString (\[String]:newString "Found a mapping\n");
-									@ END DEBUG
-								}
-							}
-
-							[Mapping<[Natural] [NeuralValue]>] defaultMappingIfItDoesntExistAlready = \[Mapping<[Natural] [NeuralValue]>]:newEmptyMapping;
+			[[Natural]->[Mapping<[Natural] [NeuralValue]>]] retriveMappingOfOutputIndexToWeightForInputIndexOrCreateItIfItDoesntExist = *-> [Mapping<[Natural] [NeuralValue]>] {
+				@@
+					This is wrapping it so that it uses a default on failure
+				@@
+				[Mapping<[Natural] [NeuralValue]>] mappingOfOutputIndexToWeightForInputIndex = (\[ExtendedControlFlow<[Mapping<[Natural] [NeuralValue]>]>]:retriveUsingDefaultOnFailure attemptToRetriveMappingFromMappingOfInputAndOutputToWeightAndPassTaker (defaultMappingIfItDoesntExistAlready))
+				   !{
+						[[[Mapping<[Natural] [NeuralValue]>]->]->] attemptToRetriveMappingFromMappingOfInputAndOutputToWeightAndPassTaker = *([[Mapping<[Natural] [NeuralValue]>]->] provideMappingOfOutputIndexToWeight) {
+							\.mappingOfInputAndOutputIndexToWeight:retriveMappedValueWithKey inputIndex methodToPassFoundMappingTo
+							   !{
+									[[Mapping<[Natural] [NeuralValue]>]->] methodToPassFoundMappingTo = *([Mapping<[Natural] [NeuralValue]>] mappingOfOutputIndexToWeight) {
+										\provideMappingOfOutputIndexToWeight mappingOfOutputIndexToWeight;
+									}
+							    };
 						};
-					\.mappingOfInputAndOutputIndexToWeight:mapKeyToValue inputIndex mappingOfOutputIndexToWeightForInputIndex
-				} -> mappingOfOutputIndexToWeightForInputIndex
+						[Mapping<[Natural] [NeuralValue]>] defaultMappingIfItDoesntExistAlready = \[Mapping<[Natural] [NeuralValue]>]:newEmptyMapping;
+					};
+				\.mappingOfInputAndOutputIndexToWeight:mapKeyToValue inputIndex mappingOfOutputIndexToWeightForInputIndex
+			}
+			-> mappingOfOutputIndexToWeightForInputIndex
 		}
-
 }
 
 

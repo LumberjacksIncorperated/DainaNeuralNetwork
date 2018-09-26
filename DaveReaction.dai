@@ -40,8 +40,7 @@
 			2/ In this case it is binary, but could be extended if multiple reactions
 	@@
 	:: getDavesReationToAMelody *([NeuralValueMelody] melodyForDaveToReactTo) -> [DaveReaction] {
-		[DaveReaction] davesReationToMelody = 
-		\[ExtendedControlFlow<[DaveReaction]>]:retriveUsingDefaultOnFailure retrieveDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappinessAndPassToMethod frownByDefault;
+		[DaveReaction] davesReationToMelody = \[ExtendedControlFlow<[DaveReaction]>]:retriveUsingDefaultOnFailure retrieveDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappinessAndPassToMethod frownByDefault;
 	}  !{
 			[[[DaveReaction]->]->] retrieveDavesReactionAsSmileIfThePitchMeetsDavesStandardForHappinessAndPassToMethod = *([[DaveReaction]->] methodToPassReactionTo) {
 				[Boolean] pitchOfMelodyMeetsDavesMinimumStandardsForHappyness = \melodyForDaveToReactTo:isMelodyHigherThenSomeOtherMelody \[DaveReaction]:davesMinimumPitchThreasholdMelodyForHappyness;
@@ -52,11 +51,11 @@
 	-> davesReationToMelody
 
 	 ++ stringRepresentationOfReaction *-> [String] {
-	 	[String] stringRepresentationOfReaction = (\[ExtendedControlFlow<[String]>]:retriveUsingDefaultOnFailure getSmileStringIfDavesReactionWasASmile useFrownStringByDefault)
+	 	[String] stringRepresentationOfReaction = (\[ExtendedControlFlow<[String]>]:retriveUsingDefaultOnFailure getSmileStringIfDavesReactionWasASmileAndPassToMethod useFrownStringByDefault)
 	 	   !{
-	 			[[[String]->]->] getSmileStringIfDavesReactionWasASmile = *([[String]->] provideSmileString) {
+	 			[[[String]->]->] getSmileStringIfDavesReactionWasASmileAndPassToMethod = *([[String]->] methodToProvideStringTo) {
 	 				[Boolean] davesReactionIsASmile = \:isEqualTo (\[DaveReaction]:daveSmileReaction);
-	 				\davesReactionIsASmile:ifTrue *{\provideSmileString daveReactionSmileString}
+	 				\davesReactionIsASmile:ifTrue *{\methodToProvideStringTo daveReactionSmileString}
 				};
 				[String] useFrownStringByDefault = daveReactionFrownString;
 	 		}

@@ -19,3 +19,9 @@
 	-> \wrappedObjectToReturn:unwrap
 }
 
+@@
+	For lambdas that we pass in:
+		Can pass in objects from an outer scope implicitly
+@@
+
+

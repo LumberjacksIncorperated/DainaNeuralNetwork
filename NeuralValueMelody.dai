@@ -10,7 +10,8 @@
 	++ isMelodyHigherThenSomeOtherMelody *([NeuralValueMelody] someOtherMelody) -> [Boolean] {
 		[NeuralValue] pitchOfThisMelody = \:getPitchOfMelody;
 		[NeuralValue] pitchOfOtherMelody = \someOtherMelody:getPitchOfMelody;
-	} -> \pitchOfThisMelody:isGreaterThenNeuralValue pitchOfOtherMelody
+	} 
+	-> \pitchOfThisMelody:isGreaterThenNeuralValue pitchOfOtherMelody
 
 	++ addNeuralValueToMelody *([NeuralValue] neuralValueToAdd) {
 		\.trainOfNeuralValuesInSequenceOfTheMelody:pushToBack neuralValueToAdd
@@ -18,9 +19,16 @@
 
 	++ lookAtEachIndexAndNeuralValueInSequence *([[Natural][NeuralValue]->] indexAndNeuralValueLooker) {
 		\.trainOfNeuralValuesInSequenceOfTheMelody:iterateThroughObjectsOnTrain giveEachIndexAndNeuralValueToTheNeuralValueLookerToLookAt
-	}	!{
-			[Wrapper<[Natural]>] wrappedIndexOfNeuralValue = \[Wrapper<[Natural]>]:wrapperWithObject (\[Natural]:zero);
+	}  !{
+            @@
+            	Here we already have a function which iterates over the elements. We need to wrap the function which that give to also
+            	give the index
 
+            	In this way the second value of this function acts as an ENCAPSULATING VALUE.
+
+            	So it is both a layer in between and also has a ENCAPSULATING VALUE
+            @@
+			[Wrapper<[Natural]>] wrappedIndexOfNeuralValue = \[Wrapper<[Natural]>]:wrapperWithObject (\[Natural]:zero);
 			[[NeuralValue]->] giveEachIndexAndNeuralValueToTheNeuralValueLookerToLookAt = *([NeuralValue]n) {
 				\indexAndNeuralValueLooker (\wrappedIndexOfNeuralValue:unwrap) n;
 				\wrappedIndexOfNeuralValue:transformStoredObject *([Natural] n) -> \n:naturalByAddingOne;
@@ -28,29 +36,37 @@
 		}
 
 	++ getPitchOfMelody *-> [NeuralValue] {
-		[NeuralValue] sumOfAllNeuralValuesInTrain = 
-			\.trainOfNeuralValuesInSequenceOfTheMelody:fuseTrainObjectsWithFushionRuleAndDefaultOnEmptyTrain
-				fusionRuleToSumUpNeuralValues defaultNeuralValueOnEmptyTrain
-	} 	!{
-			[[NeuralValue][NeuralValue]->[NeuralValue]] fusionRuleToSumUpNeuralValues = 
-				*([NeuralValue] n1, [NeuralValue] n2) -> \n1:neuralValueByAddingNeuralValue n2;
+		[NeuralValue] sumOfAllNeuralValuesInTrain = \.trainOfNeuralValuesInSequenceOfTheMelody:fuseTrainObjectsWithFushionRuleAndDefaultOnEmptyTrain fusionRuleToSumUpNeuralValues defaultNeuralValueOnEmptyTrain
+	}  !{
+			[[NeuralValue][NeuralValue]->[NeuralValue]] fusionRuleToSumUpNeuralValues = *([NeuralValue] n1, [NeuralValue] n2) { 
 
-			[NeuralValue] defaultNeuralValueOnEmptyTrain = \[NeuralValue]:baseNeuralValue
+			}
+			-> \n1:neuralValueByAddingNeuralValue n2;
+		    
+		    [NeuralValue] defaultNeuralValueOnEmptyTrain = \[NeuralValue]:baseNeuralValue
 		}
-	 -> sumOfAllNeuralValuesInTrain
+	-> sumOfAllNeuralValuesInTrain
 
 
-	 ++ DEBUGPrintMelody *{
+	++ DEBUGPrintMelody *{
 	 	[OutputStream] stdout = \[SystemIO]:stdout;
 		\stdout:writeString (\[String]:newString "Melody: ");
-		\.trainOfNeuralValuesInSequenceOfTheMelody:iterateThroughObjectsOnTrain *([NeuralValue] neuralValue) {
-			\stdout:writeString (\neuralValue:stringRepresentationOfNeuralValue);
-			\stdout:writeString (\[String]:newString ",");
-		};
+		\.trainOfNeuralValuesInSequenceOfTheMelody:iterateThroughObjectsOnTrain methodToTakeNeuralValueAndPrintIt;
 		\stdout:writeString (\[String]:newString "\n");
-	 }
+	}  !{
+    		[[NeuralValue]->] methodToTakeNeuralValueAndPrintIt = *([NeuralValue] neuralValue) {
+				\stdout:writeString (\neuralValue:stringRepresentationOfNeuralValue);
+				\stdout:writeString (\[String]:newString ",");
+			};
+		}
 
 
+	@@
+		For functions that take in a method, we can can pass in a method that includes ENCAPSULATED TEST VALUES,
+		so that they can also retain state between calls.
+
+		ENCAPSULATION ADVANTAGE
+	@@
 	:: _test_lookAtEachIndexAndNeuralValueInSequence *([[Boolean]->] checkResult) {
 		\testMelody:lookAtEachIndexAndNeuralValueInSequence *([Integer] index, [NeuralValue] neuralValue) {
 			\checkResult (\index:isEqualTo (\wrappedCurrentExpectedIndex:unwrap));
@@ -60,7 +76,7 @@
 			\wrappedCurrentExpectedIndex:transformStoredObject *([Integer] n)->\n:integerByAdding (\[Natural]:one);
 		};
 		\checkResult (\trainOfExpectedMelodyNeuralValues:isEmpty);	
-	}	!{
+	}  !{
 			[NeuralValueMelody] testMelody = \[NeuralValueMelody]:newEmptyMelody;
 			[Train<[NeuralValue]>] trainOfExpectedMelodyNeuralValues = \[Train<[NeuralValue]>]:newEmptyTrain;
 			[NeuralValue] neuralValueToAdd = \[NeuralValue]:newNeuralValueWithIntegerRepresentation (\[Integer]:newPositive 34);
@@ -78,7 +94,6 @@
 		[Test] test = \[Test]:newBaseTest;
 		\test:callTestWithNameAndProcedure (\[String]:newString "lookAtEachIndexAndNeuralValueInSequence") ([NeuralValueMelody]:_test_lookAtEachIndexAndNeuralValueInSequence);
 	}
-
 }
 
 

@@ -9,7 +9,7 @@
 	 	.traceOfLastForwardPropogationOnClassifyingInputMelody = \[Train<[NeuralValueMelody]>]:newEmptyTrain;
 	 	.internalNeuralLayersInDavesBrain = \createInternalLayers;
 	 	.neuralOutputLayer = \[NeuralLayer]:newNeuralLayerWithNumberOfIncomingAndOutgoingNeuralConnections sizeOfInternalLayers \[Natural]:one;
-	 }	!{
+	}  !{
 	 		[->[Train<[NeuralLayer]>]] createInternalLayers = *->[Train<[NeuralLayer]>] {
 	 			[Train<[NeuralLayer]>] trainOfInternalLayers = \[Train<[NeuralLayer]>]:newEmptyTrain;
 	 			\trainOfInternalLayers:pushToBack firstNeuralLayer;
@@ -21,9 +21,8 @@
 	 				}
 	 		} 	!{
 	 				[NeuralLayer] firstNeuralLayer = (\[NeuralLayer]:newNeuralLayerWithNumberOfIncomingAndOutgoingNeuralConnections numberOfInputs sizeOfInternalLayers);
-	 				
 	 			}
-	 		 -> trainOfInternalLayers
+	 		-> trainOfInternalLayers
 	 	}
 
 	++ classifyInputMelodyThroughDavesBrain *([NeuralValueMelody] inputMelody) -> [DaveReaction] 

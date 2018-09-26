@@ -15,6 +15,9 @@
 		\testDidFail:ifTrue showTestFailureMessage;
 		\testDidFail:ifFalse showTestSuccessMessage;
 	} 	!{
+			@@
+				This is another example of inputs arguements to function existing through whole range of scope
+			@@
 			[->] showTestSuccessMessage = *{
 				\:printToStandardOutput (\[String]:newString "SUCCESS: ");
 				\:printToStandardOutput testName;
@@ -28,9 +31,19 @@
 			}
 		}
 
-	++ callTestWithNameAndProcedure *([String] name, [[[Boolean]->]->] testProcedure) {
+	++ callTestWithNameAndProcedure *([String] name, [[[Boolean]->]->] testProcedureWithMethodThatItPassesTestResultTo) {
 		[Conjecture] testHasFailed = \[Conjecture]:propose;
-		\testProcedure ifAnyTestResultIsFalseInProcedureThenDeclareTheTestToHaveFailed
+		@@
+			Here is an instance where we can see it exactly as a callback, where the function we have that tests has to be
+			capable of taking a function that it passes the result to
+
+			Because we take the method, we could also just return the boolean result. The reason in our code that we might:
+				- Instead of returning the boolean
+				- Pass in a method that it passes result too, is so that we can make a transformation on it
+
+			WOW, THIS IS ALSO HOW WE CAN IMPLEMENT EXCEPTIONS IF THE TESTS FAILS
+		@@
+		\testProcedureWithMethodThatItPassesTestResultTo ifAnyTestResultIsFalseInProcedureThenDeclareTheTestToHaveFailed
 			!{
 				[[Boolean]->] ifAnyTestResultIsFalseInProcedureThenDeclareTheTestToHaveFailed = *([Boolean] testSucceeded) {
 					\testSucceeded:ifFalse testHasFailed:declareTrue
@@ -39,7 +52,6 @@
 		[Boolean] testDidFail = \testHasFailed:isTrue;
 		\:printTestResultForTestName testDidFail name;
 	}	
-
 }
 
 

@@ -11,6 +11,10 @@
 
 	Instead of having an internal value for the enumeration, we BECOME the internal value, to abstract away from it
 @@
+@@
+	We are extending something not from the same intuitive concept, but from some functionality we want to steal,
+	and because we can only steal one we have to pick this wisely
+@@
 [DaveReaction : [Natural]] (Natural, NeuralValueMelody, NeuralValue, Boolean, ExtendedControlFlow, String)
 {
 	@@
@@ -60,6 +64,14 @@
 				[String] useFrownStringByDefault = daveReactionFrownString;
 	 		}
 	 } !{
+	 		@@
+	 			If these two are in different parts but they should be logically placed together:
+	 				1. For understanding
+	 				2. For changing them
+
+	 				1. If it used throughout the whole thing
+	 				2. If it is part of a set that is used throughout the whole thing
+	 		@@
 	 		[String] daveReactionSmileString = \[String]:newString "Dave smiled :)";
 	 		[String] daveReactionFrownString = \[String]:newString "Dave Frowned :(";
 	 	}

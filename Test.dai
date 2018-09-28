@@ -17,6 +17,12 @@
 	} 	!{
 			@@
 				This is another example of inputs arguements to function existing through whole range of scope
+
+				scope lambdas not just input and output, but still restricted with a flow,
+				The difference for the implicit arguements means we can pass others
+				as context without changing signatures, and the others dont
+				have to know, so in this sense they are decoupled.
+
 			@@
 			[->] showTestSuccessMessage = *{
 				\:printToStandardOutput (\[String]:newString "SUCCESS: ");
@@ -48,6 +54,11 @@
 				[[Boolean]->] ifAnyTestResultIsFalseInProcedureThenDeclareTheTestToHaveFailed = *([Boolean] testSucceeded) {
 					\testSucceeded:ifFalse testHasFailed:declareTrue
 				};
+
+				@@ 
+					if you take in a function to return result, then instead of passing it to this you have
+					the option to validly continue in another way
+				@@
 			};
 		[Boolean] testDidFail = \testHasFailed:isTrue;
 		\:printTestResultForTestName testDidFail name;

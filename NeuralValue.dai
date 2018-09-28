@@ -24,7 +24,7 @@
 				[Wrapper<[Integer]>] wrappedIntegerRepresentationThatShouldntBeZero = \[Wrapper<[Integer]>]:wrapperWithObject integerRepresentation;
 				[Boolean] integerRepresentationIsZero = \integerRepresentation:isEqualTo \[Integer]:zero;
 				@@ It has become very important to name things since we have a new level of implicit arguements
-				\integerRepresentationIsZero:ifTrue changeWrappedIntegerToOne
+				\integerRepresentationIsZero:ifTrue changeWrappedIntegerToOne @ This solves the problem of naming control flow constructs
 				   !{
 				   		[->] changeWrappedIntegerToOne = *{
 				   			\wrappedIntegerRepresentationThatShouldntBeZero:store \[Natural]:one

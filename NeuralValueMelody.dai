@@ -27,6 +27,10 @@
             	In this way the second value of this function acts as an ENCAPSULATING VALUE.
 
             	So it is both a layer in between and also has a ENCAPSULATING VALUE
+
+            	Taking in global layers is not important in one layer, but between layers this becomes very powerful
+
+            	Instead of having one linear flow this allows us to decouple the layers
             @@
 			[Wrapper<[Natural]>] wrappedIndexOfNeuralValue = \[Wrapper<[Natural]>]:wrapperWithObject (\[Natural]:zero);
 			[[NeuralValue]->] giveEachIndexAndNeuralValueToTheNeuralValueLookerToLookAt = *([NeuralValue]n) {
